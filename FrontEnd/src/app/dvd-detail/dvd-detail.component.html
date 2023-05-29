@@ -1,0 +1,10 @@
+<div *ngIf="dvd">
+  <h2>{{dvd.name | uppercase}} Details</h2>
+  <div><span> id: </span>{{dvd.id}}</div>
+  <div>
+    <label for="dvd-name">Dvd name: </label>
+    <input id="dvd-name" [(ngModel)]="dvd.name" placeholder="name">
+  </div>
+  <button type="button" (click)="goBack()">go back</button>
+  <button type="button" (click)="save()">save</button>
+</div>

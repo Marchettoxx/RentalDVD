@@ -1,0 +1,18 @@
+<h2>My Heroes</h2>
+<div>
+  <label for="new-dvd">Dvd name: </label>
+  <input id="new-dvd" #dvdName />
+
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button type="button" class="add-button" (click)="add(dvdName.value); dvdName.value=''">
+    Add dvd
+  </button>
+</div>
+<ul class="dvds">
+  <li *ngFor="let dvd of dvds">
+    <a routerLink="/detail/{{dvd.id}}">
+      <span class="id">{{dvd.id}}</span><span>{{dvd.name}}</span>
+    </a>
+    <button type="button" class="delete" title="delete dvd" (click)="delete(dvd)">x</button>
+  </li>
+</ul>

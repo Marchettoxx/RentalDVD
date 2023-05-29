@@ -1,0 +1,26 @@
+{{ user | json }}
+<nav class="navbar navbar-default" *ngIf="user">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dvdStore-toggle-nav" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" routerLink="/">DVD Store</a>
+    </div>
+    <div class="collapse navbar-collapse" id="dvdStore-toggle-nav">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+        <li><a routerLink="/dashboard">Your Rent</a></li>
+        <li><a routerLink="/dvds">Store</a></li>
+        <li><a class="btn btn-link nav-item nav-link" (click)="logout()">Logout</a></li>
+      </ul>
+    </div>
+</nav> <!-- close navbar nav -->
+
+
+<div class="app-container" [ngClass]="{ '.bg-dark': user }">
+    <app-messages></app-messages>
+    <router-outlet></router-outlet>
+</div>
