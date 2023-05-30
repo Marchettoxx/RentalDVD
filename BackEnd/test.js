@@ -1,6 +1,6 @@
-const { db1 } = require("./pgAdaptor");
+const { db } = require("./pgAdaptor");
 
-db1.any("select * from login where username='mary' and password='pass'")
+db.any("select * from film f ORDER BY f.film_id")
     .then(res => {
         console.log(res);
     });

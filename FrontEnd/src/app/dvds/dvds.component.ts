@@ -13,6 +13,7 @@ export class DvdsComponent implements OnInit {
   offset: number = 0;
   count: number = 0;
   films: Film[] = [];
+  selectedFilm?: Film;
 
   constructor(private apiService: ApiService) {}
 
@@ -42,5 +43,9 @@ export class DvdsComponent implements OnInit {
   async onNext() {
     this.offset += 10;
     await this.updateFilms();
+  }
+
+  onSelect(film: Film): void {
+    this.selectedFilm = film;
   }
 }

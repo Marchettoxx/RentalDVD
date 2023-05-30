@@ -1,4 +1,4 @@
-<div *ngIf="dvd">
+<!--<div *ngIf="dvd">
   <h2>{{dvd.name | uppercase}} Details</h2>
   <div><span> id: </span>{{dvd.id}}</div>
   <div>
@@ -6,4 +6,11 @@
     <input id="dvd-name" [(ngModel)]="dvd.name" placeholder="name">
   </div>
   <button type="button" (click)="goBack()">go back</button>
+</div>-->
+
+<div *ngIf=film>
+  <p><strong>Id:</strong> {{film.film_id}}</p>
+  <p><strong>Title:</strong> {{film.title}}</p>
+  <p><strong>Description:</strong> {{film.description}}</p>
 </div>
+<button type="button" (click)="goBack()">go back</button>

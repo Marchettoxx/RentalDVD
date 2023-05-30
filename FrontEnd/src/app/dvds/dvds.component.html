@@ -2,14 +2,16 @@
   <h1>Films dispinibili</h1>
   <table>
     <tr>
+      <th>id</th>
       <th>Title</th>
       <th>length</th>
       <th>description</th>
     </tr>
     <tr *ngFor="let film of films">
-      <td><a [routerLink]="['/character']" [queryParams]="{name: film.title}">{{film.title}}</a></td>
+      <td><a routerLink="/detail/{{film.film_id}}">{{film.film_id}}></a></td>
+      <td>{{film.title}}</td>
       <td>{{film.length}}</td>
-      <td><a [routerLink]="['/species']" [queryParams]="{name: film.description}">{{film.description}}</a></td>
+      <td>{{film.description}}</td>
     </tr>
   </table>
   <div class="pager">
@@ -17,11 +19,3 @@
     <button class="next" *ngIf="showNext()" (click)="onNext()"> next </button>
   </div>
 </div>
-
-<!--
-<li *ngFor="let dvd of dvds">
-      <a routerLink="/detail/{{dvd.id}}">
-        <span class="id">{{dvd.id}}</span><span>{{dvd.name}}</span>
-      </a>
-    </li>
--->

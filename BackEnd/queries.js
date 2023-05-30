@@ -10,7 +10,7 @@ const root = {
             .catch(err => err);
     },
     films: (args) => {
-        const query = `SELECT * FROM film`;
+        const query = `SELECT * FROM film f ORDER BY f.film_id`;
         return db
             .any(query)
             .then(res => {
@@ -19,6 +19,14 @@ const root = {
                     filmArray: res.slice(args.offset, args.offset + args.limit)
                 }
             })
+            .catch(err => err);
+    },
+    film: (args) => {
+        const query = `SELECT * FROM film f WHERE f.film_id=$1`;
+        const values = [args.film_id];
+        return db
+            .one(query, values)
+            .then(res => res)
             .catch(err => err);
     }
 }

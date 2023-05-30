@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="953cdee3-cd97-4970-a8df-fe3b459672b1" name="Changes" comment="" />
+    <list default="true" id="953cdee3-cd97-4970-a8df-fe3b459672b1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../BackEnd/queries.js" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/queries.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/schema.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/../BackEnd/test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BackEnd/types.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/dvd-detail/dvd-detail.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/dvd-detail/dvd-detail.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/dvd-detail/dvd-detail.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/dvd-detail/dvd-detail.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/dvds/dvds.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/dvds/dvds.component.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,17 +24,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/massa/WebstormProjects/RentalDVD/FrontEnd",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/massa/WebstormProjects/RentalDVD/FrontEnd&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="npm.Angular CLI Server">
     <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
       <method v="2" />
@@ -50,6 +59,7 @@
       <option name="presentableId" value="Default" />
       <updated>1685353074483</updated>
       <workItem from="1685353075700" duration="46000" />
+      <workItem from="1685455505074" duration="12000" />
     </task>
     <servers />
   </component>

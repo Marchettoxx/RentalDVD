@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Dvd } from '../dvd';
-import { DvdService } from "../dvd.service";
+import { ApiService } from "../api.service";
+import { Film } from "../typeDB";
 
 @Component({
   selector: 'app-dvd-detail',
@@ -11,22 +11,22 @@ import { DvdService } from "../dvd.service";
   styleUrls: ['./dvd-detail.component.css']
 })
 export class DvdDetailComponent {
-  @Input() dvd?: Dvd;
+  @Input() film?: Film;
 
   constructor(
     private route: ActivatedRoute,
-    private heroService: DvdService,
+    private apiService: ApiService,
     private location: Location
   ) {}
 
   ngOnInit(): void {
-
+    this.getHero();
   }
 
-  /*getDvd(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.heroService.getDvd(id).subscribe(dvd => this.dvd = dvd);
-  }*/
+  getHero(): void {
+    const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
+    this.apiService.getFilm(id).then(film => this.film = film);
+  }
 
   goBack(): void {
     this.location.back();
