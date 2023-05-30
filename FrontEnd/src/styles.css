@@ -1,6 +1,7 @@
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
+
 h1 {
   text-align: center; /* Allinea il testo al centro */
   font-size: 36px; /* Imposta la dimensione del carattere */
@@ -17,65 +18,9 @@ h2, h3 {
 h3 {
   font-size: 1.3rem;
 }
+
 body {
   padding: .5rem;
   max-width: 1000px;
   margin: auto;
 }
-@media (min-width: 600px) {
-  body {
-    padding: 2rem;
-  }
-}
-body, input[text] {
-  color: #333;
-  font-family: Cambria, Georgia, serif;
-}
-a {
-  cursor: pointer;
-}
-button {
-  background-color: #eee;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  color: black;
-  font-size: 1.2rem;
-  padding: 1rem;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
-}
-button:hover {
-  background-color: black;
-  color: white;
-}
-button:disabled {
-  background-color: #eee;
-  color: #aaa;
-  cursor: auto;
-}
-
-hr {
-  margin: 1.5rem 0;
-}
-input[type="text"] {
-  box-sizing: border-box;
-  width: 100%;
-  padding: .5rem;
-}
-
-.img-back {
-  background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(20).webp");
-
-  /* Full height */
-  height: 100%;
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
