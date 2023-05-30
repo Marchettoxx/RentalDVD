@@ -1,6 +1,6 @@
 type Query {
     login(username: String!, password: String!): Login
-    films(offset: Int = 0, limit: Int = 10): Films
+    films(offset: Int = 0, limit: Int = 10): FilmsResult
 }
 
 type Login {
@@ -25,7 +25,7 @@ type Film {
     fulltext: String
 }
 
-type Films {
+type FilmsResult {
     count: Int
-    films: [Film]
+    filmArray: [Film]
 }

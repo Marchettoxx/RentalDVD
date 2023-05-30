@@ -1,8 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import {Component, OnInit} from '@angular/core';
 
 import { Film } from "../typeDB";
-import {ApiService} from "../api.service";
+import { ApiService } from "../api.service";
 
 @Component({
   selector: 'app-dvds',
@@ -24,7 +23,7 @@ export class DvdsComponent implements OnInit {
   async updateFilms() {
     const result = await this.apiService.getFilms(this.offset);
     this.count = result.count;
-    this.films = result.films;
+    this.films = result.filmArray;
   }
 
   showPrevious() {

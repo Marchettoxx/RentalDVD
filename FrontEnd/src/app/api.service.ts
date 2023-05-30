@@ -21,8 +21,10 @@ export class ApiService {
       query: gql`query films($offset: Int!){
         films(offset: $offset){
           count
-          film {
+          filmArray {
             title
+            length
+            description
           }
         }
       }`

@@ -22,5 +22,5 @@ export class Film {
 
 export interface Films {
   count: number;
-  films: Film[];
+  filmArray: Film[];
 }
