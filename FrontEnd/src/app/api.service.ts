@@ -25,8 +25,10 @@ export class ApiService {
           filmArray {
             film_id
             title
-            length
-            description
+            release_year
+            rating
+            genre
+            language
           }
         }
       }`
@@ -36,8 +38,11 @@ export class ApiService {
         film(film_id: $film_id){
             film_id
             title
-            length
-            description
+            release_year
+            rating
+            genre
+            language
+            rental_rate
           }
       }`
     });

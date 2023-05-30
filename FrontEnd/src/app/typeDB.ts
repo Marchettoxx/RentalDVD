@@ -1,23 +1,27 @@
 export class Login {
   customer_id?: string;
   username?: string;
-  password?: string
+  password?: string;
 }
 
 export class Film {
-  film_id?: string;
+  film_id?: number;
   title?: string;
   description?: string;
   release_year?: string;
-  language_id?: string;
   rental_duration?: string;
   rental_rate?: string;
   length?: string;
   replacement_cost?: string;
   rating?: string;
-  last_update?: string;
   special_features?: string;
   fulltext?: string;
+  genre?: string;
+  language?: string;
+  return_date?: string;
+  inventory_id?: string;
+  store_id?: string;
+  customer_id?: string;
 }
 
 export interface Films {

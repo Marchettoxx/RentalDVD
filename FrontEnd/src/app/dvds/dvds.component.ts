@@ -41,7 +41,7 @@ export class DvdsComponent implements OnInit {
   }
 
   async onNext() {
-    this.offset += 10;
+    this.offset += 10
     await this.updateFilms();
   }
 

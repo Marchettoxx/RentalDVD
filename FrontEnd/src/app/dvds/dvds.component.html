@@ -4,14 +4,18 @@
     <tr>
       <th>id</th>
       <th>Title</th>
-      <th>length</th>
-      <th>description</th>
+      <th>anno</th>
+      <th>rating</th>
+      <th>genere</th>
+      <th>lingua</th>
     </tr>
     <tr *ngFor="let film of films">
-      <td><a routerLink="/detail/{{film.film_id}}">{{film.film_id}}></a></td>
+      <td><a routerLink="/detail/{{film.film_id}}">{{film.film_id}}</a></td>
       <td>{{film.title}}</td>
-      <td>{{film.length}}</td>
-      <td>{{film.description}}</td>
+      <td>{{film.release_year}}</td>
+      <td>{{film.rating}}</td>
+      <td>{{film.genre}}</td>
+      <td>{{film.language}}</td>
     </tr>
   </table>
   <div class="pager">
