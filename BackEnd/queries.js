@@ -10,7 +10,10 @@ const root = {
             .catch(err => err);
     },
     films: (args) => {
-        const query = `SELECT * FROM film f ORDER BY f.film_id`;
+        const query = `select f.film_id, f.title, f.description, f.release_year, f.length, f.rating, c.name as genre, l.name as language
+            from film f JOIN film_category fc ON f.film_id = fc.film_id
+            JOIN category c ON c.category_id = fc.category_id
+            JOIN language l ON l.language_id = f.language_id`;
         return db
             .any(query)
             .then(res => {

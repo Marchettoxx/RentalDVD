@@ -15,15 +15,11 @@ type Film {
     title: String,
     description: String,
     release_year: String,
-    language_id: String
-    rental_duration: String
-    rental_rate: String
     length: String
     replacement_cost: String
     rating: String
-    last_update: String
-    special_features: String
-    fulltext: String
+    genre: String
+    language: String
 }
 
 type FilmsResult {
