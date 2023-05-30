@@ -5,22 +5,22 @@
 h1 {
   text-align: center; /* Allinea il testo al centro */
   font-size: 36px; /* Imposta la dimensione del carattere */
-  color: #333; /* Imposta il colore del testo */
+  color: white; /* Imposta il colore del testo */
   margin-top: 50px; /* Aggiunge uno spazio superiore */
-  margin-bottom: 20px; /* Aggiunge uno spazio inferiore */
-  /* Altre proprietà di formattazione come font-weight, text-transform, etc. */
+  margin-bottom: 50px; /* Aggiunge uno spazio inferiore */
 }
 
 h2, h3 {
   color: #444;
   font-weight: lighter;
 }
-h3 {
-  font-size: 1.3rem;
-}
+
 
 body {
   padding: .5rem;
   max-width: 1000px;
   margin: auto;
+  background-image: url('./assets/sfondo.jpg');
+  background-size: cover; /* Per coprire l'intera area dello sfondo */
+  background-repeat: repeat; /* Per impedire la ripetizione dello sfondo */
 }
