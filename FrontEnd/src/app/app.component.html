@@ -1,25 +1,27 @@
 {{ user | json }}
 
-<nav class="navbar navbar-default" *ngIf="user">
-    <div class="navbar-header " >
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dvdStore-toggle-nav" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" routerLink="/">DVD Store</a>
-    </div>
-    <div class="collapse navbar-collapse" id="dvdStore-toggle-nav">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
-        <li><a routerLink="/dvds">Store</a></li>
-        <li><a routerLink="/dashboard">Your Rent</a></li>
-        <li><a class="btn btn-link nav-item nav-link" (click)="logout()">Logout</a></li>
-      </ul>
-    </div>
-</nav> <!-- close navbar nav -->
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light"*ngIf="user">
+  <a class="navbar-brand" href="#">DVD Store</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/dvds">Store</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/dashboard">Your Rent</a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-link nav-item nav-link" (click)="logout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
 <div class="app-container" [ngClass]="{ '.bg-dark': user }">
     <app-messages></app-messages>
