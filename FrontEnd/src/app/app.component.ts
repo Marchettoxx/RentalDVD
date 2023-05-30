@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { AccountService } from "./account.service";
-import {Login} from "./login";
+import { Login } from "./typeDB";
 
 @Component({
   selector: 'app-root',

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
 import {AccountService} from "../account.service";
-import {Login} from "../login";
+import {Login} from "../typeDB";
+import {ApiService} from "../api.service";
 
 @Component({
   selector: 'app-home',

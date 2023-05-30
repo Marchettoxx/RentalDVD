@@ -17,6 +17,9 @@ import { DvdFormComponent } from './dvd-form/dvd-form.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { GraphQLModule } from './graphql.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { GraphQLModule } from './graphql.module';
       InMemoryDataService, {dataEncapsulation: false}
     ),*/
     ReactiveFormsModule,
-    GraphQLModule
+    GraphQLModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

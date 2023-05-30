@@ -10,7 +10,7 @@ import { DvdService } from "../dvd.service";
   templateUrl: './dvd-search.component.html',
   styleUrls: ['./dvd-search.component.css']
 })
-export class DvdSearchComponent implements OnInit {
+export class DvdSearchComponent {
   dvds$!: Observable<Dvd[]>;
   private searchTerms = new Subject<string>();
 
@@ -21,7 +21,7 @@ export class DvdSearchComponent implements OnInit {
     this.searchTerms.next(term);
   }
 
-  ngOnInit(): void {
+  /*ngOnInit(): void {
     this.dvds$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
@@ -30,7 +30,7 @@ export class DvdSearchComponent implements OnInit {
       distinctUntilChanged(),
 
       // switch to new search observable each time the term changes
-      switchMap((term: string) => this.dvdService.searchDvds(term)),
+      switchMap((term: string) => this.dvdService.searchDvds(term))
     );
-  }
+  }*/
 }

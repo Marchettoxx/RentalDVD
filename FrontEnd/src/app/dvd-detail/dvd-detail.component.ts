@@ -20,22 +20,15 @@ export class DvdDetailComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getDvd();
+
   }
 
-  getDvd(): void {
+  /*getDvd(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.heroService.getDvd(id).subscribe(dvd => this.dvd = dvd);
-  }
+  }*/
 
   goBack(): void {
     this.location.back();
-  }
-
-  save(): void {
-    if (this.dvd) {
-      this.heroService.updateDvd(this.dvd)
-        .subscribe(() => this.goBack());
-    }
   }
 }

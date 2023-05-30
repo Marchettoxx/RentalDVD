@@ -1,35 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Dvd } from './dvd'
 import { MessageService } from './message.service';
+import { ApiService } from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DvdService {
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  private dvdsUrl = 'api/dvds';  // URL to web api
-  constructor(private http: HttpClient, private messageService: MessageService) { }
-
-  getDvds(): Observable<Dvd[]> {
-    return this.http.get<Dvd[]>(this.dvdsUrl).pipe(tap(_ => this.log('fetched dvds')),
-      catchError(this.handleError<Dvd[]>('getDvds', []))
-    );
-  }
-
-  /** GET hero by id. Will 404 if id not found */
-  getDvd(id: number): Observable<Dvd> {
-    const url = `${this.dvdsUrl}/${id}`;
-    return this.http.get<Dvd>(url).pipe(
-      tap(_ => this.log(`fetched dvd id=${id}`)),
-      catchError(this.handleError<Dvd>(`getDvd id=${id}`))
-    );
-  }
+  constructor(private apiService: ApiService, private messageService: MessageService) { }
 
   private log(message: string) {
     this.messageService.add(`DvdService:${message}`);
@@ -44,25 +23,28 @@ export class DvdService {
    */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
-      console.error(error); // log to console instead
-
+      console.error(error);
       this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
       return of(result as T);
     };
   }
 
   /** PUT: update the hero on the server */
-  updateDvd(dvd: Dvd): Observable<any> {
+  /*updateDvd(dvd: Dvd): Observable<any> {
     return this.http.put(this.dvdsUrl, dvd, this.httpOptions).pipe(
       tap(_ => this.log(`updated dvd id=${dvd.id}`)),
       catchError(this.handleError<any>('updateDvd'))
     );
   }
 
-  /** POST: add a new hero to the server */
+  getDvd(id: number): Observable<Dvd> {
+    const url = `${this.dvdsUrl}/${id}`;
+    return this.http.get<Dvd>(url).pipe(
+      tap(_ => this.log(`fetched dvd id=${id}`)),
+      catchError(this.handleError<Dvd>(`getDvd id=${id}`))
+    );
+  }
+
   addDvd(dvd: Dvd): Observable<Dvd> {
     return this.http.post<Dvd>(this.dvdsUrl, dvd, this.httpOptions).pipe(
       tap((newDvd: Dvd) => this.log(`added dvd w/ id=${newDvd.id}`)),
@@ -70,7 +52,6 @@ export class DvdService {
     );
   }
 
-  /** DELETE: delete the hero from the server */
   deleteDvd(id: number): Observable<Dvd> {
     const url = `${this.dvdsUrl}/${id}`;
 
@@ -80,7 +61,7 @@ export class DvdService {
     );
   }
 
-  /* GET heroes whose name contains search term */
+
   searchDvds(term: string): Observable<Dvd[]> {
     if (!term.trim()) {
       // if not search term, return empty hero array.
@@ -92,5 +73,5 @@ export class DvdService {
         this.log(`no dvds matching "${term}"`)),
       catchError(this.handleError<Dvd[]>('searchDvds', []))
     );
-  }
+  }*/
 }
