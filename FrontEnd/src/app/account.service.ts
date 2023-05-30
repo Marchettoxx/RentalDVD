@@ -27,15 +27,11 @@ export class AccountService {
 
   login(username: string, password: string) {
     // @ts-ignore
-    return this.apiService.getLogin(username).then(user => {
-      if (user.password == password) {
-        localStorage.setItem('user', JSON.stringify(user));
-        this.userSubject.next(user);
-        this.userSubject.asObservable();
-        return user;
-      } else {
-        return user = {};
-      }
+    return this.apiService.getLogin(username, password).then(user => {
+      localStorage.setItem('user', JSON.stringify(user));
+      this.userSubject.next(user);
+      this.userSubject.asObservable();
+      return user;
     }).catch(error => {
       console.log("Richiesta andata male");
       this.handleError<Login>(`${error}`, {});

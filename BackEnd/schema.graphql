@@ -1,0 +1,31 @@
+type Query {
+    login(username: String!, password: String!): Login
+    films(offset: Int = 0, limit: Int = 10): Films
+}
+
+type Login {
+    customer_id: Int
+    username: String
+    password: String
+}
+
+type Film {
+    film_id: Int
+    title: String,
+    description: String,
+    release_year: String,
+    language_id: String
+    rental_duration: String
+    rental_rate: String
+    length: String
+    replacement_cost: String
+    rating: String
+    last_update: String
+    special_features: String
+    fulltext: String
+}
+
+type Films {
+    count: Int
+    films: [Film]
+}

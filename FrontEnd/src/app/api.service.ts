@@ -7,13 +7,12 @@ import { Login, Films } from './typeDB';
 })
 export class ApiService {
 
-  private loginQuery: QueryRef<{login: Login}, {username: string}>;
+  private loginQuery: QueryRef<{login: Login}, {username: string, password: string}>;
   private filmsQuery: QueryRef<{films: Films}, {offset: number}>;
   constructor(private apollo: Apollo) {
     this.loginQuery = this.apollo.watchQuery({
-      query: gql`query login($username: String!) {
-        login(username:$username){
-          password
+      query: gql`query login($username: String!, $password: String!) {
+        login(username:$username, password:$password){
           customer_id
         }
       }`
@@ -30,8 +29,8 @@ export class ApiService {
     });
   }
 
-  async getLogin(username: string): Promise<Login> {
-    const result = await this.loginQuery.refetch({ username });
+  async getLogin(username: string, password: string): Promise<Login> {
+    const result = await this.loginQuery.refetch({ username, password});
     return result.data.login;
   }
 
