@@ -5,7 +5,7 @@ import {BehaviorSubject, Observable, of} from 'rxjs';
 
 import { MessageService } from "./message.service";
 import {ApiService} from "./api.service";
-import {Login} from "./login";
+import {Login} from "./typeDB";
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -14,7 +14,6 @@ export class AccountService {
 
   constructor(
     private router: Router,
-    private http: HttpClient,
     private messageService: MessageService,
     private apiService: ApiService
   ) {
@@ -25,15 +24,6 @@ export class AccountService {
   public get userValue() {
     return this.userSubject.value;
   }
-
-  /*login(username: string, password: string) {
-    return this.http.get<User>(`${this.loginsUrl}/?username=${username}&password=${password}`)
-      .pipe(tap(user => {
-        localStorage.setItem('user', JSON.stringify(user));
-        this.userSubject.next(user);
-        return user;
-      }), catchError(this.handleError<User>(`login failed user=${username}`, {})));
-  }*/
 
   login(username: string, password: string) {
     // @ts-ignore

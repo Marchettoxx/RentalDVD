@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
-import { Dvd } from '../dvd';
-import { DvdService } from "../dvd.service";
+import { Film } from "../typeDB";
+import {ApiService} from "../api.service";
 
 @Component({
   selector: 'app-dvds',
@@ -9,30 +10,38 @@ import { DvdService } from "../dvd.service";
   styleUrls: ['./dvds.component.css']
 })
 export class DvdsComponent implements OnInit {
-  dvds:Dvd[] = [];
+  // @ts-ignore
+  offset: number = 0;
+  count: number = 0;
+  films: Film[] = [];
 
-  constructor(private dvdService: DvdService) {
+  constructor(private apiService: ApiService) {}
+
+  async ngOnInit(): Promise<void> {
+    await this.updateFilms();
   }
 
-  getDvds(): void {
-    this.dvdService.getDvds().subscribe(dvds => this.dvds = dvds);
+  async updateFilms() {
+    const result = await this.apiService.getFilms(this.offset);
+    this.count = result.count;
+    this.films = result.films;
   }
 
-  ngOnInit(): void {
-    this.getDvds();
+  showPrevious() {
+    return this.offset > 0;
   }
 
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.dvdService.addDvd({ name } as Dvd)
-      .subscribe(dvd => {
-        this.dvds.push(dvd);
-      });
+  showNext() {
+    return this.offset + 10 < this.count;
   }
 
-  delete(dvd: Dvd): void {
-    this.dvds = this.dvds.filter(h => h !== dvd);
-    this.dvdService.deleteDvd(dvd.id).subscribe();
+  async onPrevious() {
+    this.offset -= 10;
+    await this.updateFilms();
+  }
+
+  async onNext() {
+    this.offset += 10;
+    await this.updateFilms();
   }
 }

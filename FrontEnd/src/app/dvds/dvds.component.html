@@ -1,18 +1,27 @@
-<h2>My Heroes</h2>
-<div>
-  <label for="new-dvd">Dvd name: </label>
-  <input id="new-dvd" #dvdName />
-
-  <!-- (click) passes input value to add() and then clears the input -->
-  <button type="button" class="add-button" (click)="add(dvdName.value); dvdName.value=''">
-    Add dvd
-  </button>
+<div class="browse">
+  <h1>Browse Characters</h1>
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>length</th>
+      <th>description</th>
+    </tr>
+    <tr *ngFor="let film of films">
+      <td><a [routerLink]="['/character']" [queryParams]="{name: film.title}">{{film.title}}</a></td>
+      <td>{{film.length}}</td>
+      <td><a [routerLink]="['/species']" [queryParams]="{name: film.description}">{{film.description}}</a></td>
+    </tr>
+  </table>
+  <div class="pager">
+    <button class="prev" *ngIf="showPrevious()" (click)="onPrevious()"> prev </button>
+    <button class="next" *ngIf="showNext()" (click)="onNext()"> next </button>
+  </div>
 </div>
-<ul class="dvds">
-  <li *ngFor="let dvd of dvds">
-    <a routerLink="/detail/{{dvd.id}}">
-      <span class="id">{{dvd.id}}</span><span>{{dvd.name}}</span>
-    </a>
-    <button type="button" class="delete" title="delete dvd" (click)="delete(dvd)">x</button>
-  </li>
-</ul>
+
+<!--
+<li *ngFor="let dvd of dvds">
+      <a routerLink="/detail/{{dvd.id}}">
+        <span class="id">{{dvd.id}}</span><span>{{dvd.name}}</span>
+      </a>
+    </li>
+-->
