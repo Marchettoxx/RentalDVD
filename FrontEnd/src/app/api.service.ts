@@ -29,6 +29,7 @@ export class ApiService {
             rating
             genre
             language
+            description
           }
         }
       }`

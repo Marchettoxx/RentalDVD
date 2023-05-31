@@ -13,7 +13,8 @@ export class DvdsComponent implements OnInit {
   offset: number = 0;
   count: number = 0;
   films: Film[] = [];
-  selectedFilm?: Film;
+  // @ts-ignore
+  selectedFilm: Film;
 
   constructor(private apiService: ApiService) {}
 
