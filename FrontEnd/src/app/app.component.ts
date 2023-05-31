@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { AccountService } from "./account.service";
-import { Login } from "./typeDB";
+import { LoginService } from "./login/service/login.service";
+import { Login } from "./utilities/typeDB";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ import { Login } from "./typeDB";
 export class AppComponent {
   user?: Login | null = null;
 
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: LoginService) {
     this.accountService.user.subscribe(x => this.user = x);
   }
 

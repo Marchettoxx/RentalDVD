@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./dvd-search.component.css']
 })
 export class DvdSearchComponent {
-  /*dvds$!: Observable<Dvd[]>;
+  /*films_available$!: Observable<Dvd[]>;
   private searchTerms = new Subject<string>();
 
   constructor(private dvdService: DvdService) {}
@@ -17,7 +17,7 @@ export class DvdSearchComponent {
   }
 
   /*ngOnInit(): void {
-    this.dvds$ = this.searchTerms.pipe(
+    this.films_available$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
 

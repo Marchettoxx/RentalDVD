@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 
-import { Film } from "../typeDB";
-import { ApiService } from "../api.service";
+import { Film } from "../utilities/typeDB";
+import { ApiService } from "../services/api.service";
 
 @Component({
-  selector: 'app-dvds',
-  templateUrl: './dvds.component.html',
-  styleUrls: ['./dvds.component.css']
+  selector: 'app-films_available',
+  templateUrl: './films_available.component.html',
+  styleUrls: ['./films_available.component.css']
 })
-export class DvdsComponent implements OnInit {
+export class Films_availableComponent implements OnInit {
   offset: number = 0;
   count: number = 0;
   films: Film[] = [];

@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 
-import { MessageService } from "./messages/service/message.service";
-import {ApiService} from "./api.service";
-import {Login} from "./typeDB";
+import { MessageService } from "../../messages/service/message.service";
+import {ApiService} from "../../services/api.service";
+import {Login} from "../../utilities/typeDB";
 
 @Injectable({ providedIn: 'root' })
-export class AccountService {
+export class LoginService {
   private userSubject: BehaviorSubject<Login | null>;
   public user: Observable<Login | null>;
 

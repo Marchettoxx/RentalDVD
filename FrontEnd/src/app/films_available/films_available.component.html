@@ -8,7 +8,6 @@
   <div class="card" style=" border-radius: 40px 40px 40px 40px">
     <div class="card-body" style= "text-align:center">
       <button type="button" class="btn" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal">{{film.title}}</button>
-      <a>{{film.film_id}}</a>
       <p class="card-text"> Anno: {{film.release_year}}, Genere: {{film.genre}}, Lingua: {{film.language}}, Rating:{{film.rating}}</p>
 
       <div id="myModal" class="modal fade" role="dialog">

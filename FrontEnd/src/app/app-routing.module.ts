@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {HomeComponent} from "./home/home.component";
-import {AuthGuard} from "./auth.guard";
-import {LoginComponent} from "./login/login.component";
-import {DvdsComponent} from "./dvds/dvds.component";
+
+import { HomeComponent } from "./home/home.component";
+import { AuthGuard } from "./services/auth.guard";
+import { LoginComponent } from "./login/login.component";
+import { Films_availableComponent } from "./films_available/films_available.component";
+import { Films_rentedComponent } from "./films_rented/films_rented.component";
 
 /*
   --canActivate-- (https://angular.io/api/router/CanActivate#description)
@@ -15,7 +17,8 @@ import {DvdsComponent} from "./dvds/dvds.component";
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent},
-  { path: 'dvds', component: DvdsComponent, canActivate: [AuthGuard]},
+  { path: 'films_available', component: Films_availableComponent, canActivate: [AuthGuard]},
+  { path: 'films_rented', component: Films_rentedComponent, canActivate: [AuthGuard]},
 
   // if insert an url not correct
   { path: '**', redirectTo: '' }
