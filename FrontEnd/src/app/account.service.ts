@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 
-import { MessageService } from "./message.service";
+import { MessageService } from "./messages/service/message.service";
 import {ApiService} from "./api.service";
 import {Login} from "./typeDB";
 

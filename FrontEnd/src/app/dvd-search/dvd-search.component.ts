@@ -1,9 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-
-import { Dvd } from '../dvd';
-import { DvdService } from "../dvd.service";
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-dvd-search',
@@ -11,7 +6,7 @@ import { DvdService } from "../dvd.service";
   styleUrls: ['./dvd-search.component.css']
 })
 export class DvdSearchComponent {
-  dvds$!: Observable<Dvd[]>;
+  /*dvds$!: Observable<Dvd[]>;
   private searchTerms = new Subject<string>();
 
   constructor(private dvdService: DvdService) {}

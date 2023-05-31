@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AccountService} from '../account.service';
-import { MessageService } from "../message.service";
+import { MessageService } from "../messages/service/message.service";
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -57,16 +57,5 @@ export class LoginComponent implements OnInit {
           }
         }
       );
-    /*this.accountService.login(this.f["username"].value, this.f["password"].value)
-      .subscribe({
-        next: () => {
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-          this.router.navigateByUrl(returnUrl);
-        }
-      });
-     */
-    /*const result = await this.apiService.getLogin(this.f["username"].value);
-   }
-     */
   }
 }

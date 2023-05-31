@@ -9,13 +9,10 @@ import { ApiService } from "../api.service";
   styleUrls: ['./dvds.component.css']
 })
 export class DvdsComponent implements OnInit {
-  // @ts-ignore
   offset: number = 0;
   count: number = 0;
-  diff: number = 0;
   films: Film[] = [];
-  // @ts-ignore
-  selectedFilm: Film;
+  selectedFilm: Film = {};
 
   constructor(private apiService: ApiService) {}
 
@@ -26,7 +23,6 @@ export class DvdsComponent implements OnInit {
   async updateFilms() {
     const result = await this.apiService.getFilms(this.offset);
     this.count = result.count;
-    this.diff = this.count / 10;
     this.films = result.filmArray;
   }
 

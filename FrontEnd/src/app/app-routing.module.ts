@@ -4,8 +4,6 @@ import {HomeComponent} from "./home/home.component";
 import {AuthGuard} from "./auth.guard";
 import {LoginComponent} from "./login/login.component";
 import {DvdsComponent} from "./dvds/dvds.component";
-import {DashboardComponent} from "./dashboard/dashboard.component";
-import {DvdDetailComponent} from "./dvd-detail/dvd-detail.component";
 
 /*
   --canActivate-- (https://angular.io/api/router/CanActivate#description)
@@ -18,10 +16,9 @@ const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent},
   { path: 'dvds', component: DvdsComponent, canActivate: [AuthGuard]},
-  { path: 'detail/:id', component: DvdDetailComponent, canActivate: [AuthGuard]},
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  { path: '**', redirectTo: '' }
 
+  // if insert an url not correct
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
