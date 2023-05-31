@@ -12,6 +12,7 @@ export class DvdsComponent implements OnInit {
   // @ts-ignore
   offset: number = 0;
   count: number = 0;
+  diff: number = 0;
   films: Film[] = [];
   selectedFilm?: Film;
 
@@ -24,6 +25,7 @@ export class DvdsComponent implements OnInit {
   async updateFilms() {
     const result = await this.apiService.getFilms(this.offset);
     this.count = result.count;
+    this.diff = this.count / 10;
     this.films = result.filmArray;
   }
 
@@ -42,6 +44,7 @@ export class DvdsComponent implements OnInit {
 
   async onNext() {
     this.offset += 10
+    console.log(this.offset + (this.count - this.offset));
     await this.updateFilms();
   }
 
