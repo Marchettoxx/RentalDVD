@@ -4,10 +4,9 @@
 
 h1 {
   text-align: center; /* Allinea il testo al centro */
-  font-size: 36px; /* Imposta la dimensione del carattere */
+  font-weight: bold;
+  font-size: 106px; /* Imposta la dimensione del carattere */
   color: white; /* Imposta il colore del testo */
-  margin-top: 50px; /* Aggiunge uno spazio superiore */
-  margin-bottom: 50px; /* Aggiunge uno spazio inferiore */
 }
 
 h2, h3 {

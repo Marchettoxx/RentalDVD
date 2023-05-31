@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { CommonModule} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,21 +33,22 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     HomeComponent,
     LoginComponent
   ],
-  imports: [
-    BrowserModule,
-    CommonModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    /*HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, {dataEncapsulation: false}
-    ),*/
-    ReactiveFormsModule,
-    GraphQLModule,
-    BrowserAnimationsModule,
-    MatTableModule,
-    MatPaginatorModule
-  ],
+    imports: [
+        BrowserModule,
+        CommonModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        /*HttpClientInMemoryWebApiModule.forRoot(
+          InMemoryDataService, {dataEncapsulation: false}
+        ),*/
+        ReactiveFormsModule,
+        GraphQLModule,
+        BrowserAnimationsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        NgOptimizedImage
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
