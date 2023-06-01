@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
-import { Film } from "../utilities/typeDB";
+import {Film } from "../utilities/typeDB";
 import { ApiService } from "../services/api.service";
+import {LoginService} from "../login/service/login.service";
 
 @Component({
   selector: 'app-films_rented',
@@ -13,18 +14,21 @@ export class Films_rentedComponent {
   count: number = 0;
   films: Film[] = [];
   selectedFilm: Film = {};
+  customer_id: number = 0;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private loginService: LoginService, private apiService: ApiService) {
+    this.loginService.user.subscribe(x => this.customer_id = x!.customer_id);
+  }
 
   async ngOnInit(): Promise<void> {
     await this.updateFilms();
   }
 
   async updateFilms() {
-    const result = await this.apiService.getFilms_user(this.offset, 1);
+    console.log(this.customer_id);
+    const result = await this.apiService.getFilms_user(this.offset, this.customer_id);
     this.count = result.count;
     this.films = result.filmArray;
-    console.log(this.films);
   }
 
   showPrevious() {

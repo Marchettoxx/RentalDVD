@@ -33,7 +33,7 @@ export class LoginService {
       return user;
     }).catch(error => {
       console.log("Richiesta andata male");
-      this.handleError<Login>(`${error}`, {});
+      this.handleError<Login>(`${error}`, {customer_id: 1});
     });
   }
 

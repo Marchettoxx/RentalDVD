@@ -44,7 +44,7 @@ const root = {
             JOIN store s ON s.store_id = i.store_id
             WHERE r.return_date is not NULL AND r.customer_id = $1
             ORDER BY r.return_date`;
-        const values = [args.film_id];
+        const values = [args.customer_id];
         return db
             .any(query, values)
             .then(res => {

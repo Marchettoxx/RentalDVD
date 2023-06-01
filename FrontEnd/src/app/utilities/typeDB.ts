@@ -1,5 +1,5 @@
 export class Login {
-  customer_id?: string;
+  customer_id!: number;
   username?: string;
   password?: string;
 }
