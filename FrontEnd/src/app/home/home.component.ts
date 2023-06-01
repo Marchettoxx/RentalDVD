@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import {LoginService} from "../login/service/login.service";
+import {LoginService} from "../services/login.service";
 import {Login} from "../utilities/typeDB";
 
 @Component({

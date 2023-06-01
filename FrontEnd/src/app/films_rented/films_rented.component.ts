@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
-import {Film } from "../utilities/typeDB";
+import {Film, Login} from "../utilities/typeDB";
 import { ApiService } from "../services/api.service";
-import {LoginService} from "../login/service/login.service";
+import {LoginService} from "../services/login.service";
 
 @Component({
   selector: 'app-films_rented',
@@ -14,14 +14,14 @@ export class Films_rentedComponent {
   count: number = 0;
   films: Film[] = [];
   selectedFilm: Film = {};
-  customer_id: number = 0;
   current_page: number = 0;
   diff: number = 0;
   list_index: number[] = []
   selectedIndex: number = 0;
+  user!: Login;
 
   constructor(private loginService: LoginService, private apiService: ApiService) {
-    this.loginService.user.subscribe(x => this.customer_id = x!.customer_id);
+    this.loginService.user.subscribe(x => this.user = x!);
   }
 
   async ngOnInit(): Promise<void> {
@@ -31,7 +31,7 @@ export class Films_rentedComponent {
   }
 
   async updateFilms() {
-    const result = await this.apiService.getFilms_user(this.offset, this.customer_id);
+    const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id);
     this.count = result.count;
     this.films = result.filmArray;
     this.selectedIndex = this.current_page;

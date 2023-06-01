@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 
-import { MessageService } from "../../messages/service/message.service";
-import {ApiService} from "../../services/api.service";
-import {Login} from "../../utilities/typeDB";
+import { MessageService } from "./message.service";
+import {ApiService} from "./api.service";
+import {Login} from "../utilities/typeDB";
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
@@ -32,7 +32,6 @@ export class LoginService {
       this.userSubject.asObservable();
       return user;
     }).catch(error => {
-      console.log("Richiesta andata male");
       this.handleError<Login>(`${error}`, {customer_id: 1});
     });
   }

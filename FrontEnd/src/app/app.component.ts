@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { LoginService } from "./login/service/login.service";
+import { LoginService } from "./services/login.service";
 import { Login } from "./utilities/typeDB";
 
 @Component({
@@ -11,11 +11,11 @@ import { Login } from "./utilities/typeDB";
 export class AppComponent {
   user?: Login | null = null;
 
-  constructor(private accountService: LoginService) {
-    this.accountService.user.subscribe(x => this.user = x);
+  constructor(private loginService: LoginService) {
+    this.loginService.user.subscribe(x => this.user = x);
   }
 
   logout() {
-    this.accountService.logout();
+    this.loginService.logout();
   }
 }
