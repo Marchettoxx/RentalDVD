@@ -18,3 +18,7 @@ body {
   background-size: cover; /* Per coprire l'intera area dello sfondo */
   background-repeat: repeat; /* Per impedire la ripetizione dello sfondo */
 }
+
+.title:hover{
+  background-color: green;
+}
