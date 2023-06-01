@@ -11,8 +11,6 @@ type Login {
     password: String
 }
 
-#f.replacement_cost, f.rating, f.special_features, f.fulltext, c.name AS genre, l.name AS language, i.inventory_id, s.store_id, r.customer_id, r.return_date
-
 type Film {
     film_id: Int
     title: String,

@@ -36,6 +36,9 @@
 </div>
 <div class="pager" >
   <button class="prev btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px; font-size: 20px " *ngIf="showPrevious()" (click)="onPrevious()"> PREV </button>
+  <div *ngFor="let index of list_index">
+    <button class="prev btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px; font-size: 20px " [class.selected]="index === selectedIndex" (click)="jump(index)"> {{index}} </button>
+  </div>
   <button class="next btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px;  font-size: 20px " *ngIf="showNext()" (click)="onNext()"> NEXT</button>
 </div>
 

@@ -13,17 +13,24 @@ export class Films_availableComponent implements OnInit {
   count: number = 0;
   films: Film[] = [];
   selectedFilm: Film = {};
+  current_page: number = 0;
+  diff: number = 0;
+  list_index: number[] = []
+  selectedIndex: number = 0;
 
   constructor(private apiService: ApiService) {}
 
   async ngOnInit(): Promise<void> {
     await this.updateFilms();
+    this.diff = this.count / 10;
+    this.list_index = Array.from({ length: this.diff + 1 }, (_, index) => index);
   }
 
   async updateFilms() {
     const result = await this.apiService.getFilms(this.offset);
     this.count = result.count;
     this.films = result.filmArray;
+    this.selectedIndex = this.current_page;
   }
 
   showPrevious() {
@@ -36,16 +43,23 @@ export class Films_availableComponent implements OnInit {
 
   async onPrevious() {
     this.offset -= 10;
+    this.current_page = this.offset / 10;
     await this.updateFilms();
   }
 
   async onNext() {
     this.offset += 10
-    console.log(this.offset + (this.count - this.offset));
+    this.current_page = this.offset / 10;
     await this.updateFilms();
   }
 
   onSelect(film: Film): void {
     this.selectedFilm = film;
+  }
+
+  async jump(index: number): Promise<void> {
+    this.offset = index * 10;
+    this.current_page = index;
+    await this.updateFilms();
   }
 }
