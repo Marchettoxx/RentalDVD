@@ -14,7 +14,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let film of films ">
+    <tr *ngFor="let film of films " style="background: hsla(0, 0%, 100%, 0.45); ">
       <td> <button type="button" class="btn" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" style="background-color: transparent; color: darkblue; font-weight: bold ">{{ film.title }} </button></td>
       <td>{{ film.genre }}</td>
       <td>{{ film.language }}</td>
@@ -43,6 +43,8 @@
 
             </div>
           </div>
+
+
 
 
   <div class="pager" >
