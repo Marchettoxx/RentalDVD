@@ -20,6 +20,7 @@ export class Films_rentedComponent {
   selectedIndex: number = 0;
   user!: Login;
 
+
   constructor(private loginService: LoginService, private apiService: ApiService) {
     this.loginService.user.subscribe(x => this.user = x!);
   }

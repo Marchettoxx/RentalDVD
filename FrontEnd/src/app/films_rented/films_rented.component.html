@@ -3,13 +3,27 @@
   <h1 style="color: white; text-align: center; font-size: 30px; font-weight: bold">La tua cronologia di film noleggiati</h1>
   <span style="display: inline-block; height: 50px;"></span>
 
-  <div class="row" style="line-height:20px; margin-bottom:10px; align-content: center">
-    <div class="col-sm-6" *ngFor="let film of films" style="margin-bottom:50px" >
-      <div class="card" style=" border-radius: 40px 40px 40px 40px">
-        <div class="card-body" style= "text-align:center">
-          <button type="button" class="btn" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal">{{film.title}}</button>
-          <p class="card-text"> Anno: {{film.release_year}}, Genere: {{film.genre}}, Lingua: {{film.language}}, Rating:{{film.rating}}</p>
-          <p>Data consegna:{{film.return_date}}</p>
+  <table style="background-color: white">
+    <thead>
+    <tr style="background-color: #444444; text-size-adjust: auto; color: white ">
+      <th>Name</th>
+      <th>Age</th>
+      <th>Country</th>
+      <th>Anno</th>
+      <th>Data riconsegna</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let film of films ">
+      <td> <button type="button" class="btn" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" style="background-color: transparent; color: darkblue; font-weight: bold ">{{ film.title }} </button></td>
+      <td>{{ film.genre }}</td>
+      <td>{{ film.language }}</td>
+      <td>{{film.release_year}}</td>
+      <td>{{film.return_date}}</td>
+    </tr>
+    </tbody>
+  </table>
+
           <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
@@ -17,7 +31,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">{{selectedFilm.title}}</h4>
+                  <h4 class="modal-title" style="text-align: center">{{selectedFilm.title}}</h4>
                 </div>
                 <div class="modal-body">
                   <p>{{selectedFilm.description}}</p>
@@ -30,10 +44,7 @@
             </div>
           </div>
 
-        </div>
-      </div>
-    </div>
-  </div>
+
   <div class="pager" >
     <button class="prev btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px; font-size: 20px " *ngIf="showPrevious()" (click)="onPrevious()"> PREV </button>
     <div *ngFor="let index of list_index">
