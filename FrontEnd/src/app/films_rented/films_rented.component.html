@@ -1,51 +1,100 @@
 <div class="browse">
+
   <span style="display: inline-block; height: 100px;"></span>
   <h1 style="color: white; text-align: center; font-size: 30px; font-weight: bold">La tua cronologia di film noleggiati</h1>
   <span style="display: inline-block; height: 50px;"></span>
 
-  <table style="background-color: white">
-    <thead>
-    <tr style="background-color: #444444; text-size-adjust: auto; color: white ">
-      <th>Name</th>
-      <th>Age</th>
-      <th>Country</th>
-      <th>Anno</th>
-      <th>Data riconsegna</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let film of films ">
-      <td> <button type="button" class="btn" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" style="background-color: transparent; color: darkblue; font-weight: bold ">{{ film.title }} </button></td>
-      <td>{{ film.genre }}</td>
-      <td>{{ film.language }}</td>
-      <td>{{film.release_year}}</td>
-      <td>{{film.return_date}}</td>
-    </tr>
-    </tbody>
-  </table>
+    <h1 *ngIf="list_index_in_rent.length == 0" style="color: whitesmoke; text-align: center">Noleggi pendenti</h1>
+    <table style="background-color: white" *ngIf="list_index_in_rent.length == 0">
+      <thead>
+      <tr style="background-color: #444444; text-size-adjust: auto; color: white ">
+        <th>Name</th>
+        <th>Age</th>
+        <th>Country</th>
+        <th>Anno</th>
+        <th>Data riconsegna</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let film of films_in_rent ">
+        <td> <button type="button" class="btn" data-toggle="modal" (click)="onSelect_in_rent(film)" data-target="#myModal" style="background-color: transparent; color: darkblue; font-weight: bold ">{{ film.title }} </button></td>
+        <td>{{ film.genre }}</td>
+        <td>{{ film.language }}</td>
+        <td>{{ film.release_year }}</td>
+        <td>{{ film.return_date }}</td>
+      </tr>
+      </tbody>
+    </table>
 
-          <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title" style="text-align: center">{{selectedFilm.title}}</h4>
-                </div>
-                <div class="modal-body">
-                  <p>{{selectedFilm.description}}</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-
-            </div>
+    <div id="myModal_in_rent" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" style="text-align: center">{{selectedFilm_in_rent.title}}</h4>
           </div>
+          <div class="modal-body">
+            <p>{{selectedFilm_in_rent.description}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <div class="pager but" *ngIf="list_index_in_rent.length == 0">
+      <button class="prev btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px; font-size: 20px " *ngIf="showPrevious_in_rent()" (click)="onPrevious_in_rent()"> PREV </button>
+      <div *ngFor="let index of list_index_in_rent">
+        <button class="prev btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px; font-size: 20px " [class.selected]="index === selectedIndex_in_rent" (click)="jump_in_rent(index)"> {{index}} </button>
+      </div>
+      <button class="next btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px;  font-size: 20px " *ngIf="showNext_in_rent()" (click)="onNext_in_rent()"> NEXT</button>
+    </div>
 
-  <div class="pager" >
+    <h1 style="color: whitesmoke; text-align: center">Cronologia</h1>
+    <table style="background-color: white">
+      <thead>
+      <tr style="background-color: #444444; text-size-adjust: auto; color: white ">
+        <th>Name</th>
+        <th>Age</th>
+        <th>Country</th>
+        <th>Anno</th>
+        <th>Data riconsegna</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let film of films ">
+        <td> <button type="button" class="btn" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" style="background-color: transparent; color: darkblue; font-weight: bold ">{{ film.title }} </button></td>
+        <td>{{ film.genre }}</td>
+        <td>{{ film.language }}</td>
+        <td>{{ film.release_year }}</td>
+        <td>{{ film.return_date }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" style="text-align: center">{{selectedFilm.title}}</h4>
+          </div>
+          <div class="modal-body">
+            <p>{{selectedFilm.description}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  <div class="pager but">
     <button class="prev btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px; font-size: 20px " *ngIf="showPrevious()" (click)="onPrevious()"> PREV </button>
     <div *ngFor="let index of list_index">
       <button class="prev btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px; font-size: 20px " [class.selected]="index === selectedIndex" (click)="jump(index)"> {{index}} </button>
@@ -54,4 +103,5 @@
   </div>
 
   <span style="display: inline-block; height: 50px;"></span>
+
 </div>

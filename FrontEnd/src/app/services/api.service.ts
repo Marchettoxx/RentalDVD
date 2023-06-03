@@ -10,6 +10,7 @@ export class ApiService {
   private loginQuery: QueryRef<{login: Login}, {username: string, password: string}>;
   private filmsQuery: QueryRef<{films: Films}, {offset: number}>;
   private films_userQuery: QueryRef<{films_user: Films}, {offset: number, customer_id: number}>;
+  private films_user_in_rentQuery: QueryRef<{films_user: Films}, {offset: number, customer_id: number}>;
   private filmQuery: QueryRef<{film: Film}, {film_id: number}>;
   constructor(private apollo: Apollo) {
     this.loginQuery = this.apollo.watchQuery({
@@ -52,6 +53,23 @@ export class ApiService {
         }
       }`
     });
+    this.films_user_in_rentQuery = this.apollo.watchQuery({
+      query: gql`query films_user_in_rent($offset: Int!, $customer_id: Int!){
+        films_user_in_rent(offset: $offset, customer_id: $customer_id){
+          count
+          filmArray {
+            film_id
+            title
+            release_year
+            rating
+            genre
+            language
+            description
+            return_date
+          }
+        }
+      }`
+    });
     this.filmQuery = this.apollo.watchQuery({
       query: gql`query film($film_id: Int!){
         film(film_id: $film_id){
@@ -79,6 +97,11 @@ export class ApiService {
 
   async getFilms_user(offset: number, customer_id: number): Promise<Films> {
     const result = await this.films_userQuery.refetch({ offset, customer_id });
+    return result.data.films_user;
+  }
+
+  async getFilms_user_in_rent(offset: number, customer_id: number): Promise<Films> {
+    const result = await this.films_user_in_rentQuery.refetch({ offset, customer_id });
     return result.data.films_user;
   }
 
