@@ -16,19 +16,19 @@
           <!-- Modal content-->
           <div class="modal-content" >
             <div class="modal-header">
-              <h4 class="modal-title" style="color: darkblue; font-weight: bold">{{selectedFilm.title}}</h4>
+              <h4 class="modal-title" style="color: darkblue; font-weight: bold; font-size: 150% ">{{selectedFilm.title}}</h4>
               <button type="button" class="close" data-dismiss="modal" >&times;</button>
             </div>
             <div class="modal-body">
-              <p>Anno: {{film.release_year}}</p>
-              <p>Genere: {{film.genre}}</p>
-              <p>Lingua: {{film.language}}</p>
-              <p>Rating:{{film.rating}}</p>
+              <p>Anno: {{selectedFilm.release_year}}</p>
+              <p>Genere: {{selectedFilm.genre}}</p>
+              <p>Lingua: {{selectedFilm.language}}</p>
+              <p>Rating:{{selectedFilm.rating}}</p>
               <p> Costo: </p>
               <p>{{selectedFilm.description}}</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Prenota</button>
+              <button type="button" class="btn btn-info " data-dismiss="modal" style="border-radius: 40px 40px 40px 40px">Prenota</button>
             </div>
           </div>
 
