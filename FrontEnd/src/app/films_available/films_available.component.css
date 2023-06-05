@@ -49,3 +49,10 @@ button.selected:active {
   background-color: black;
   color: white;
 }
+
+.menu-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

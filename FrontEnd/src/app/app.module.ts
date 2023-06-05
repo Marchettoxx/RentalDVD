@@ -9,7 +9,6 @@ import { Films_availableComponent } from './films_available/films_available.comp
 import { Films_rentedComponent } from './films_rented/films_rented.component';
 import { MessagesComponent } from './messages/messages.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DvdSearchComponent } from './dvd-search/dvd-search.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { GraphQLModule } from './utilities/graphql.module';
@@ -19,7 +18,6 @@ import { GraphQLModule } from './utilities/graphql.module';
     AppComponent,
     Films_availableComponent,
     MessagesComponent,
-    DvdSearchComponent,
     HomeComponent,
     LoginComponent,
     Films_rentedComponent

@@ -13,15 +13,16 @@ import {debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap} 
 export class Films_rentedComponent {
   offset: number = 0;
   count: number = 0;
-  films: Film[] | null = null;
-  selectedFilm: Film = {};
   current_page: number = 0;
   diff: number = 0;
-  list_index: number[] = []
-  selectedIndex: number = 0;
+
   user!: Login;
+  films: Film[] | null = null;
+  selectedFilm: Film = {};
   categories: Category[] | null = null;
   selectedCategory: Category | null = null;
+  list_index: number[] = []
+  selectedIndex: number = 0;
 
   films$!: Observable<Film[]> | undefined;
   private searchTerms = new Subject<string>();
@@ -36,21 +37,21 @@ export class Films_rentedComponent {
     this.list_index = Array.from({ length: this.diff + 1 }, (_, index) => index);
     const result = await this.apiService.getCategories();
     this.categories = result.categoryArray;
+
     this.films$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
-
       // ignore new term if same as previous term
       distinctUntilChanged(),
-
       // switch to new search observable each time the term changes
-      switchMap((term: string) => {{
-        if (!term.trim()) {
-          // if not search term, return empty hero array.
-          return of([]);
-        }
-        return this.apiService.getFilms_user_search(this.user.customer_id, term)}}
-      )
+      switchMap((term: string) => {
+          if (!term.trim()) {
+            // if not search term, return empty hero array.
+            return of([]);
+          } else {
+            return this.apiService.getFilms_user_search(this.user.customer_id, term)
+          }
+      })
     );
   }
 
@@ -59,6 +60,8 @@ export class Films_rentedComponent {
       const result = await this.apiService.getFilms_user_category(this.offset, this.user.customer_id, this.selectedCategory.category_id!);
       this.count = result.count;
       this.films = result.filmArray;
+      this.diff = this.count / 10;
+      this.list_index = Array.from({ length: this.diff + 1 }, (_, index) => index);
       this.selectedIndex = this.current_page;
     } else {
       const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id);

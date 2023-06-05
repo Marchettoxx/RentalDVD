@@ -10,11 +10,6 @@
   max-width: 800px;
 }
 
-.but {
-  display: flex;
-  justify-content:center;
-}
-
 table {
   margin-top: 16px;
   margin-bottom: 16px;
@@ -77,8 +72,6 @@ input:focus {
   outline: #336699 auto 1px;
 }
 
-
-
 .search-result li a {
   border-bottom: 1px solid gray;
   border-left: 1px solid gray;
@@ -102,4 +95,32 @@ ul.search-result {
   margin-top: 0;
   padding-left: 0;
 }
+
+.menu-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.element {
+  flex: 1 0 50%; /* Adjust the width as needed */
+}
+
+.dropdown {
+  position: relative;
+  z-index: 1;
+}
+
+#search-component {
+  position: relative;
+  z-index: 2;
+}
+
+
 

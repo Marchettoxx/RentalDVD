@@ -3,23 +3,31 @@
   <h1 style="color: white; text-align: center; font-size: 30px; font-weight: bold">La tua cronologia di film noleggiati</h1>
   <span style="display: inline-block; height: 50px;"></span>
 
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Categorie
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <button class="dropdown-item" *ngFor="let category of categories" (click)="filter(category)">{{category.name}}</button>
-    </div>
-  </div>
+  <div class="container">
 
-  <div id="search-component">
-  <label for="search-box"></label>
-  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
-    <ul class="search-result">
-      <li *ngFor="let film of films$ | async">
-        <a><button type="button" class="btn" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" style="background-color: transparent; color: darkblue; font-weight: bold ">{{ film.title }} </button></a>
-      </li>
-    </ul>
+    <div class="element">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Categorie
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <button class="dropdown-item" *ngFor="let category of categories" (click)="filter(category)">{{category.name}}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="element" style="position: relative;">
+      <div id="search-component">
+        <label for="search-box"></label>
+        <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+        <ul class="search-result">
+          <li *ngFor="let film of films$ | async">
+            <a><button type="button" class="btn" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" style="background-color: transparent; color: darkblue; font-weight: bold ">{{ film.title }} </button></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 
   <table style="background: hsla(0, 0%, 100%, 0.85)">
@@ -43,37 +51,34 @@
     </tbody>
   </table>
 
-          <div id="myModal" class="modal fade" role="dialog" style="align-content: center">
-            <div class="modal-dialog">
-
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title" style="text-align: center; color: darkblue; font-weight: bold; font-size: 150% ">{{selectedFilm.title}}</h4>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                  <p> Anno: {{selectedFilm.release_year}}</p>
-                  <p> Genere: {{selectedFilm.genre}}</p>
-                  <p> Data di ritorno:{{selectedFilm.return_date}}</p>
-                  <p> Totale speso: </p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-info " data-dismiss="modal" style="border-radius: 40px 40px 40px 40px">Prenota</button>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-
-
+  <div id="myModal" class="modal fade menu-popup" role="dialog">
+    <div class="modal-dialog" >
+      <!-- Modal content-->
+      <div class="modal-content" >
+        <div class="modal-header">
+          <h4 class="modal-title" style="color: darkblue; font-weight: bold; font-size: 150% ">{{selectedFilm.title}}</h4>
+          <button type="button" class="close" data-dismiss="modal" >&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>Anno: {{selectedFilm.release_year}}</p>
+          <p>Genere: {{selectedFilm.genre}}</p>
+          <p>Lingua: {{selectedFilm.language}}</p>
+          <p>Rating:{{selectedFilm.rating}}</p>
+          <p> Costo: </p>
+          <p>{{selectedFilm.description}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info " data-dismiss="modal" style="border-radius: 40px 40px 40px 40px">Prenota</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="pager" >
     <button class="prev btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px; font-size: 20px " *ngIf="showPrevious()" (click)="onPrevious()"> PREV </button>
-    <div *ngFor="let index of list_index">
-      <button class="prev btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px; font-size: 20px " [class.selected]="index === selectedIndex" (click)="jump(index)"> {{index}} </button>
-    </div>
+      <div *ngFor="let index of list_index">
+        <button class="prev btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px; font-size: 20px " [class.selected]="index === selectedIndex" (click)="jump(index)"> {{index}} </button>
+      </div>
     <button class="next btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px;  font-size: 20px " *ngIf="showNext()" (click)="onNext()"> NEXT</button>
   </div>
 

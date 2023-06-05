@@ -10,9 +10,8 @@
       <button type="button" class="btn title" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" style="background-color: transparent; color: darkblue; font-weight: bold; font-size: 150% ">{{film.title}}</button>
       <p class="card-text"> Anno: {{film.release_year}}, Genere: {{film.genre}}, Lingua: {{film.language}}, Rating:{{film.rating}}</p>
 
-      <div id="myModal" class="modal fade" role="dialog" >
+      <div id="myModal" class="modal fade menu-popup" role="dialog">
         <div class="modal-dialog" >
-
           <!-- Modal content-->
           <div class="modal-content" >
             <div class="modal-header">
@@ -31,7 +30,6 @@
               <button type="button" class="btn btn-info " data-dismiss="modal" style="border-radius: 40px 40px 40px 40px">Prenota</button>
             </div>
           </div>
-
         </div>
       </div>
 
