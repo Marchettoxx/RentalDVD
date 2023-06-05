@@ -28,3 +28,12 @@ export interface Films {
   count: number;
   filmArray: Film[];
 }
+
+export class Category {
+  category_id?: number;
+  name?: string;
+}
+export class Categories {
+  categoryArray!: Category[];
+}
+

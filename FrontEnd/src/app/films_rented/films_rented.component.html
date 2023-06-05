@@ -3,6 +3,15 @@
   <h1 style="color: white; text-align: center; font-size: 30px; font-weight: bold">La tua cronologia di film noleggiati</h1>
   <span style="display: inline-block; height: 50px;"></span>
 
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Categorie
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <button class="dropdown-item" *ngFor="let category of categories" (click)="filter(category)">{{category.name}}</button>
+    </div>
+  </div>
+
   <table style="background: hsla(0, 0%, 100%, 0.85)">
     <thead>
     <tr style="background-color: #444444; text-size-adjust: auto; color: white">

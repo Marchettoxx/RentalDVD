@@ -1,9 +1,6 @@
 const { db } = require("./pgAdaptor");
 
-db.any("SELECT film_id, title\n" +
-    "FROM film_disponibili\n" +
-    "GROUP BY film_id, title\n" +
-    "ORDER BY film_id")
+db.any("SELECT * FROM category ORDER BY category_id ASC")
     .then(res => {
         console.log(res);
     });
