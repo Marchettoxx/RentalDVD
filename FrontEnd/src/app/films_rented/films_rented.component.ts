@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
-import {Categories, Category, Film, Login} from "../utilities/typeDB";
+import { Category, Film, Login } from "../utilities/typeDB";
 import { ApiService } from "../services/api.service";
-import {LoginService} from "../services/login.service";
+import { LoginService } from "../services/login.service";
+import {debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-films_rented',
@@ -22,6 +23,9 @@ export class Films_rentedComponent {
   categories: Category[] | null = null;
   selectedCategory: Category | null = null;
 
+  films$!: Observable<Film[]> | undefined;
+  private searchTerms = new Subject<string>();
+
   constructor(private loginService: LoginService, private apiService: ApiService) {
     this.loginService.user.subscribe(x => this.user = x!);
   }
@@ -32,19 +36,31 @@ export class Films_rentedComponent {
     this.list_index = Array.from({ length: this.diff + 1 }, (_, index) => index);
     const result = await this.apiService.getCategories();
     this.categories = result.categoryArray;
+    this.films$ = this.searchTerms.pipe(
+      // wait 300ms after each keystroke before considering the term
+      debounceTime(300),
+
+      // ignore new term if same as previous term
+      distinctUntilChanged(),
+
+      // switch to new search observable each time the term changes
+      switchMap((term: string) => {{
+        if (!term.trim()) {
+          // if not search term, return empty hero array.
+          return of([]);
+        }
+        return this.apiService.getFilms_user_search(this.user.customer_id, term)}}
+      )
+    );
   }
 
   async updateFilms() {
-    console.log("ciao");
-    console.log(this.selectedCategory?.name);
     if (this.selectedCategory) {
-      console.log("sono dentro");
       const result = await this.apiService.getFilms_user_category(this.offset, this.user.customer_id, this.selectedCategory.category_id!);
       this.count = result.count;
       this.films = result.filmArray;
       this.selectedIndex = this.current_page;
     } else {
-      console.log("no sono qui");
       const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id);
       this.count = result.count;
       this.films = result.filmArray;
@@ -85,5 +101,9 @@ export class Films_rentedComponent {
   async filter(category: Category){
     this.selectedCategory = category;
     await this.updateFilms();
+  }
+
+  search(term: string): void {
+    this.searchTerms.next(term);
   }
 }

@@ -12,6 +12,16 @@
     </div>
   </div>
 
+  <div id="search-component">
+  <label for="search-box"></label>
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+    <ul class="search-result">
+      <li *ngFor="let film of films$ | async">
+        <a><button type="button" class="btn" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" style="background-color: transparent; color: darkblue; font-weight: bold ">{{ film.title }} </button></a>
+      </li>
+    </ul>
+  </div>
+
   <table style="background: hsla(0, 0%, 100%, 0.85)">
     <thead>
     <tr style="background-color: #444444; text-size-adjust: auto; color: white">
