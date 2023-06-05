@@ -3,6 +3,9 @@ type Query {
     films(offset: Int = 0, limit: Int = 10): FilmsResult
     film(film_id: Int): Film
     films_user(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
+    films_user_in_rent(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
+    films_user_category(customer_id: Int, category_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
+    categories: CategoryResult
 }
 
 type Login {
@@ -34,4 +37,13 @@ type Film {
 type FilmsResult {
     count: Int
     filmArray: [Film]
+}
+
+type Category {
+    category_id: Int
+    name: String
+}
+
+type CategoryResult {
+    categoryArray: [Category]
 }

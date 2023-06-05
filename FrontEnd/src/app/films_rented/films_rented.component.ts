@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import {Film, Login} from "../utilities/typeDB";
+import {Categories, Category, Film, Login} from "../utilities/typeDB";
 import { ApiService } from "../services/api.service";
 import {LoginService} from "../services/login.service";
 
@@ -12,14 +12,15 @@ import {LoginService} from "../services/login.service";
 export class Films_rentedComponent {
   offset: number = 0;
   count: number = 0;
-  films: Film[] = [];
+  films: Film[] | null = null;
   selectedFilm: Film = {};
   current_page: number = 0;
   diff: number = 0;
   list_index: number[] = []
   selectedIndex: number = 0;
   user!: Login;
-
+  categories: Category[] | null = null;
+  selectedCategory: Category | null = null;
 
   constructor(private loginService: LoginService, private apiService: ApiService) {
     this.loginService.user.subscribe(x => this.user = x!);
@@ -29,13 +30,26 @@ export class Films_rentedComponent {
     await this.updateFilms();
     this.diff = this.count / 10;
     this.list_index = Array.from({ length: this.diff + 1 }, (_, index) => index);
+    const result = await this.apiService.getCategories();
+    this.categories = result.categoryArray;
   }
 
   async updateFilms() {
-    const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id);
-    this.count = result.count;
-    this.films = result.filmArray;
-    this.selectedIndex = this.current_page;
+    console.log("ciao");
+    console.log(this.selectedCategory?.name);
+    if (this.selectedCategory) {
+      console.log("sono dentro");
+      const result = await this.apiService.getFilms_user_category(this.offset, this.user.customer_id, this.selectedCategory.category_id!);
+      this.count = result.count;
+      this.films = result.filmArray;
+      this.selectedIndex = this.current_page;
+    } else {
+      console.log("no sono qui");
+      const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id);
+      this.count = result.count;
+      this.films = result.filmArray;
+      this.selectedIndex = this.current_page;
+    }
   }
 
   showPrevious() {
@@ -65,6 +79,11 @@ export class Films_rentedComponent {
   async jump(index: number): Promise<void> {
     this.offset = index * 10;
     this.current_page = index;
+    await this.updateFilms();
+  }
+
+  async filter(category: Category){
+    this.selectedCategory = category;
     await this.updateFilms();
   }
 }
