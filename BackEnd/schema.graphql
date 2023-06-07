@@ -7,6 +7,7 @@ type Query {
     films_user_in_rent(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_category(customer_id: Int, category_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     categories: CategoryResult
+    stores_available(film_id: Int): Stores
 }
 
 type Login {
@@ -51,4 +52,13 @@ type Category {
 
 type CategoryResult {
     categoryArray: [Category]
+}
+
+type Store {
+    store_id: Int
+    city: String
+}
+
+type Stores {
+    stores: [Store]
 }

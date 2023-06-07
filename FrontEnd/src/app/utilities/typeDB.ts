@@ -37,3 +37,11 @@ export class Categories {
   categoryArray!: Category[];
 }
 
+export class Store {
+  store_id?: number;
+  city?: string;
+}
+
+export class Stores {
+  stores?: Store[];
+}

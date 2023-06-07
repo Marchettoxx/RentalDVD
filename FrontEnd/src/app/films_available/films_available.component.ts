@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import { Film } from "../utilities/typeDB";
+import {Film, Store} from "../utilities/typeDB";
 import { ApiService } from "../services/api.service";
 
 @Component({
@@ -17,6 +17,7 @@ export class Films_availableComponent implements OnInit {
   diff: number = 0;
   list_index: number[] = []
   selectedIndex: number = 0;
+  stores: Store[] = [];
 
   constructor(private apiService: ApiService) {}
 
@@ -53,8 +54,10 @@ export class Films_availableComponent implements OnInit {
     await this.updateFilms();
   }
 
-  onSelect(film: Film): void {
+  async onSelect(film: Film): Promise<void> {
     this.selectedFilm = film;
+    const result = await this.apiService.getStores(this.selectedFilm.film_id!);
+    this.stores = result.stores!;
   }
 
   async jump(index: number): Promise<void> {

@@ -28,6 +28,20 @@
               <p> Costo: </p>
               <p>{{selectedFilm.description}}</p>
             </div>
+
+
+            <div class="element">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Store
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <button class="dropdown-item" *ngFor="let store of stores" >{{store.city}}</button>
+                </div>
+              </div>
+            </div>
+
+
             <div class="modal-footer">
               <button type="button" class="btn btn-info " data-dismiss="modal" >Prenota</button>
             </div>
@@ -44,7 +58,7 @@
 <div class="pager">
   <button class="prev btn btn-info btn-lg"  *ngIf="showPrevious()" (click)="onPrevious()"> PREV </button>
   <div *ngFor="let index of list_index">
-    <button class="prev btn btn-info btn-lg"[class.selected]="index === selectedIndex" (click)="jump(index)"> {{index}} </button>
+    <button class="prev btn btn-info btn-lg" [class.selected]="index === selectedIndex" (click)="jump(index)"> {{index}} </button>
   </div>
   <button class="next btn btn-info btn-lg" *ngIf="showNext()" (click)="onNext()"> NEXT</button>
 </div>

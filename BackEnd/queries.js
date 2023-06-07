@@ -140,7 +140,26 @@ const root = {
                 }
             })
             .catch(err => err);
-    }
+    },
+    stores_available: (args) => {
+        const query = `SELECT s.store_id, ci.city 
+            FROM film f 
+            JOIN inventory i ON i.film_id = f.film_id 
+            JOIN rental r ON r.inventory_id = i.inventory_id
+            JOIN store s ON s.store_id = i.store_id
+            JOIN address a ON a.address_id = s.address_id
+            JOIN city ci ON ci.city_id = a.city_id
+            WHERE r.return_date is not NULL AND f.film_id = $1`;
+        const values = [args.film_id];
+        return db
+            .any(query, values)
+            .then(res => {
+                return {
+                    stores: res
+                }
+            })
+            .catch(err => err);
+    },
 }
 
 exports.root = root;
