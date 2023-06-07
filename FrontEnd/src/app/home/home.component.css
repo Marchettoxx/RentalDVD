@@ -1,1 +1,21 @@
+.title{
+  color: white;
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold
+}
 
+.card{
+  border-radius: 70px 70px 70px 70px;
+  background: hsla(0, 0%, 100%, 0.65)
+}
+
+.card-body{
+  text-align:center
+}
+
+.btn-primary{
+  border-radius: 50px 50px 50px 50px;
+  background-color: grey;
+  border-color: grey
+}

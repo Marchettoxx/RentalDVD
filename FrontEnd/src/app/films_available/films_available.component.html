@@ -1,13 +1,15 @@
 <div class="browse">
   <span style="display: inline-block; height: 100px;"></span>
-  <h1 style="color: white; text-align: center; font-size: 30px; font-weight: bold">Films disponibili</h1>
+
+  <h1>Films disponibili</h1>
+
   <span style="display: inline-block; height: 50px;"></span>
 
-  <div class="row" style="line-height:20px; margin-bottom:10px; align-content: center">
-<div class="col-sm-6" *ngFor="let film of films" style="margin-bottom:50px" >
-  <div class="card" style=" border-radius: 40px 40px 40px 40px; background: hsla(0, 0%, 100%, 0.85)">
-    <div class="card-body" style= "text-align:center">
-      <button type="button" class="btn title" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" style="background-color: transparent; color: darkblue; font-weight: bold; font-size: 150% ">{{film.title}}</button>
+  <div class="row" >
+<div class="col-sm-6" *ngFor="let film of films"  >
+  <div class="card" >
+    <div class="card-body" >
+      <button type="button" class="btn title" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" >{{film.title}}</button>
       <p class="card-text"> Anno: {{film.release_year}}, Genere: {{film.genre}}, Lingua: {{film.language}}, Rating:{{film.rating}}</p>
 
       <div id="myModal" class="modal fade menu-popup" role="dialog">
@@ -15,7 +17,7 @@
           <!-- Modal content-->
           <div class="modal-content" >
             <div class="modal-header">
-              <h4 class="modal-title" style="color: darkblue; font-weight: bold; font-size: 150% ">{{selectedFilm.title}}</h4>
+              <h4 class="modal-title" >{{selectedFilm.title}}</h4>
               <button type="button" class="close" data-dismiss="modal" >&times;</button>
             </div>
             <div class="modal-body">
@@ -27,12 +29,11 @@
               <p>{{selectedFilm.description}}</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-info " data-dismiss="modal" style="border-radius: 40px 40px 40px 40px">Prenota</button>
+              <button type="button" class="btn btn-info " data-dismiss="modal" >Prenota</button>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
@@ -41,14 +42,12 @@
 
 
 <div class="pager">
-  <button class="prev btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px; font-size: 20px " *ngIf="showPrevious()" (click)="onPrevious()"> PREV </button>
+  <button class="prev btn btn-info btn-lg"  *ngIf="showPrevious()" (click)="onPrevious()"> PREV </button>
   <div *ngFor="let index of list_index">
-    <button class="prev btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px; font-size: 20px " [class.selected]="index === selectedIndex" (click)="jump(index)"> {{index}} </button>
+    <button class="prev btn btn-info btn-lg"[class.selected]="index === selectedIndex" (click)="jump(index)"> {{index}} </button>
   </div>
-  <button class="next btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px;  font-size: 20px " *ngIf="showNext()" (click)="onNext()"> NEXT</button>
+  <button class="next btn btn-info btn-lg" *ngIf="showNext()" (click)="onNext()"> NEXT</button>
 </div>
-
-<span style="display: inline-block; height: 50px;"></span>
 </div>
 
 

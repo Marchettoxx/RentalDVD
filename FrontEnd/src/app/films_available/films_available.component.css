@@ -10,49 +10,61 @@
   max-width: 800px;
 }
 
-table {
-  margin-top: 16px;
-  margin-bottom: 16px;
-  border-collapse: collapse;
-  border: 1px solid #bbbbbb;
-}
-
-tr:nth-child(odd) {
-  background-color: #dddddd;
-}
-
-th, td {
-  padding: 4px 8px;
-  border-right: 1px solid #bbbbbb;
-  border-left: 1px solid #bbbbbb;
-}
-
-.prev {
-  float: left;
-}
-
-.next {
-  float: right;
-}
-
-button.selected {
-  background-color: black;
+.browse h1{
   color: white;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold
 }
 
-button.selected:hover {
-  background-color: #505050;
-  color: white;
+.h4{
+  color: darkblue;
+  font-weight: bold;
+  font-size: 150%
 }
 
-button.selected:active {
-  background-color: black;
-  color: white;
+.col-sm-6{
+  margin-bottom:50px
 }
 
+.card{
+  border-radius: 40px 40px 40px 40px;
+  background: hsla(0, 0%, 100%, 0.85)
+}
+
+.card-body{
+  text-align:center
+}
+
+.title{
+  background-color: transparent;
+  color: darkblue;
+  font-weight: bold;
+  font-size: 150%
+}
+
+.btn-info{
+border-radius: 40px 40px 40px 40px
+}
+
+/* Classe per il modal */
 .menu-popup {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.prev {
+  float: left;
+  border-radius: 70px 70px 70px 70px;
+  font-size: 20px
+}
+
+.next {
+  float: right;
+  border-radius: 70px 70px 70px 70px;
+  font-size: 20px
+}
+
+
