@@ -2,6 +2,7 @@ type Query {
     login(username: String!, password: String!): Login
     films(offset: Int = 0, limit: Int = 10): FilmsResult
     film(film_id: Int): Film
+    films_category(category_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_search(customer_id: Int, title: String!, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_in_rent(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult

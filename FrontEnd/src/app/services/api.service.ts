@@ -10,6 +10,7 @@ export class ApiService {
 
   private loginQuery: QueryRef<{login: Login}, {username: string, password: string}>;
   private filmsQuery: QueryRef<{films: Films}, {offset: number}>;
+  private films_categoryQuery: QueryRef<{films_category: Films}, {offset: number, category_id: number}>;
   private films_userQuery: QueryRef<{films_user: Films}, {offset: number, customer_id: number}>;
   private films_user_searchQuery: QueryRef<{films_user_search: Films}, {customer_id: number, title: string}>;
   private films_user_categoryQuery: QueryRef<{films_user_category: Films}, {offset: number, customer_id: number, category_id: number}>;
@@ -37,6 +38,23 @@ export class ApiService {
             genre
             language
             description
+          }
+        }
+      }`
+    });
+    this.films_categoryQuery = this.apollo.watchQuery({
+      query: gql`query films_category($offset: Int!, $category_id: Int!){
+        films_category(offset: $offset, category_id: $category_id){
+          count
+          filmArray {
+            film_id
+            title
+            release_year
+            rating
+            genre
+            language
+            description
+            return_date
           }
         }
       }`
@@ -151,6 +169,11 @@ export class ApiService {
   async getFilms(offset: number): Promise<Films> {
     const result = await this.filmsQuery.refetch({ offset });
     return result.data.films;
+  }
+
+  async getFilms_category(offset: number, category_id: number): Promise<Films> {
+    const result = await this.films_categoryQuery.refetch({ offset, category_id });
+    return result.data.films_category;
   }
 
   async getFilms_user(offset: number, customer_id: number): Promise<Films> {
