@@ -65,4 +65,5 @@ export class Films_availableComponent implements OnInit {
     this.current_page = index;
     await this.updateFilms();
   }
+
 }
