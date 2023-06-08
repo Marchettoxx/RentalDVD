@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 
-import {Film, Store} from "../utilities/typeDB";
+import {Category, Film, Store} from "../utilities/typeDB";
 import { ApiService } from "../services/api.service";
+import {debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-films_available',
@@ -11,13 +12,19 @@ import { ApiService } from "../services/api.service";
 export class Films_availableComponent implements OnInit {
   offset: number = 0;
   count: number = 0;
-  films: Film[] = [];
-  selectedFilm: Film = {};
-  current_page: number = 0;
   diff: number = 0;
+  current_page: number = 0;
+
+  films: Film[] | null = null;
+  selectedFilm: Film = {};
+  categories: Category[] | null = null;
+  selectedCategory: Category | null = null;
   list_index: number[] = []
   selectedIndex: number = 0;
   stores: Store[] = [];
+
+  films$!: Observable<Film[]> | undefined;
+  private searchTerms = new Subject<string>();
 
   constructor(private apiService: ApiService) {}
 
@@ -25,14 +32,43 @@ export class Films_availableComponent implements OnInit {
     await this.updateFilms();
     this.diff = this.count / 10;
     this.list_index = Array.from({ length: this.diff + 1 }, (_, index) => index);
+    const result = await this.apiService.getCategories();
+    this.categories = result.categoryArray;
+
+    this.films$ = this.searchTerms.pipe(
+      // wait 300ms after each keystroke before considering the term
+      debounceTime(300),
+      // ignore new term if same as previous term
+      distinctUntilChanged(),
+      // switch to new search observable each time the term changes
+      switchMap((term: string) => {
+        if (!term.trim()) {
+          // if not search term, return empty hero array.
+          return of([]);
+        } else {
+          return this.apiService.getFilms_search(term)
+        }
+      })
+    );
+
   }
 
   async updateFilms() {
-    const result = await this.apiService.getFilms(this.offset);
-    this.count = result.count;
-    this.films = result.filmArray;
-    this.selectedIndex = this.current_page;
+    if (this.selectedCategory) {
+      const result = await this.apiService.getFilms_category(this.offset, this.selectedCategory.category_id!);
+      this.count = result.count;
+      this.films = result.filmArray;
+      this.diff = this.count / 10;
+      this.list_index = Array.from({ length: this.diff + 1 }, (_, index) => index);
+      this.selectedIndex = this.current_page;
+    } else {
+      const result = await this.apiService.getFilms(this.offset);
+      this.count = result.count;
+      this.films = result.filmArray;
+      this.selectedIndex = this.current_page;
+    }
   }
+
 
   showPrevious() {
     return this.offset > 0;
@@ -64,6 +100,15 @@ export class Films_availableComponent implements OnInit {
     this.offset = index * 10;
     this.current_page = index;
     await this.updateFilms();
+  }
+
+  async filter(category: Category){
+    this.selectedCategory = category;
+    await this.updateFilms();
+  }
+
+  search(term: string): void {
+    this.searchTerms.next(term);
   }
 
 }

@@ -5,6 +5,7 @@ type Query {
     films_category(category_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_search(customer_id: Int, title: String!, offset: Int = 0, limit: Int = 10): FilmsResult
+    films_search(title: String!, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_in_rent(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_category(customer_id: Int, category_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     categories: CategoryResult

@@ -20,12 +20,9 @@ export class Films_rentedComponent {
   films: Film[] | null = null;
   selectedFilm: Film = {};
   categories: Category[] | null = null;
-  selectedCategory: Category | null = null;
   list_index: number[] = []
   selectedIndex: number = 0;
 
-  films$!: Observable<Film[]> | undefined;
-  private searchTerms = new Subject<string>();
 
   constructor(private loginService: LoginService, private apiService: ApiService) {
     this.loginService.user.subscribe(x => this.user = x!);
@@ -35,40 +32,15 @@ export class Films_rentedComponent {
     await this.updateFilms();
     this.diff = this.count / 10;
     this.list_index = Array.from({ length: this.diff + 1 }, (_, index) => index);
-    const result = await this.apiService.getCategories();
-    this.categories = result.categoryArray;
 
-    this.films$ = this.searchTerms.pipe(
-      // wait 300ms after each keystroke before considering the term
-      debounceTime(300),
-      // ignore new term if same as previous term
-      distinctUntilChanged(),
-      // switch to new search observable each time the term changes
-      switchMap((term: string) => {
-          if (!term.trim()) {
-            // if not search term, return empty hero array.
-            return of([]);
-          } else {
-            return this.apiService.getFilms_user_search(this.user.customer_id, term)
-          }
-      })
-    );
   }
 
   async updateFilms() {
-    if (this.selectedCategory) {
-      const result = await this.apiService.getFilms_user_category(this.offset, this.user.customer_id, this.selectedCategory.category_id!);
-      this.count = result.count;
-      this.films = result.filmArray;
-      this.diff = this.count / 10;
-      this.list_index = Array.from({ length: this.diff + 1 }, (_, index) => index);
-      this.selectedIndex = this.current_page;
-    } else {
       const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id);
       this.count = result.count;
       this.films = result.filmArray;
       this.selectedIndex = this.current_page;
-    }
+
   }
 
   showPrevious() {
@@ -101,12 +73,4 @@ export class Films_rentedComponent {
     await this.updateFilms();
   }
 
-  async filter(category: Category){
-    this.selectedCategory = category;
-    await this.updateFilms();
-  }
-
-  search(term: string): void {
-    this.searchTerms.next(term);
-  }
 }
