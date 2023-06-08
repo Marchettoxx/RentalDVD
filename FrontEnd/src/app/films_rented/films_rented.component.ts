@@ -19,7 +19,9 @@ export class Films_rentedComponent {
   user!: Login;
   films: Film[] | null = null;
   selectedFilm: Film = {};
-  categories: Category[] | null = null;
+  selectedReturnDate: Boolean = true;
+  selectedTitle: Boolean = false;
+  selectedGenre: Boolean = false;
   list_index: number[] = []
   selectedIndex: number = 0;
 
@@ -36,10 +38,24 @@ export class Films_rentedComponent {
   }
 
   async updateFilms() {
+    if(this.selectedTitle){
+      const result = await this.apiService.getFilms_user_title(this.offset, this.user.customer_id);
+      this.count = result.count;
+      this.films = result.filmArray;
+      this.selectedIndex = this.current_page;
+    }
+    else if(this.selectedGenre){
+      const result = await this.apiService.getFilms_user_genre(this.offset, this.user.customer_id);
+      this.count = result.count;
+      this.films = result.filmArray;
+      this.selectedIndex = this.current_page;
+    }
+    else if(this.selectedReturnDate){
       const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id);
       this.count = result.count;
       this.films = result.filmArray;
       this.selectedIndex = this.current_page;
+    }
 
   }
 
@@ -71,6 +87,27 @@ export class Films_rentedComponent {
     this.offset = index * 10;
     this.current_page = index;
     await this.updateFilms();
+  }
+
+  async sortByTitle(){
+    this.selectedTitle=true;
+    this.selectedGenre=false;
+    this.selectedReturnDate=false;
+    await this.updateFilms()
+  }
+
+  async sortByGenre(){
+    this.selectedTitle=false;
+    this.selectedGenre=true;
+    this.selectedReturnDate=false;
+    await this.updateFilms()
+  }
+
+  async sortByReturnDate(){
+    this.selectedTitle=false;
+    this.selectedGenre=false;
+    this.selectedReturnDate=true;
+    await this.updateFilms()
   }
 
 }

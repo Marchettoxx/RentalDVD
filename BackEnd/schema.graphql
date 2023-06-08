@@ -1,3 +1,5 @@
+scalar Date
+
 type Query {
     login(username: String!, password: String!): Login
     films(offset: Int = 0, limit: Int = 10): FilmsResult
@@ -8,6 +10,8 @@ type Query {
     films_search(title: String!, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_in_rent(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_category(customer_id: Int, category_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
+    films_user_title (customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
+    films_user_genre (customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     categories: CategoryResult
     stores_available(film_id: Int): Stores
 }
@@ -32,7 +36,7 @@ type Film {
     fulltext: String
     genre: String
     language: String
-    return_date: String
+    return_date: Date!
     inventory_id: String
     store_id: String
     customer_id: String
