@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql, QueryRef } from 'apollo-angular';
-import {Login, Films, Film, Categories} from '../utilities/typeDB';
+
+import {Login, Films, Film, Categories, Stores} from '../utilities/typeDB';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class ApiService {
   private films_user_in_rentQuery: QueryRef<{films_user: Films}, {offset: number, customer_id: number}>;
   private filmQuery: QueryRef<{film: Film}, {film_id: number}>;
   private categoriesQuery: QueryRef<{categories: Categories}>;
+  private storesQuery: QueryRef<{stores_available: Stores}, {film_id: number}>;
   constructor(private apollo: Apollo) {
     this.loginQuery = this.apollo.watchQuery({
       query: gql`query login($username: String!, $password: String!) {
@@ -120,14 +122,23 @@ export class ApiService {
     this.filmQuery = this.apollo.watchQuery({
       query: gql`query film($film_id: Int!){
         film(film_id: $film_id){
-            film_id
-            title
-            release_year
-            rating
-            genre
-            language
-            rental_rate
+          film_id
+          title
+          release_year
+          rating
+          genre
+          language
+          rental_rate
+        }
+      }`
+    });
+    this.storesQuery = this.apollo.watchQuery({
+      query: gql`query stores_available($film_id: Int!){
+        stores_available(film_id: $film_id){
+          stores{
+            city
           }
+        }
       }`
     });
   }
@@ -171,5 +182,10 @@ export class ApiService {
   async getCategories(): Promise<Categories> {
     const result = await this.categoriesQuery.refetch();
     return result.data.categories;
+  }
+
+  async getStores(film_id: number): Promise<Stores> {
+    const result = await this.storesQuery.refetch({film_id});
+    return result.data.stores_available;
   }
 }
