@@ -69,13 +69,12 @@ export class Films_availableComponent implements OnInit {
     }
   }
 
-
-  showPrevious() {
-    return this.offset > 0;
+  showPrevious(n: number) {
+    return this.offset - n > 0;
   }
 
-  showNext() {
-    return this.offset + 10 < this.count;
+  showNext(n: number) {
+    return this.offset + 10 + n < this.count;
   }
 
   async onPrevious() {
@@ -90,16 +89,16 @@ export class Films_availableComponent implements OnInit {
     await this.updateFilms();
   }
 
-  async onSelect(film: Film): Promise<void> {
-    this.selectedFilm = film;
-    const result = await this.apiService.getStores(this.selectedFilm.film_id!);
-    this.stores = result.stores!;
-  }
-
   async jump(index: number): Promise<void> {
     this.offset = index * 10;
     this.current_page = index;
     await this.updateFilms();
+  }
+
+  async onSelect(film: Film): Promise<void> {
+    this.selectedFilm = film;
+    const result = await this.apiService.getStores(this.selectedFilm.film_id!);
+    this.stores = result.stores!;
   }
 
   async filter(category: Category){

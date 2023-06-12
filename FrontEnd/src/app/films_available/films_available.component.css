@@ -137,3 +137,18 @@ ul.search-result {
   position: relative;
   z-index: 2;
 }
+
+button.selected {
+  background-color: black;
+  color: white;
+}
+
+button.selected:hover {
+  background-color: #505050;
+  color: white;
+}
+
+button.selected:active {
+  background-color: black;
+  color: white;
+}

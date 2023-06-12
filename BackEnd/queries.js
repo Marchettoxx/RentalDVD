@@ -19,7 +19,6 @@ const root = {
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
             JOIN store s ON s.store_id = i.store_id
-            WHERE r.return_date is not NULL
             group by f.title, f.description, f.release_year, f.rental_duration, f.rental_rate, f.length, f.replacement_cost, f.rating, f.special_features, f.fulltext, c.name, l.name , f.film_id
             order by f.film_id`;
         return db
@@ -49,7 +48,7 @@ const root = {
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
             JOIN store s ON s.store_id = i.store_id
-            WHERE r.return_date is not NULL AND c.category_id = $1
+            WHERE c.category_id = $1
             ORDER BY r.return_date`;
         const values = [args.category_id];
         return db
@@ -154,7 +153,6 @@ const root = {
             })
             .catch(err => err);
     },
-
     films_search: (args) => {
         const query = `SELECT f.film_id, f.title, f.description, f.release_year, f.rental_duration, f.rental_rate, f.length, f.replacement_cost, f.rating, f.special_features, f.fulltext, c.name AS genre, l.name AS language, i.inventory_id, s.store_id, r.customer_id, r.return_date
             FROM film f 
@@ -164,7 +162,7 @@ const root = {
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
             JOIN store s ON s.store_id = i.store_id
-            WHERE r.return_date is not NULL AND f.title ILIKE '%' || LOWER($1) || '%'
+            WHERE f.title ILIKE '%' || LOWER($1) || '%'
             ORDER BY r.return_date`;
         const values = [args.title];
         return db

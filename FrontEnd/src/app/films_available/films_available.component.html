@@ -1,8 +1,6 @@
 <div class="browse">
   <span style="display: inline-block; height: 100px;"></span>
-
-  <h1>Films disponibili</h1>
-
+  <h1>Films</h1>
   <span style="display: inline-block; height: 50px;"></span>
 
   <div class="container">
@@ -31,65 +29,85 @@
     </div>
 
   </div>
-
-
   <div class="row" >
-<div class="col-sm-6" *ngFor="let film of films"  >
-  <div class="card" >
-    <div class="card-body" >
-      <button type="button" class="btn title" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" >{{film.title}}</button>
-      <p class="card-text"> Anno: {{film.release_year}}, Genere: {{film.genre}}, Lingua: {{film.language}}, Rating:{{film.rating}}</p>
+    <div class="col-sm-6" *ngFor="let film of films">
+      <div class="card" >
+        <div class="card-body" >
+          <button type="button" class="btn title" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" >{{film.title}}</button>
+          <p class="card-text"> Anno: {{film.release_year}}, Genere: {{film.genre}}, Lingua: {{film.language}}, Rating:{{film.rating}}</p>
 
-      <div id="myModal" class="modal fade menu-popup" role="dialog">
-        <div class="modal-dialog" >
-          <!-- Modal content-->
-          <div class="modal-content" >
-            <div class="modal-header">
-              <h4 class="modal-title" >{{selectedFilm.title}}</h4>
-              <button type="button" class="close" data-dismiss="modal" >&times;</button>
-            </div>
-            <div class="modal-body">
-              <p>Anno: {{selectedFilm.release_year}}</p>
-              <p>Genere: {{selectedFilm.genre}}</p>
-              <p>Lingua: {{selectedFilm.language}}</p>
-              <p>Rating:{{selectedFilm.rating}}</p>
-              <p> Costo: </p>
-              <p>{{selectedFilm.description}}</p>
-            </div>
+          <div id="myModal" class="modal fade menu-popup" role="dialog">
+            <div class="modal-dialog" >
+              <!-- Modal content-->
+              <div class="modal-content" >
+                <div class="modal-header">
+                  <h4 class="modal-title" >{{selectedFilm.title}}</h4>
+                  <button type="button" class="close" data-dismiss="modal" >&times;</button>
+                </div>
+                <div class="modal-body">
+                  <p>Anno: {{selectedFilm.release_year}}</p>
+                  <p>Genere: {{selectedFilm.genre}}</p>
+                  <p>Lingua: {{selectedFilm.language}}</p>
+                  <p>Rating:{{selectedFilm.rating}}</p>
+                  <p> Costo: </p>
+                  <p>{{selectedFilm.description}}</p>
+                </div>
 
 
-            <div class="element">
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Store
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <button class="dropdown-item" *ngFor="let store of stores" >{{store.city}}</button>
+                <div class="element">
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Store
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <button class="dropdown-item" *ngFor="let store of stores" >{{store.city}}</button>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-info " data-dismiss="modal" >Prenota</button>
                 </div>
               </div>
-            </div>
-
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-info " data-dismiss="modal" >Prenota</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-</div>
 
+  <!--<div class="pager">
+    <button class="prev btn btn-info btn-lg" *ngIf="showPrevious()" (click)="onPrevious()"> PREV </button>
+    <div *ngFor="let index of list_index">
+      <button class="prev btn btn-info btn-lg" [class.selected]="index === selectedIndex" (click)="jump(index)"> {{index}} </button>
+    </div>
+    <button class="next btn btn-info btn-lg" *ngIf="showNext()" (click)="onNext()"> NEXT </button>
+  </div>-->
 
+  <div>
+    <button class="prev btn btn-info btn-lg" *ngIf="showPrevious(0)" (click)="onPrevious()"> PREV </button>
 
-<div class="pager">
-  <button class="prev btn btn-info btn-lg"  *ngIf="showPrevious()" (click)="onPrevious()"> PREV </button>
-  <div *ngFor="let index of list_index">
-    <button class="prev btn btn-info btn-lg" [class.selected]="index === selectedIndex" (click)="jump(index)"> {{index}} </button>
+    <div style="margin: auto; width: 38%">
+      <div *ngIf="showPrevious(10)">
+        <button class="prev btn btn-info btn-lg" (click)="jump(current_page-2)"> {{current_page-2}} </button>
+      </div>
+      <div *ngIf="showPrevious(0)">
+        <button class="prev btn btn-info btn-lg" (click)="jump(current_page-1)"> {{current_page-1}} </button>
+      </div>
+      <div *ngIf="current_page">
+        <button class="prev btn btn-info btn-lg" [class.selected]="current_page === selectedIndex" (click)="jump(offset)"> {{current_page}} </button>
+      </div>
+      <div *ngIf="showNext(0)">
+        <button class="prev btn btn-info btn-lg" (click)="jump(current_page+1)"> {{current_page+1}} </button>
+      </div>
+      <div *ngIf="showNext(10)">
+        <button class="prev btn btn-info btn-lg" (click)="jump(current_page+2)"> {{current_page+2}} </button>
+      </div>
+    </div>
+
+    <button class="next btn btn-info btn-lg" *ngIf="showNext(0)" (click)="onNext()"> NEXT </button>
   </div>
-  <button class="next btn btn-info btn-lg" *ngIf="showNext()" (click)="onNext()"> NEXT</button>
-</div>
 </div>
 
 
