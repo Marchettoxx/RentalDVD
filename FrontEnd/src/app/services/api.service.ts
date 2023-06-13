@@ -57,7 +57,6 @@ export class ApiService {
             genre
             language
             description
-            return_date
           }
         }
       }`
@@ -133,7 +132,6 @@ export class ApiService {
         }
       }`
     });
-
     this.films_searchQuery = this.apollo.watchQuery({
       query: gql`query films_search($title: String!){
         films_search( title: $title){
@@ -146,7 +144,6 @@ export class ApiService {
             genre
             language
             description
-            return_date
           }
         }
       }`

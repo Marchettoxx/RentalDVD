@@ -5,11 +5,11 @@ import { ApiService } from "../services/api.service";
 import {debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap} from "rxjs";
 
 @Component({
-  selector: 'app-films_available',
-  templateUrl: './films_available.component.html',
-  styleUrls: ['./films_available.component.css']
+  selector: 'app-films',
+  templateUrl: './films.html',
+  styleUrls: ['./films.css']
 })
-export class Films_availableComponent implements OnInit {
+export class Films implements OnInit {
   offset: number = 0;
   count: number = 0;
   diff: number = 0;
@@ -18,10 +18,11 @@ export class Films_availableComponent implements OnInit {
   films: Film[] | null = null;
   selectedFilm: Film = {};
   categories: Category[] | null = null;
-  selectedCategory: Category | null = null;
+  selectedCategory: Category = {category_id: 1, name: "Categorie"};
   list_index: number[] = []
   selectedIndex: number = 0;
-  stores: Store[] = [];
+  stores: Store[] | null = null;
+  selectedStore: Store = {store_id: 1, city: "Store"}
 
   films$!: Observable<Film[]> | undefined;
   private searchTerms = new Subject<string>();
@@ -34,7 +35,6 @@ export class Films_availableComponent implements OnInit {
     this.list_index = Array.from({ length: this.diff + 1 }, (_, index) => index);
     const result = await this.apiService.getCategories();
     this.categories = result.categoryArray;
-
     this.films$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
@@ -50,7 +50,6 @@ export class Films_availableComponent implements OnInit {
         }
       })
     );
-
   }
 
   async updateFilms() {
@@ -106,8 +105,12 @@ export class Films_availableComponent implements OnInit {
     await this.updateFilms();
   }
 
-  search(term: string): void {
-    this.searchTerms.next(term);
+  selectStore(store: Store) {
+    this.selectedStore = store;
   }
 
+  search(term: string): void {
+    console.log(term);
+    this.searchTerms.next(term);
+  }
 }

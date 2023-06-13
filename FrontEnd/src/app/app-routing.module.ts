@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from "./home/home.component";
 import { AuthGuard } from "./services/auth.guard";
 import { LoginComponent } from "./login/login.component";
-import { Films_availableComponent } from "./films_available/films_available.component";
+import { Films } from "./films/films";
 import { Films_rentedComponent } from "./films_rented/films_rented.component";
 
 /*
@@ -17,7 +17,7 @@ import { Films_rentedComponent } from "./films_rented/films_rented.component";
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent},
-  { path: 'films_available', component: Films_availableComponent, canActivate: [AuthGuard]},
+  { path: 'films', component: Films, canActivate: [AuthGuard]},
   { path: 'films_rented', component: Films_rentedComponent, canActivate: [AuthGuard]},
 
   // if insert an url not correct

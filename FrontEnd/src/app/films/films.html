@@ -8,7 +8,7 @@
     <div class="element">
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Categorie
+          {{selectedCategory.name}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
           <button class="dropdown-item" *ngFor="let category of categories" (click)="filter(category)">{{category.name}}</button>
@@ -16,11 +16,11 @@
       </div>
     </div>
 
-    <div class="element" style="position: relative;">
+    <div class="element">
       <div id="search-component">
         <label for="search-box"></label>
         <input #searchBox id="search-box" (input)="search(searchBox.value)" />
-        <ul class="search-result">
+        <ul class="search-result search-container">
           <li *ngFor="let film of films$ | async">
             <a><button type="button" class="btn" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" style="background-color: transparent; color: darkblue; font-weight: bold ">{{ film.title }} </button></a>
           </li>
@@ -38,7 +38,6 @@
 
           <div id="myModal" class="modal fade menu-popup" role="dialog">
             <div class="modal-dialog" >
-              <!-- Modal content-->
               <div class="modal-content" >
                 <div class="modal-header">
                   <h4 class="modal-title" >{{selectedFilm.title}}</h4>
@@ -52,24 +51,21 @@
                   <p> Costo: </p>
                   <p>{{selectedFilm.description}}</p>
                 </div>
-
-
                 <div class="element">
                   <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Store
+                      {{selectedStore.city}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <button class="dropdown-item" *ngFor="let store of stores" >{{store.city}}</button>
+                      <button class="dropdown-item" *ngFor="let store of stores" (click)="selectStore(store)">{{store.city}}</button>
                     </div>
                   </div>
                 </div>
-
-
                 <div class="modal-footer">
                   <button type="button" class="btn btn-info " data-dismiss="modal" >Prenota</button>
                 </div>
               </div>
+
             </div>
           </div>
         </div>

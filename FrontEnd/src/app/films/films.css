@@ -10,44 +10,43 @@
   max-width: 800px;
 }
 
-.browse h1{
+.browse h1 {
   color: white;
   text-align: center;
   font-size: 30px;
   font-weight: bold
 }
 
-.modal-title{
+.modal-title {
   color: darkblue;
   font-weight: bold;
   font-size: 150%
 }
 
-.col-sm-6{
+.col-sm-6 {
   margin-bottom:50px
 }
 
-.card{
+.card {
   border-radius: 40px 40px 40px 40px;
   background: hsla(0, 0%, 100%, 0.85)
 }
 
-.card-body{
+.card-body {
   text-align:center
 }
 
-.title{
+.title {
   background-color: transparent;
   color: darkblue;
   font-weight: bold;
   font-size: 150%
 }
 
-.btn-info{
+.btn-info {
 border-radius: 40px 40px 40px 40px
 }
 
-/* Classe per il modal */
 .menu-popup {
   position: fixed;
   top: 50%;
@@ -73,7 +72,6 @@ label {
   font-size: 1.2rem;
   margin-top: 1rem;
   margin-bottom: .5rem;
-
 }
 
 input {
@@ -88,7 +86,7 @@ input:focus {
   outline: #336699 auto 1px;
 }
 
-.search-result li a {
+.search-result li {
   border-bottom: 1px solid gray;
   border-left: 1px solid gray;
   border-right: 1px solid gray;
@@ -102,9 +100,9 @@ input:focus {
   background-color: white;
 }
 
-.search-result li a:hover {
-  background-color: #435A60;
-  color: white;
+.search-result li:hover {
+  background-color: greenyellow;
+  color: gainsboro;
 }
 
 ul.search-result {
@@ -125,7 +123,8 @@ ul.search-result {
 }
 
 .element {
-  flex: 1 0 50%; /* Adjust the width as needed */
+  flex: 1 0 40%; /* Adjust the width as needed */
+  margin-bottom: 40px;
 }
 
 .dropdown {
@@ -151,4 +150,9 @@ button.selected:hover {
 button.selected:active {
   background-color: black;
   color: white;
+}
+
+.search-container {
+  position: absolute;
+  z-index: 9999;
 }
