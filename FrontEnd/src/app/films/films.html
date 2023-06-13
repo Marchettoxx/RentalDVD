@@ -1,10 +1,8 @@
 <div class="browse">
-  <span style="display: inline-block; height: 100px;"></span>
-  <h1>Films</h1>
-  <span style="display: inline-block; height: 50px;"></span>
+  <span class="space"></span>
+  <h1> Films </h1>
 
   <div class="container">
-
     <div class="element">
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -27,7 +25,6 @@
         </ul>
       </div>
     </div>
-
   </div>
   <div class="row" >
     <div class="col-sm-6" *ngFor="let film of films">
@@ -35,7 +32,6 @@
         <div class="card-body" >
           <button type="button" class="btn title" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" >{{film.title}}</button>
           <p class="card-text"> Anno: {{film.release_year}}, Genere: {{film.genre}}, Lingua: {{film.language}}, Rating:{{film.rating}}</p>
-
           <div id="myModal" class="modal fade menu-popup" role="dialog">
             <div class="modal-dialog" >
               <div class="modal-content" >
@@ -62,10 +58,9 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-info " data-dismiss="modal" >Prenota</button>
+                  <button type="button" class="btn btn-info " data-dismiss="modal" routerLink="/"> Prenota </button>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -73,26 +68,18 @@
     </div>
   </div>
 
-  <!--<div class="pager">
-    <button class="prev btn btn-info btn-lg" *ngIf="showPrevious()" (click)="onPrevious()"> PREV </button>
-    <div *ngFor="let index of list_index">
-      <button class="prev btn btn-info btn-lg" [class.selected]="index === selectedIndex" (click)="jump(index)"> {{index}} </button>
-    </div>
-    <button class="next btn btn-info btn-lg" *ngIf="showNext()" (click)="onNext()"> NEXT </button>
-  </div>-->
-
   <div>
     <button class="prev btn btn-info btn-lg" *ngIf="showPrevious(0)" (click)="onPrevious()"> PREV </button>
 
-    <div style="margin: auto; width: 38%">
+    <div class="index">
       <div *ngIf="showPrevious(10)">
         <button class="prev btn btn-info btn-lg" (click)="jump(current_page-2)"> {{current_page-2}} </button>
       </div>
       <div *ngIf="showPrevious(0)">
         <button class="prev btn btn-info btn-lg" (click)="jump(current_page-1)"> {{current_page-1}} </button>
       </div>
-      <div *ngIf="current_page">
-        <button class="prev btn btn-info btn-lg" [class.selected]="current_page === selectedIndex" (click)="jump(offset)"> {{current_page}} </button>
+      <div *ngIf="true">
+        <button class="prev btn btn-info btn-lg" [class.selected]="true" (click)="jump(offset)"> {{current_page}} </button>
       </div>
       <div *ngIf="showNext(0)">
         <button class="prev btn btn-info btn-lg" (click)="jump(current_page+1)"> {{current_page+1}} </button>
@@ -104,6 +91,7 @@
 
     <button class="next btn btn-info btn-lg" *ngIf="showNext(0)" (click)="onNext()"> NEXT </button>
   </div>
+  <span class="space"></span>
 </div>
 
 

@@ -1,4 +1,0 @@
-<div *ngIf="messageService.messages.length" class="alert alert-danger" role="alert">
-  <button type="button" style="background-color:transparent; width: 100%"  (click)="messageService.clear()"></button>
-  <div *ngFor='let message of messageService.messages'> {{message}} </div>
-</div>

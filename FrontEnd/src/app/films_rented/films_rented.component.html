@@ -1,56 +1,71 @@
 <div class="browse">
-  <span style="display: inline-block; height: 100px;"></span>
-  <h1 style="color: white; text-align: center; font-size: 30px; font-weight: bold">La tua cronologia di film noleggiati</h1>
-  <span style="display: inline-block; height: 50px;"></span>
+  <span class="space"></span>
+  <h1> La tua cronologia di film noleggiati </h1>
 
-
-  <table style="background: hsla(0, 0%, 100%, 0.85)">
+  <table class="tableStyle">
     <thead>
-    <tr style="background-color: #444444; text-size-adjust: auto; color: white">
-      <th><button type="button" (click)="sortByTitle() ">Title</button></th>
-      <th><a (click)="sortByGenre() ">Genre</a></th>
-      <th><a (click)="sortByReturnDate()  ">Data riconsegna</a></th>
-    </tr>
+      <tr class="top">
+        <th><a (click)="sortByTitle()"> Title </a></th>
+        <th><a (click)="sortByGenre()"> Genre </a></th>
+        <th><a (click)="sortByReturnDate()"> Data riconsegna </a></th>
+      </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let film of films " style="background: hsla(0, 0%, 100%, 0.45); ">
-      <td> <button type="button" class="btn" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" style="background-color: transparent; color: darkblue; font-weight: bold ">{{ film.title }} </button></td>
-      <td>{{ film.genre }}</td>
-      <td>{{film.return_date}}</td>
-    </tr>
+      <tr *ngFor="let film of films">
+        <td>
+          <a class="btn nameTitle" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal"> {{ film.title }} </a>
+        </td>
+        <td> {{film.genre}} </td>
+        <td> {{film.return_date}} </td>
+      </tr>
     </tbody>
   </table>
 
   <div id="myModal" class="modal fade menu-popup" role="dialog">
     <div class="modal-dialog" >
-      <!-- Modal content-->
       <div class="modal-content" >
         <div class="modal-header">
-          <h4 class="modal-title" style="color: darkblue; font-weight: bold; font-size: 150% ">{{selectedFilm.title}}</h4>
+          <h4 class="modal-title nameTitle"> {{selectedFilm.title}} </h4>
           <button type="button" class="close" data-dismiss="modal" >&times;</button>
         </div>
+
         <div class="modal-body">
-          <p>Anno: {{selectedFilm.release_year}}</p>
-          <p>Genere: {{selectedFilm.genre}}</p>
-          <p>Lingua: {{selectedFilm.language}}</p>
-          <p>Rating:{{selectedFilm.rating}}</p>
+          <p> Anno: {{selectedFilm.release_year}} </p>
+          <p> Genere: {{selectedFilm.genre}} </p>
+          <p> Lingua: {{selectedFilm.language}} </p>
+          <p> Rating:{{selectedFilm.rating}} </p>
           <p> Costo: </p>
-          <p>{{selectedFilm.description}}</p>
+          <p> {{selectedFilm.description}} </p>
         </div>
+
         <div class="modal-footer">
-          <button type="button" class="btn btn-info " data-dismiss="modal" style="border-radius: 40px 40px 40px 40px">Prenota</button>
+          <button type="button" class="btn btn-info" data-dismiss="modal"> Prenota </button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="pager" >
-    <button class="prev btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px; font-size: 20px " *ngIf="showPrevious()" (click)="onPrevious()"> PREV </button>
-      <div *ngFor="let index of list_index">
-        <button class="prev btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px; font-size: 20px " [class.selected]="index === selectedIndex" (click)="jump(index)"> {{index}} </button>
-      </div>
-    <button class="next btn btn-info btn-lg" style="border-radius: 70px 70px 70px 70px;  font-size: 20px " *ngIf="showNext()" (click)="onNext()"> NEXT</button>
-  </div>
+  <div>
+    <button class="prev btn btn-info btn-lg" *ngIf="showPrevious(0)" (click)="onPrevious()"> PREV </button>
 
-  <span style="display: inline-block; height: 50px;"></span>
+    <div class="index">
+      <div *ngIf="showPrevious(10)">
+        <button class="prev btn btn-info btn-lg" (click)="jump(current_page-2)"> {{current_page-2}} </button>
+      </div>
+      <div *ngIf="showPrevious(0)">
+        <button class="prev btn btn-info btn-lg" (click)="jump(current_page-1)"> {{current_page-1}} </button>
+      </div>
+      <div *ngIf="true">
+        <button class="prev btn btn-info btn-lg" [class.selected]="true" (click)="jump(offset)"> {{current_page}} </button>
+      </div>
+      <div *ngIf="showNext(0)">
+        <button class="prev btn btn-info btn-lg" (click)="jump(current_page+1)"> {{current_page+1}} </button>
+      </div>
+      <div *ngIf="showNext(10)">
+        <button class="prev btn btn-info btn-lg" (click)="jump(current_page+2)"> {{current_page+2}} </button>
+      </div>
+    </div>
+
+    <button class="next btn btn-info btn-lg" *ngIf="showNext(0)" (click)="onNext()"> NEXT </button>
+  </div>
 </div>

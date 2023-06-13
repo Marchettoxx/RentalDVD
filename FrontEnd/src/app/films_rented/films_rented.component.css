@@ -10,29 +10,35 @@
   max-width: 800px;
 }
 
-table {
+.tableStyle {
   margin-top: 16px;
   margin-bottom: 16px;
   border-collapse: collapse;
   border: 1px solid #bbbbbb;
+  background: hsla(0, 0%, 100%, 0.85);
 }
 
-tr:nth-child(odd) {
-  background-color: #dddddd;
+.top {
+  background: darkseagreen;
+  text-size-adjust: auto;
 }
 
-th, td {
-  padding: 4px 8px;
-  border-right: 1px solid #bbbbbb;
-  border-left: 1px solid #bbbbbb;
+.nameTitle {
+  background-color: transparent;
+  color: darkblue;
+  font-weight: bold;
 }
 
 .prev {
   float: left;
+  border-radius: 70px 70px 70px 70px;
+  font-size: 20px
 }
 
 .next {
   float: right;
+  border-radius: 70px 70px 70px 70px;
+  font-size: 20px
 }
 
 button.selected {
@@ -50,8 +56,27 @@ button.selected:active {
   color: white;
 }
 
+.space {
+  display: inline-block;
+  height: 50px;
+}
 
+h1 {
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+}
 
+.curve {
+  border-radius: 70px 70px 70px 70px;
+  font-size: 20px;
+}
+
+.index {
+  margin: auto;
+  width: 45%;
+}
 
 
 

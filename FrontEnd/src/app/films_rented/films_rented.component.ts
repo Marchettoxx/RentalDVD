@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 
-import { Category, Film, Login } from "../utilities/typeDB";
+import { Film, Login } from "../utilities/typeDB";
 import { ApiService } from "../services/api.service";
 import { LoginService } from "../services/login.service";
-import {debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-films_rented',
@@ -13,18 +12,16 @@ import {debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap} 
 export class Films_rentedComponent {
   offset: number = 0;
   count: number = 0;
-  current_page: number = 0;
   diff: number = 0;
+  current_page: number = 0;
 
   user!: Login;
+
   films: Film[] | null = null;
   selectedFilm: Film = {};
   selectedReturnDate: Boolean = true;
   selectedTitle: Boolean = false;
   selectedGenre: Boolean = false;
-  list_index: number[] = []
-  selectedIndex: number = 0;
-
 
   constructor(private loginService: LoginService, private apiService: ApiService) {
     this.loginService.user.subscribe(x => this.user = x!);
@@ -32,9 +29,6 @@ export class Films_rentedComponent {
 
   async ngOnInit(): Promise<void> {
     await this.updateFilms();
-    this.diff = this.count / 10;
-    this.list_index = Array.from({ length: this.diff + 1 }, (_, index) => index);
-
   }
 
   async updateFilms() {
@@ -42,29 +36,25 @@ export class Films_rentedComponent {
       const result = await this.apiService.getFilms_user_title(this.offset, this.user.customer_id);
       this.count = result.count;
       this.films = result.filmArray;
-      this.selectedIndex = this.current_page;
     }
     else if(this.selectedGenre){
       const result = await this.apiService.getFilms_user_genre(this.offset, this.user.customer_id);
       this.count = result.count;
       this.films = result.filmArray;
-      this.selectedIndex = this.current_page;
     }
     else if(this.selectedReturnDate){
       const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id);
       this.count = result.count;
       this.films = result.filmArray;
-      this.selectedIndex = this.current_page;
     }
-
   }
 
-  showPrevious() {
-    return this.offset > 0;
+  showPrevious(n: number) {
+    return this.offset - n > 0;
   }
 
-  showNext() {
-    return this.offset + 10 < this.count;
+  showNext(n: number) {
+    return this.offset + 10 + n < this.count;
   }
 
   async onPrevious() {
@@ -109,5 +99,4 @@ export class Films_rentedComponent {
     this.selectedReturnDate=true;
     await this.updateFilms()
   }
-
 }

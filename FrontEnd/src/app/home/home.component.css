@@ -19,3 +19,8 @@
   background-color: grey;
   border-color: grey
 }
+
+.space {
+  display: inline-block;
+  height: 100px;
+}

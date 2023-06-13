@@ -19,8 +19,6 @@ export class Films implements OnInit {
   selectedFilm: Film = {};
   categories: Category[] | null = null;
   selectedCategory: Category = {category_id: 1, name: "Categorie"};
-  list_index: number[] = []
-  selectedIndex: number = 0;
   stores: Store[] | null = null;
   selectedStore: Store = {store_id: 1, city: "Store"}
 
@@ -31,8 +29,6 @@ export class Films implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.updateFilms();
-    this.diff = this.count / 10;
-    this.list_index = Array.from({ length: this.diff + 1 }, (_, index) => index);
     const result = await this.apiService.getCategories();
     this.categories = result.categoryArray;
     this.films$ = this.searchTerms.pipe(
@@ -57,14 +53,10 @@ export class Films implements OnInit {
       const result = await this.apiService.getFilms_category(this.offset, this.selectedCategory.category_id!);
       this.count = result.count;
       this.films = result.filmArray;
-      this.diff = this.count / 10;
-      this.list_index = Array.from({ length: this.diff + 1 }, (_, index) => index);
-      this.selectedIndex = this.current_page;
     } else {
       const result = await this.apiService.getFilms(this.offset);
       this.count = result.count;
       this.films = result.filmArray;
-      this.selectedIndex = this.current_page;
     }
   }
 
@@ -88,16 +80,16 @@ export class Films implements OnInit {
     await this.updateFilms();
   }
 
-  async jump(index: number): Promise<void> {
-    this.offset = index * 10;
-    this.current_page = index;
-    await this.updateFilms();
-  }
-
   async onSelect(film: Film): Promise<void> {
     this.selectedFilm = film;
     const result = await this.apiService.getStores(this.selectedFilm.film_id!);
     this.stores = result.stores!;
+  }
+
+  async jump(index: number): Promise<void> {
+    this.offset = index * 10;
+    this.current_page = index;
+    await this.updateFilms();
   }
 
   async filter(category: Category){
