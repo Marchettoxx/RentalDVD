@@ -18,6 +18,8 @@ export class Films implements OnInit {
   my_date = new Date();
   tomorrow= new Date();
   aftertomorrow = new Date();
+  rented = false;
+  rentedFilm: Film = {}
 
   films: Film[] | null = null;
   selectedFilm: Film = {};
@@ -116,5 +118,11 @@ export class Films implements OnInit {
 
   onSelectDate(date: Date){
     this.selectedDate = date;
+  }
+
+  rent() {
+    this.rented = true;
+    this.rentedFilm = this.selectedFilm;
+    setTimeout(() => {this.rented = false;}, 3000)
   }
 }

@@ -58,6 +58,7 @@ export class ApiService {
             genre
             language
             description
+            rental_rate
           }
         }
       }`
