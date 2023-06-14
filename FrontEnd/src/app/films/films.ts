@@ -4,6 +4,7 @@ import {Category, Film, Store} from "../utilities/typeDB";
 import { ApiService } from "../services/api.service";
 import {debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap} from "rxjs";
 
+
 @Component({
   selector: 'app-films',
   templateUrl: './films.html',
@@ -14,13 +15,17 @@ export class Films implements OnInit {
   count: number = 0;
   diff: number = 0;
   current_page: number = 0;
+  my_date = new Date();
+  tomorrow= new Date();
+  aftertomorrow = new Date();
 
   films: Film[] | null = null;
   selectedFilm: Film = {};
   categories: Category[] | null = null;
   selectedCategory: Category = {category_id: 1, name: "Categorie"};
   stores: Store[] | null = null;
-  selectedStore: Store = {store_id: 1, city: "Store"}
+  selectedStore: Store = {store_id: 1, city: "Store"};
+  selectedDate: Date = this.my_date;
 
   films$!: Observable<Film[]> | undefined;
   private searchTerms = new Subject<string>();
@@ -28,6 +33,8 @@ export class Films implements OnInit {
   constructor(private apiService: ApiService) {}
 
   async ngOnInit(): Promise<void> {
+    this.tomorrow.setDate(this.tomorrow.getDate()+1);
+    this.aftertomorrow.setDate(this.aftertomorrow.getDate()+2);
     await this.updateFilms();
     const result = await this.apiService.getCategories();
     this.categories = result.categoryArray;
@@ -82,6 +89,7 @@ export class Films implements OnInit {
 
   async onSelect(film: Film): Promise<void> {
     this.selectedFilm = film;
+    console.log(this.selectedFilm);
     const result = await this.apiService.getStores(this.selectedFilm.film_id!);
     this.stores = result.stores!;
   }
@@ -104,5 +112,9 @@ export class Films implements OnInit {
   search(term: string): void {
     console.log(term);
     this.searchTerms.next(term);
+  }
+
+  onSelectDate(date: Date){
+    this.selectedDate = date;
   }
 }
