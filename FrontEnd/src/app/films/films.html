@@ -2,6 +2,13 @@
   <span class="space"></span>
   <h1> Films </h1>
 
+  <div *ngIf="rented" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{rentedFilm.title}}</strong> noleggiato con successo.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
   <div class="container">
     <div class="element">
       <div class="dropdown">
@@ -45,41 +52,34 @@
                   <p>Lingua: {{selectedFilm.language}}</p>
                   <p>Rating:{{selectedFilm.rating}}</p>
                   <p> Costo: {{selectedFilm.rental_rate}}</p>
-                  <p>{{selectedFilm.description}}</p>
+                  <p> {{selectedFilm.description}} </p>
                 </div>
-
-                <div class="container">
                 <div class="element">
                   <div class="dropdown">
-                    <p>Seleziona lo store:</p>
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       {{selectedStore.city}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <button class="dropdown-item" *ngFor="let store of stores" (click)="selectStore(store)"> Store: {{store.city}}, Address:{{store.address}}</button>
+                      <button class="dropdown-item" *ngFor="let store of stores" (click)="selectStore(store)">{{store.city}}</button>
                     </div>
                   </div>
                 </div>
 
                 <div class="element">
                   <div class="dropdown">
-                    <p>Seleziona la data di inizio noleggio:</p>
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       {{selectedDate |date: 'dd/MM/yyyy'}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <button class="dropdown-item" (click)="onSelectDate(my_date)"> Oggi: {{my_date | date: 'dd/MM/yyyy'}}</button>
-                      <button class="dropdown-item" (click)="onSelectDate(tomorrow)">Domani:{{tomorrow | date: 'dd/MM/yyyy'}}</button>
-                      <button class="dropdown-item" (click)="onSelectDate(aftertomorrow)">Dopodomani:{{aftertomorrow | date: 'dd/MM/yyyy'}}</button>
+                      <button class="dropdown-item" (click)="onSelectDate(tomorrow)"> Domani: {{tomorrow | date: 'dd/MM/yyyy'}}</button>
+                      <button class="dropdown-item" (click)="onSelectDate(aftertomorrow)"> Dopodomani: {{aftertomorrow | date: 'dd/MM/yyyy'}}</button>
                     </div>
                   </div>
                 </div>
 
-
-                </div>
-
                 <div class="modal-footer">
-                  <button type="button"  class="btn btn-info"  data-dismiss="modal" routerLink="/films"> Prenota </button>
+                  <button type="button" class="btn btn-info " data-dismiss="modal" (click)="rent()" routerLink="/films"> Prenota </button>
                 </div>
               </div>
             </div>
