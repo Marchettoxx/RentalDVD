@@ -54,8 +54,11 @@
                   <p> Costo: {{selectedFilm.rental_rate}}</p>
                   <p> {{selectedFilm.description}} </p>
                 </div>
+
+                <div class="container">
                 <div class="element">
                   <div class="dropdown">
+                    <p>Seleziona lo store:</p>
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       {{selectedStore.city}}
                     </button>
@@ -67,6 +70,7 @@
 
                 <div class="element">
                   <div class="dropdown">
+                    <p>Seleziona la data di inizio noleggio:</p>
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       {{selectedDate |date: 'dd/MM/yyyy'}}
                     </button>
@@ -76,6 +80,7 @@
                       <button class="dropdown-item" (click)="onSelectDate(aftertomorrow)"> Dopodomani: {{aftertomorrow | date: 'dd/MM/yyyy'}}</button>
                     </div>
                   </div>
+                </div>
                 </div>
 
                 <div class="modal-footer">
