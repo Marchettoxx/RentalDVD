@@ -6,10 +6,9 @@ type Query {
     film(film_id: Int): Film
     films_category(category_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
-    films_user_search(customer_id: Int, title: String!, offset: Int = 0, limit: Int = 10): FilmsResult
+    films_user_rental_date(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_search(title: String!, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_in_rent(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
-    films_user_category(customer_id: Int, category_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_title (customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_genre (customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     categories: CategoryResult
@@ -40,6 +39,7 @@ type Film {
     inventory_id: String
     store_id: String
     customer_id: String
+    rental_date: Date!
 }
 
 type FilmsResult {

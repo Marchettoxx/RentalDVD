@@ -10,7 +10,7 @@ export class Film {
   description?: string;
   release_year?: string;
   rental_duration?: string;
-  rental_rate?: string;
+  rental_rate?: number;
   length?: string;
   replacement_cost?: string;
   rating?: string;
@@ -18,10 +18,11 @@ export class Film {
   fulltext?: string;
   genre?: string;
   language?: string;
-  return_date?: string;
+  return_date?: Date;
   inventory_id?: string;
   store_id?: string;
   customer_id?: string;
+  rental_date?: Date;
 }
 
 export interface Films {

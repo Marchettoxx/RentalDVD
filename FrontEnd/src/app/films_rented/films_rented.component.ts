@@ -19,9 +19,10 @@ export class Films_rentedComponent {
 
   films: Film[] | null = null;
   selectedFilm: Film = {};
-  selectedReturnDate: Boolean = true;
+  selectedReturnDate: Boolean = false;
   selectedTitle: Boolean = false;
   selectedGenre: Boolean = false;
+  selectedRentedDate: Boolean = true;
 
   constructor(private loginService: LoginService, private apiService: ApiService) {
     this.loginService.user.subscribe(x => this.user = x!);
@@ -44,6 +45,11 @@ export class Films_rentedComponent {
     }
     else if(this.selectedReturnDate){
       const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id);
+      this.count = result.count;
+      this.films = result.filmArray;
+    }
+    else if(this.selectedRentedDate){
+      const result = await this.apiService.getFilms_user_rental_date(this.offset, this.user.customer_id);
       this.count = result.count;
       this.films = result.filmArray;
     }
@@ -83,6 +89,7 @@ export class Films_rentedComponent {
     this.selectedTitle=true;
     this.selectedGenre=false;
     this.selectedReturnDate=false;
+    this.selectedRentedDate=false;
     await this.updateFilms()
   }
 
@@ -90,6 +97,7 @@ export class Films_rentedComponent {
     this.selectedTitle=false;
     this.selectedGenre=true;
     this.selectedReturnDate=false;
+    this.selectedRentedDate=false;
     await this.updateFilms()
   }
 
@@ -97,6 +105,23 @@ export class Films_rentedComponent {
     this.selectedTitle=false;
     this.selectedGenre=false;
     this.selectedReturnDate=true;
+    this.selectedRentedDate=false;
     await this.updateFilms()
   }
+
+  async sortByRentedDate(){
+    this.selectedTitle=false;
+    this.selectedGenre=false;
+    this.selectedReturnDate=false;
+    this.selectedRentedDate=true;
+    await this.updateFilms()
+  }
+
+  calculateCost(rental_date: Date, return_date: Date, rental_rate: number){
+    const rentalDate= new Date (rental_date);
+    const returnDate= new Date (return_date);
+    const days = Math.ceil((returnDate.getTime() - rentalDate.getTime())/86400000);
+    return days * rental_rate;
+  }
+
 }

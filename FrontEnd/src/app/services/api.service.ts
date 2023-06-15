@@ -12,11 +12,10 @@ export class ApiService {
   private filmsQuery: QueryRef<{films: Films}, {offset: number}>;
   private films_categoryQuery: QueryRef<{films_category: Films}, {offset: number, category_id: number}>;
   private films_userQuery: QueryRef<{films_user: Films}, {offset: number, customer_id: number}>;
+  private films_user_rental_dateQuery: QueryRef<{films_user: Films}, {offset: number, customer_id: number}>;
   private films_user_titleQuery: QueryRef<{films_user_title: Films}, {offset: number, customer_id: number}>;
   private films_user_genreQuery: QueryRef<{films_user_genre: Films}, {offset: number, customer_id: number}>;
-  private films_user_searchQuery: QueryRef<{films_user_search: Films}, {customer_id: number, title: string}>;
   private films_searchQuery: QueryRef<{films_search: Films}, {title: string}>;
-  private films_user_categoryQuery: QueryRef<{films_user_category: Films}, {offset: number, customer_id: number, category_id: number}>;
   private films_user_in_rentQuery: QueryRef<{films_user: Films}, {offset: number, customer_id: number}>;
   private filmQuery: QueryRef<{film: Film}, {film_id: number}>;
   private categoriesQuery: QueryRef<{categories: Categories}>;
@@ -76,6 +75,28 @@ export class ApiService {
             language
             description
             return_date
+            rental_date
+            rental_rate
+          }
+        }
+      }`
+    });
+
+    this.films_user_rental_dateQuery = this.apollo.watchQuery({
+      query: gql`query films_user_rental_date($offset: Int!, $customer_id: Int!){
+        films_user_rental_date(offset: $offset, customer_id: $customer_id){
+          count
+          filmArray {
+            film_id
+            title
+            release_year
+            rating
+            genre
+            language
+            description
+            return_date
+            rental_date
+            rental_rate
           }
         }
       }`
@@ -94,6 +115,8 @@ export class ApiService {
             language
             description
             return_date
+            rental_date
+            rental_rate
           }
         }
       }`
@@ -112,28 +135,14 @@ export class ApiService {
             language
             description
             return_date
+            rental_date
+            rental_rate
           }
         }
       }`
     });
 
-    this.films_user_searchQuery = this.apollo.watchQuery({
-      query: gql`query films_user_search($customer_id: Int!, $title: String!){
-        films_user_search(customer_id: $customer_id, title: $title){
-          count
-          filmArray {
-            film_id
-            title
-            release_year
-            rating
-            genre
-            language
-            description
-            return_date
-          }
-        }
-      }`
-    });
+
     this.films_searchQuery = this.apollo.watchQuery({
       query: gql`query films_search($title: String!){
         films_search( title: $title){
@@ -151,23 +160,6 @@ export class ApiService {
       }`
     });
 
-    this.films_user_categoryQuery = this.apollo.watchQuery({
-      query: gql`query films_user_category($offset: Int!, $customer_id: Int!, $category_id: Int!){
-        films_user_category(offset: $offset, customer_id: $customer_id, category_id: $category_id){
-          count
-          filmArray {
-            film_id
-            title
-            release_year
-            rating
-            genre
-            language
-            description
-            return_date
-          }
-        }
-      }`
-    });
     this.films_user_in_rentQuery = this.apollo.watchQuery({
       query: gql`query films_user_in_rent($offset: Int!, $customer_id: Int!){
         films_user_in_rent(offset: $offset, customer_id: $customer_id){
@@ -185,6 +177,7 @@ export class ApiService {
         }
       }`
     });
+
     this.categoriesQuery = this.apollo.watchQuery({
       query: gql`query categories{
         categories{
@@ -236,6 +229,11 @@ export class ApiService {
   }
 
   async getFilms_user(offset: number, customer_id: number): Promise<Films> {
+    const result = await this.films_userQuery.refetch({ offset, customer_id });
+    return result.data.films_user;
+  }
+
+  async getFilms_user_rental_date(offset: number, customer_id: number): Promise<Films> {
     const result = await this.films_userQuery.refetch({ offset, customer_id });
     return result.data.films_user;
   }

@@ -38,7 +38,7 @@
       <div class="card" >
         <div class="card-body" >
           <button type="button" class="btn title" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" >{{film.title}}</button>
-          <p class="card-text"> Anno: {{film.release_year}}, Genere: {{film.genre}}, Lingua: {{film.language}}, Rating:{{film.rating}}, Costo: {{film.rental_rate}}</p>
+          <p class="card-text"> Anno: {{film.release_year}}, Genere: {{film.genre}}, Lingua: {{film.language}}, Rating:{{film.rating}}, Costo: {{film.rental_rate}} €</p>
           <div id="myModal" class="modal fade menu-popup" role="dialog">
             <div class="modal-dialog" >
               <div class="modal-content" >
@@ -51,7 +51,7 @@
                   <p>Genere: {{selectedFilm.genre}}</p>
                   <p>Lingua: {{selectedFilm.language}}</p>
                   <p>Rating:{{selectedFilm.rating}}</p>
-                  <p> Costo: {{selectedFilm.rental_rate}}</p>
+                  <p> Costo: {{selectedFilm.rental_rate}} €</p>
                   <p> {{selectedFilm.description}} </p>
                 </div>
 

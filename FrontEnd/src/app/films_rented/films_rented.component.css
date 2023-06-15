@@ -81,4 +81,67 @@ h1 {
 
 
 
+.browse h1 {
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold
+}
+
+.modal-title {
+  color: darkblue;
+  font-weight: bold;
+  font-size: 150%
+}
+
+
+.title {
+  background-color: transparent;
+  color: darkblue;
+  font-weight: bold;
+  font-size: 150%
+}
+
+.btn-info {
+  border-radius: 40px 40px 40px 40px
+}
+
+.menu-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+label {
+  display: block;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  margin-bottom: .5rem;
+}
+
+input {
+  padding: .5rem;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+  display: block;
+}
+
+input:focus {
+  outline: #336699 auto 1px;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+
+
+
+
 
