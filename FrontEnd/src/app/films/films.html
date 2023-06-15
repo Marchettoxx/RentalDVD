@@ -63,7 +63,7 @@
                       {{selectedStore.city}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <button class="dropdown-item" *ngFor="let store of stores" (click)="selectStore(store)">{{store.city}}</button>
+                      <button class="dropdown-item" *ngFor="let store of stores" (click)="selectStore(store)"> Store:{{store.city}}, Indirizzo:{{store.address}}</button>
                     </div>
                   </div>
                 </div>
