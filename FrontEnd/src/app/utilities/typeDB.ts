@@ -40,6 +40,7 @@ export class Categories {
 export class Store {
   store_id?: number;
   city?: string;
+  address?: string;
 }
 
 export class Stores {

@@ -47,19 +47,23 @@
                   <p> Costo: {{selectedFilm.rental_rate}}</p>
                   <p>{{selectedFilm.description}}</p>
                 </div>
+
+                <div class="container">
                 <div class="element">
                   <div class="dropdown">
+                    <p>Seleziona lo store:</p>
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       {{selectedStore.city}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <button class="dropdown-item" *ngFor="let store of stores" (click)="selectStore(store)">{{store.city}}</button>
+                      <button class="dropdown-item" *ngFor="let store of stores" (click)="selectStore(store)"> Store: {{store.city}}, Address:{{store.address}}</button>
                     </div>
                   </div>
                 </div>
 
                 <div class="element">
                   <div class="dropdown">
+                    <p>Seleziona la data di inizio noleggio:</p>
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       {{selectedDate |date: 'dd/MM/yyyy'}}
                     </button>
@@ -71,8 +75,11 @@
                   </div>
                 </div>
 
+
+                </div>
+
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-info " data-dismiss="modal" routerLink="/"> Prenota </button>
+                  <button type="button"  class="btn btn-info"  data-dismiss="modal" routerLink="/films"> Prenota </button>
                 </div>
               </div>
             </div>

@@ -63,6 +63,7 @@ type CategoryResult {
 type Store {
     store_id: Int
     city: String
+    address: String
 }
 
 type Stores {

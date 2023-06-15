@@ -110,13 +110,6 @@ ul.search-result {
   padding-left: 0;
 }
 
-.menu-popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -127,10 +120,12 @@ ul.search-result {
   margin-bottom: 40px;
 }
 
-.dropdown {
-  position: relative;
+.dropdown-menu {
   z-index: 1;
+  position: relative;
 }
+
+
 
 #search-component {
   position: relative;
@@ -166,3 +161,4 @@ button.selected:active {
   margin: auto;
   width: 45%;
 }
+

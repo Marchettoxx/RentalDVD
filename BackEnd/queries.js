@@ -222,7 +222,7 @@ const root = {
             .catch(err => err);
     },
     stores_available: (args) => {
-        const query = `SELECT s.store_id, ci.city 
+        const query = `SELECT s.store_id, ci.city, a.address 
             FROM film f 
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
@@ -230,7 +230,7 @@ const root = {
             JOIN address a ON a.address_id = s.address_id
             JOIN city ci ON ci.city_id = a.city_id
             WHERE f.film_id = $1
-            GROUP BY s.store_id, ci.city`;
+            GROUP BY s.store_id, ci.city, a.address`;
         const values = [args.film_id];
         return db
             .any(query, values)

@@ -58,6 +58,7 @@ export class ApiService {
             genre
             language
             description
+            rental_rate
           }
         }
       }`
@@ -212,6 +213,7 @@ export class ApiService {
         stores_available(film_id: $film_id){
           stores{
             city
+            address
           }
         }
       }`
