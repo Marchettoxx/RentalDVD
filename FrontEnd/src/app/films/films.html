@@ -39,6 +39,7 @@
         <div class="card-body" >
           <button type="button" class="btn title" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" >{{film.title}}</button>
           <p class="card-text"> Anno: {{film.release_year}}, Genere: {{film.genre}}, Lingua: {{film.language}}, Rating:{{film.rating}}, Costo: {{film.rental_rate}} €</p>
+          <button type="button" class="btn btn-info" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" > Prenota </button>
           <div id="myModal" class="modal fade menu-popup" role="dialog">
             <div class="modal-dialog" >
               <div class="modal-content" >
@@ -84,7 +85,7 @@
                 </div>
 
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-info " data-dismiss="modal" (click)="rent()" routerLink="/films"> Prenota </button>
+                  <button type="button" class="btn btn-info" data-dismiss="modal" (click)="rent()" routerLink="/films"> Prenota </button>
                 </div>
               </div>
             </div>
