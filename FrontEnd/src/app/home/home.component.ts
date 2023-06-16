@@ -9,8 +9,7 @@ import {Login} from "../utilities/typeDB";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  // @ts-ignore
-  user: Login | null;
+  user!: Login | null;
 
   constructor(private accountService: LoginService) {
     this.accountService.user.subscribe(x => this.user = x);

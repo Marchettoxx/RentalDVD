@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { compare } from "bcrypt-ts";
 
-import { MessageService } from "./message.service";
-import {ApiService} from "./api.service";
-import {Login} from "../utilities/typeDB";
+import { ApiService } from "./api.service";
+import { Login } from "../utilities/typeDB";
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
@@ -13,7 +13,6 @@ export class LoginService {
 
   constructor(
     private router: Router,
-    private messageService: MessageService,
     private apiService: ApiService
   ) {
     this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
@@ -24,15 +23,24 @@ export class LoginService {
     return this.userSubject.value;
   }
 
-  login(username: string, password: string) {
-    // @ts-ignore
-    return this.apiService.getLogin(username, password).then(user => {
-      localStorage.setItem('user', JSON.stringify(user));
-      this.userSubject.next(user);
-      this.userSubject.asObservable();
+  login(username: string) {
+    return this.apiService.getLogin(username).then(user => {
+      return compare("pass", user.password!).then((result) => {
+        if (result) {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.userSubject.next(user);
+          this.userSubject.asObservable();
+          console.log(result);
+          console.log(user);
+          return user;
+        } else {
+          const user: Login = {customer_id: -1}
+          return user;
+        }
+      });
+    }).catch(_ => {
+      const user: Login = {customer_id: -1}
       return user;
-    }).catch(error => {
-      this.handleError<Login>(`${error}`, {customer_id: 1});
     });
   }
 
@@ -41,16 +49,5 @@ export class LoginService {
     localStorage.removeItem('user');
     this.userSubject.next(null);
     this.router.navigate(['/login']);
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      this.log(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    };
-  }
-
-  private log(message: string) {
-    this.messageService.add(`LoginService:${message}`);
   }
 }

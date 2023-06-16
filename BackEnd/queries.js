@@ -2,8 +2,8 @@ const { db, db1 } = require("./pgAdaptor");
 
 const root = {
     login: (args) => {
-        const query = `SELECT * FROM login WHERE username=$1 and password=$2`;
-        const values = [args.username, args.password];
+        const query = `SELECT * FROM login WHERE username=$1`;
+        const values = [args.username];
         return db1
             .one(query, values)
             .then(res => res)

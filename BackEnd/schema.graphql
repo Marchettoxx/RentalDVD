@@ -1,7 +1,7 @@
 scalar Date
 
 type Query {
-    login(username: String!, password: String!): Login
+    login(username: String!): Login
     films(offset: Int = 0, limit: Int = 10): FilmsResult
     film(film_id: Int): Film
     films_category(category_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult

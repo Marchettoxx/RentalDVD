@@ -24,21 +24,18 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
   }
-
-  // convenience getter for easy access to form fields
   get f() {
     return this.form.controls;
   }
-
   async onSubmit() {
     this.submitted = true;
     if (this.form.invalid) {
       return;
     }
     this.loading = true;
-    this.accountService.login(this.f["username"].value, this.f["password"].value)
+    this.accountService.login(this.f["username"].value)
       .then(user => {
-          if (user) {
+          if (user.customer_id >= 0) {
             const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
             this.router.navigateByUrl(returnUrl);
           } else {
