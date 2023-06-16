@@ -46,4 +46,20 @@ export class LoginComponent implements OnInit {
         }
       );
   }
+
+  /** Per creare password, usare questo per il futuro
+  creaHash() {
+    genSalt(10).then((salt) => hash("pass", salt)).then((hash) => {
+      console.log("pass");
+      console.log(hash);
+      const hashed = hash;
+      compare("pass", hashed).then((result) => {
+        console.log(true)
+      });
+      compare("not_bacon", hashed).then((result) => {
+        console.log(false)
+      });
+    });
+  }
+   **/
 }
