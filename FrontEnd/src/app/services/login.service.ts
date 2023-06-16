@@ -23,9 +23,9 @@ export class LoginService {
     return this.userSubject.value;
   }
 
-  login(username: string) {
+  login(username: string, password: string) {
     return this.apiService.getLogin(username).then(user => {
-      return compare("pass", user.password!).then((result) => {
+      return compare(password, user.password!).then((result) => {
         if (result) {
           localStorage.setItem('user', JSON.stringify(user));
           this.userSubject.next(user);

@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.accountService.login(this.f["username"].value)
+    this.accountService.login(this.f["username"].value, this.f["password"].value)
       .then(user => {
           if (user.customer_id >= 0) {
             const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
