@@ -1,26 +1,32 @@
 <div class="browse">
   <span class="space"></span>
+
+  <div class="button-container">
+  <button (click)="increaseFontSize()" [disabled]="isIncreased">+</button>
+  <button (click)="decreaseFontSize()" [disabled]="!isIncreased">-</button>
+  </div>
+
   <h1> La tua cronologia di film noleggiati </h1>
 
-  <table class="tableStyle">
+  <table class="tableStyle" [style.fontSize.em]="fontSize">
     <thead>
-      <tr class="top">
-        <th><a (click)="sortByTitle()"> Title </a></th>
-        <th><a (click)="sortByGenre()"> Genere </a></th>
-        <th><a (click)="sortByRentedDate()"> Data noleggio </a></th>
-        <th><a (click)="sortByReturnDate()"> Data riconsegna </a></th>
-        <th><a> Totale Speso: </a></th>
+      <tr class="top" >
+        <th [style.fontSize.em]="fontSize"><a (click)="sortByTitle()"> Title </a></th>
+        <th [style.fontSize.em]="fontSize"><a (click)="sortByGenre()"> Genere </a></th>
+        <th [style.fontSize.em]="fontSize"><a (click)="sortByRentedDate()"> Data noleggio </a></th>
+        <th [style.fontSize.em]="fontSize"><a (click)="sortByReturnDate()"> Data riconsegna </a></th>
+        <th [style.fontSize.em]="fontSize"><a> Totale Speso: </a></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let film of films">
         <td>
-          <a class="btn nameTitle" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal"> {{ film.title }} </a>
+          <a class="btn nameTitle" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" [style.fontSize.em]="fontSize"> {{ film.title }} </a>
         </td>
-        <td> {{film.genre}} </td>
-        <td> {{film.rental_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
-        <td> {{film.return_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
-        <td> {{calculateCost(film.rental_date!, film.return_date!, film.rental_rate!)|number:'1.2-4'}} € </td>
+        <td [style.fontSize.em]="fontSize"> {{film.genre}} </td>
+        <td [style.fontSize.em]="fontSize"> {{film.rental_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
+        <td [style.fontSize.em]="fontSize"> {{film.return_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
+        <td [style.fontSize.em]="fontSize"> {{calculateCost(film.rental_date!, film.return_date!, film.rental_rate!)|number:'1.2-4'}} € </td>
       </tr>
     </tbody>
   </table>
@@ -34,12 +40,12 @@
         </div>
 
         <div class="modal-body">
-          <p> Anno: {{selectedFilm.release_year}} </p>
-          <p> Genere: {{selectedFilm.genre}} </p>
-          <p> Lingua: {{selectedFilm.language}} </p>
-          <p> Rating:{{selectedFilm.rating}} </p>
-          <p> Costo: {{selectedFilm.rental_rate}} €</p>
-          <p> {{selectedFilm.description}} </p>
+          <p [style.fontSize.em]="fontSize"> Anno: {{selectedFilm.release_year}} </p>
+          <p [style.fontSize.em]="fontSize"> Genere: {{selectedFilm.genre}} </p>
+          <p [style.fontSize.em]="fontSize"> Lingua: {{selectedFilm.language}} </p>
+          <p [style.fontSize.em]="fontSize"> Rating:{{selectedFilm.rating}} </p>
+          <p [style.fontSize.em]="fontSize"> Costo: {{selectedFilm.rental_rate}} €</p>
+          <p [style.fontSize.em]="fontSize"> {{selectedFilm.description}} </p>
         </div>
 
       </div>

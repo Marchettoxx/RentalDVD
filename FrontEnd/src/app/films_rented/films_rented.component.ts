@@ -14,6 +14,8 @@ export class Films_rentedComponent {
   count: number = 0;
   diff: number = 0;
   current_page: number = 0;
+  fontSize: number = 1;
+  isIncreased: boolean = false;
 
   user!: Login;
 
@@ -123,5 +125,18 @@ export class Films_rentedComponent {
     const days = Math.ceil((returnDate.getTime() - rentalDate.getTime())/86400000);
     return days * rental_rate;
   }
+
+  increaseFontSize() {
+    this.fontSize += 0.3;
+    this.isIncreased = true;
+  }
+
+  decreaseFontSize() {
+    this.fontSize -= 0.3;
+    if (this.fontSize <= 1) {
+      this.isIncreased = false;
+    }
+  }
+
 
 }
