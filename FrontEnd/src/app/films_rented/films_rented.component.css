@@ -10,6 +10,11 @@
   max-width: 50em;
 }
 
+.btn:hover{
+  background-color: #42A948;
+
+}
+
 .tableStyle {
   margin-top: 1em;
   margin-bottom: 1em;
