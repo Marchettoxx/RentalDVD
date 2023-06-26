@@ -12,7 +12,6 @@ import { LoginService } from "../services/login.service";
 export class Films_rentedComponent {
   offset: number = 0;
   count: number = 0;
-  diff: number = 0;
   current_page: number = 0;
   fontSize: number = 1;
   isIncreased: boolean = false;
@@ -21,6 +20,7 @@ export class Films_rentedComponent {
 
   films: Film[] | null = null;
   selectedFilm: Film = {};
+  selectedFilter = "Filtro";
   selectedReturnDate: Boolean = false;
   selectedTitle: Boolean = false;
   selectedGenre: Boolean = false;
@@ -88,6 +88,7 @@ export class Films_rentedComponent {
   }
 
   async sortByTitle(){
+    this.selectedFilter = "Titolo";
     this.selectedTitle=true;
     this.selectedGenre=false;
     this.selectedReturnDate=false;
@@ -96,6 +97,7 @@ export class Films_rentedComponent {
   }
 
   async sortByGenre(){
+    this.selectedFilter = "Genere";
     this.selectedTitle=false;
     this.selectedGenre=true;
     this.selectedReturnDate=false;
@@ -104,6 +106,7 @@ export class Films_rentedComponent {
   }
 
   async sortByReturnDate(){
+    this.selectedFilter = "Data Riconsegna";
     this.selectedTitle=false;
     this.selectedGenre=false;
     this.selectedReturnDate=true;
@@ -112,6 +115,7 @@ export class Films_rentedComponent {
   }
 
   async sortByRentedDate(){
+    this.selectedFilter = "Data noleggio";
     this.selectedTitle=false;
     this.selectedGenre=false;
     this.selectedReturnDate=false;
@@ -137,6 +141,4 @@ export class Films_rentedComponent {
       this.isIncreased = false;
     }
   }
-
-
 }
