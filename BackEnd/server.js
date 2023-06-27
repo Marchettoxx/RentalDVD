@@ -6,7 +6,6 @@ const { root } = require("./queries");
 const cors = require('cors');
 const { json } = require('body-parser');
 const {verify} = require("jsonwebtoken");
-const req = require("express/lib/request");
 
 const PORT = 4000;
 const SK = process.env.JWT;
@@ -20,8 +19,10 @@ const verifyUser = async (req) => {
     try{
         const token = req.headers["authorization"] || "";
         req.user = await verify(token, SK);
+
+        console.log("Pass verifyUser: ", req.user);
     }catch(err) {
-        console.log("Errore verifyUser: " + err);
+        console.log("Error verifyUser: ", err);
     }
     req.next();
 };
@@ -31,11 +32,7 @@ app.use(verifyUser);
 app.use('/graphql', graphqlHTTP({
     rootValue: root,
     schema: schema,
-    graphiql: true,
-    context: {
-        user: req.user,
-        SK
-    }
+    graphiql: true
 }));
 
 app.listen(PORT, () => {
