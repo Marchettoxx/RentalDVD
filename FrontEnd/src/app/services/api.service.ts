@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Apollo, gql, QueryRef } from 'apollo-angular';
 
 import {Login, Films, Film, Categories, Stores} from '../utilities/typeDB';
+import {HttpHeaders} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  private loginQuery: QueryRef<{login: Login}, {username: string}>;
+  private loginQuery: QueryRef<{login: Login}, {username: string, password: string}>;
   private filmsQuery: QueryRef<{films: Films}, {offset: number}>;
   private films_categoryQuery: QueryRef<{films_category: Films}, {offset: number, category_id: number}>;
   private films_userQuery: QueryRef<{films_user: Films}, {offset: number, customer_id: number}>;
@@ -20,12 +21,17 @@ export class ApiService {
   private filmQuery: QueryRef<{film: Film}, {film_id: number}>;
   private categoriesQuery: QueryRef<{categories: Categories}>;
   private storesQuery: QueryRef<{stores_available: Stores}, {film_id: number}>;
+
   constructor(private apollo: Apollo) {
+    const user = JSON.parse(sessionStorage.getItem('user')!) || "";
+    console.log(user.token);
+
     this.loginQuery = this.apollo.watchQuery({
-      query: gql`query login($username: String!) {
-        login(username:$username){
-          customer_id
-          password
+      query: gql`query login($username: String!, $password: String!) {
+        login(username:$username, password: $password){
+            customer_id
+            username
+            token
         }
       }`
     });
@@ -44,7 +50,10 @@ export class ApiService {
             rental_rate
           }
         }
-      }`
+      }`,
+      context: {
+        headers: new HttpHeaders().set("authorization", user.token),
+      }
     });
     this.films_categoryQuery = this.apollo.watchQuery({
       query: gql`query films_category($offset: Int!, $category_id: Int!){
@@ -61,7 +70,10 @@ export class ApiService {
             rental_rate
           }
         }
-      }`
+      }`,
+      context: {
+        headers: new HttpHeaders().set("authorization", user.token),
+      }
     });
     this.films_userQuery = this.apollo.watchQuery({
       query: gql`query films_user($offset: Int!, $customer_id: Int!){
@@ -80,7 +92,10 @@ export class ApiService {
             rental_rate
           }
         }
-      }`
+      }`,
+      context: {
+        headers: new HttpHeaders().set("authorization", user.token),
+      }
     });
 
     this.films_user_rental_dateQuery = this.apollo.watchQuery({
@@ -100,7 +115,10 @@ export class ApiService {
             rental_rate
           }
         }
-      }`
+      }`,
+      context: {
+        headers: new HttpHeaders().set("authorization", user.token),
+      }
     });
 
     this.films_user_titleQuery = this.apollo.watchQuery({
@@ -120,7 +138,10 @@ export class ApiService {
             rental_rate
           }
         }
-      }`
+      }`,
+      context: {
+        headers: new HttpHeaders().set("authorization", user.token),
+      }
     });
 
     this.films_user_genreQuery = this.apollo.watchQuery({
@@ -140,9 +161,11 @@ export class ApiService {
             rental_rate
           }
         }
-      }`
+      }`,
+      context: {
+        headers: new HttpHeaders().set("authorization", user.token),
+      }
     });
-
 
     this.films_searchQuery = this.apollo.watchQuery({
       query: gql`query films_search($title: String!){
@@ -158,7 +181,10 @@ export class ApiService {
             description
           }
         }
-      }`
+      }`,
+      context: {
+        headers: new HttpHeaders().set("authorization", user.token),
+      }
     });
 
     this.films_user_in_rentQuery = this.apollo.watchQuery({
@@ -176,7 +202,10 @@ export class ApiService {
             return_date
           }
         }
-      }`
+      }`,
+      context: {
+        headers: new HttpHeaders().set("authorization", user.token),
+      }
     });
 
     this.categoriesQuery = this.apollo.watchQuery({
@@ -187,7 +216,10 @@ export class ApiService {
             name
           }
         }
-      }`
+      }`,
+      context: {
+        headers: new HttpHeaders().set("authorization", user.token),
+      }
     });
     this.filmQuery = this.apollo.watchQuery({
       query: gql`query film($film_id: Int!){
@@ -200,7 +232,10 @@ export class ApiService {
           language
           rental_rate
         }
-      }`
+      }`,
+      context: {
+        headers: new HttpHeaders().set("authorization", user.token),
+      }
     });
     this.storesQuery = this.apollo.watchQuery({
       query: gql`query stores_available($film_id: Int!){
@@ -210,12 +245,15 @@ export class ApiService {
             address
           }
         }
-      }`
+      }`,
+      context: {
+        headers: new HttpHeaders().set("authorization", user.token),
+      }
     });
   }
 
-  async getLogin(username: string): Promise<Login> {
-    const result = await this.loginQuery.refetch({ username });
+  async getLogin(username: string, password: string): Promise<Login> {
+    const result = await this.loginQuery.refetch({ username, password });
     return result.data.login;
   }
 

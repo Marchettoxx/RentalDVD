@@ -1,8 +1,14 @@
 export class Login {
   customer_id!: number;
   username?: string;
-  password?: string;
+  token?: string;
 }
+
+/*
+customer_id!: number;
+  username?: string;
+  password?: string;
+ */
 
 export class Film {
   film_id?: number;

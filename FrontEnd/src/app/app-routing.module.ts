@@ -15,8 +15,10 @@ import { Films_rentedComponent } from "./films_rented/films_rented.component";
   UrlTree returned from the guard.
  */
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard]},
+  //{ path: '', component: HomeComponent, canActivate: [AuthGuard]},
+  { path : '', pathMatch : 'full' ,redirectTo : 'login'},
   { path: 'login', component: LoginComponent},
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'films', component: Films, canActivate: [AuthGuard]},
   { path: 'films_rented', component: Films_rentedComponent, canActivate: [AuthGuard]},
 
@@ -28,4 +30,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -11,7 +11,7 @@ import {Login} from "../utilities/typeDB";
 export class HomeComponent {
   user!: Login | null;
 
-  constructor(private accountService: LoginService) {
-    this.accountService.user.subscribe(x => this.user = x);
+  constructor(private loginService: LoginService) {
+    this.loginService.user.subscribe(x => this.user = x);
   }
 }

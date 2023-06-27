@@ -7,11 +7,12 @@ import { LoginService } from './login.service';
 export class AuthGuard implements CanActivate {
     constructor(
         private router: Router,
-        private accountService: LoginService
+        private loginService: LoginService
     ) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        const user = this.accountService.userValue;
+        const user = this.loginService.userValue;
+        console.log("canActivate")
         if (user) {
             // authorised so return true
             return true;

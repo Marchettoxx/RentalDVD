@@ -1,13 +1,38 @@
 const { db, db1 } = require("./pgAdaptor");
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+const bcrypt = require('bcrypt');
 
 const root = {
-    login: (args) => {
+    login: async (args) => {
         const query = `SELECT * FROM login WHERE username=$1`;
         const values = [args.username];
-        return db1
+        const user = await db1
             .one(query, values)
             .then(res => res)
             .catch(err => err);
+        if (!user) {
+            throw new Error("Errore: credenziali errate")
+        } else {
+            const isValid = await bcrypt.compare(args.password, user.password);
+            if (!isValid) {
+                throw new Error('Errore: credenziali errate');
+            } else {
+                const token = jwt.sign(
+                    {
+                        user: user.username
+                    },
+                    process.env.JWT,
+                    {
+                        expiresIn: '6m'
+                    });
+                return {
+                    customer_id: user.customer_id,
+                    username: user.username,
+                    token: token
+                };
+            }
+        }
     },
     // tutti i film disponibili
     films: (args) => {
