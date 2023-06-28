@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.loginService.login(this.f["username"].value, this.f["password"].value)
       .then(user => {
-          if (user.customer_id > 0) {
+          if (user.customer_id! > 0) {
             const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home';
             this.router.navigateByUrl(returnUrl);
           } else {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Film, Login } from "../utilities/typeDB";
+import { Actor, Film, Login } from "../utilities/typeDB";
 import { ApiService } from "../services/api.service";
 import { LoginService } from "../services/login.service";
 
@@ -11,20 +11,24 @@ import { LoginService } from "../services/login.service";
 })
 export class Films_rentedComponent {
   offset: number = 0;
-  count: number = 0;
+  count?: number = 0;
   current_page: number = 0;
+
   fontSize: number = 1;
   isIncreased: boolean = false;
 
   user!: Login;
 
-  films: Film[] | null = null;
+  films?: Film[];
   selectedFilm: Film = {};
   selectedFilter = "Filtro";
+
   selectedReturnDate: Boolean = false;
   selectedTitle: Boolean = false;
   selectedGenre: Boolean = false;
-  selectedRentedDate: Boolean = true;
+  selectedRentalDate: Boolean = true;
+
+  actors?: Actor[];
 
   constructor(private loginService: LoginService, private apiService: ApiService) {
     this.loginService.user.subscribe(x => this.user = x!);
@@ -36,25 +40,26 @@ export class Films_rentedComponent {
 
   async updateFilms() {
     if(this.selectedTitle){
-      const result = await this.apiService.getFilms_user_title(this.offset, this.user.customer_id);
+      const result = await this.apiService.getFilms_user_title(this.offset, this.user.customer_id!);
       this.count = result.count;
-      this.films = result.filmArray;
+      this.films = result.films;
     }
     else if(this.selectedGenre){
-      const result = await this.apiService.getFilms_user_genre(this.offset, this.user.customer_id);
+      const result = await this.apiService.getFilms_user_genre(this.offset, this.user.customer_id!);
       this.count = result.count;
-      this.films = result.filmArray;
+      this.films = result.films;
     }
     else if(this.selectedReturnDate){
-      const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id);
+      const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id!);
       this.count = result.count;
-      this.films = result.filmArray;
+      this.films = result.films;
     }
-    else if(this.selectedRentedDate){
-      const result = await this.apiService.getFilms_user_rental_date(this.offset, this.user.customer_id);
+    else if(this.selectedRentalDate){
+      const result = await this.apiService.getFilms_user_rental_date(this.offset, this.user.customer_id!);
       this.count = result.count;
-      this.films = result.filmArray;
+      this.films = result.films;
     }
+    console.log(this.films);
   }
 
   showPrevious(n: number) {
@@ -62,7 +67,7 @@ export class Films_rentedComponent {
   }
 
   showNext(n: number) {
-    return this.offset + 10 + n < this.count;
+    return this.offset + 10 + n < this.count!;
   }
 
   async onPrevious() {
@@ -77,8 +82,9 @@ export class Films_rentedComponent {
     await this.updateFilms();
   }
 
-  onSelect(film: Film): void {
-    this.selectedFilm = film;
+  async onSelect(film: Film): Promise<void> {
+    this.selectedFilm = await this.apiService.getFilm(film.film_id!);
+    this.actors = await this.apiService.getActors(film.film_id!);
   }
 
   async jump(index: number): Promise<void> {
@@ -92,7 +98,7 @@ export class Films_rentedComponent {
     this.selectedTitle=true;
     this.selectedGenre=false;
     this.selectedReturnDate=false;
-    this.selectedRentedDate=false;
+    this.selectedRentalDate=false;
     await this.updateFilms()
   }
 
@@ -101,7 +107,7 @@ export class Films_rentedComponent {
     this.selectedTitle=false;
     this.selectedGenre=true;
     this.selectedReturnDate=false;
-    this.selectedRentedDate=false;
+    this.selectedRentalDate=false;
     await this.updateFilms()
   }
 
@@ -110,7 +116,7 @@ export class Films_rentedComponent {
     this.selectedTitle=false;
     this.selectedGenre=false;
     this.selectedReturnDate=true;
-    this.selectedRentedDate=false;
+    this.selectedRentalDate=false;
     await this.updateFilms()
   }
 
@@ -119,7 +125,7 @@ export class Films_rentedComponent {
     this.selectedTitle=false;
     this.selectedGenre=false;
     this.selectedReturnDate=false;
-    this.selectedRentedDate=true;
+    this.selectedRentalDate=true;
     await this.updateFilms()
   }
 

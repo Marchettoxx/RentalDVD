@@ -1,14 +1,8 @@
 export class Login {
-  customer_id!: number;
+  customer_id?: number;
   username?: string;
   token?: string;
 }
-
-/*
-customer_id!: number;
-  username?: string;
-  password?: string;
- */
 
 export class Film {
   film_id?: number;
@@ -31,17 +25,14 @@ export class Film {
   rental_date?: Date;
 }
 
-export interface Films {
-  count: number;
-  filmArray: Film[];
+export class listFilms {
+  count?: number;
+  films?: Film[];
 }
 
 export class Category {
   category_id?: number;
   name?: string;
-}
-export class Categories {
-  categoryArray!: Category[];
 }
 
 export class Store {
@@ -50,6 +41,8 @@ export class Store {
   address?: string;
 }
 
-export class Stores {
-  stores?: Store[];
+export class Actor {
+  actor_id?: number;
+  first_name?: string;
+  last_name?: string;
 }

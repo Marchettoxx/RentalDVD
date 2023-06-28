@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap } from "rxjs";
 
-import {Category, Film, Store} from "../utilities/typeDB";
+import { Category, Film, Store } from "../utilities/typeDB";
 import { ApiService } from "../services/api.service";
-import {debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap} from "rxjs";
-
 
 @Component({
   selector: 'app-films',
@@ -13,19 +12,18 @@ import {debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap} 
 export class Films implements OnInit {
   offset: number = 0;
   count: number = 0;
-  diff: number = 0;
   current_page: number = 0;
   my_date = new Date();
   tomorrow= new Date();
-  aftertomorrow = new Date();
+  afterTomorrow = new Date();
   rented = false;
   rentedFilm: Film = {}
 
-  films: Film[] | null = null;
+  films?: Film[];
   selectedFilm: Film = {};
-  categories: Category[] | null = null;
+  categories?: Category[];
   selectedCategory: Category = {category_id: 1, name: "Categorie"};
-  stores: Store[] | null = null;
+  stores?: Store[];
   selectedStore: Store = {store_id: 1, city: "Store"};
   selectedDate: Date = this.my_date;
 
@@ -36,10 +34,9 @@ export class Films implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.tomorrow.setDate(this.tomorrow.getDate()+1);
-    this.aftertomorrow.setDate(this.aftertomorrow.getDate()+2);
+    this.afterTomorrow.setDate(this.afterTomorrow.getDate()+2);
     await this.updateFilms();
-    const result = await this.apiService.getCategories();
-    this.categories = result.categoryArray;
+    this.categories = await this.apiService.getCategories();
     this.films$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
@@ -60,12 +57,12 @@ export class Films implements OnInit {
   async updateFilms() {
     if (this.selectedCategory) {
       const result = await this.apiService.getFilms_category(this.offset, this.selectedCategory.category_id!);
-      this.count = result.count;
-      this.films = result.filmArray;
+      this.count = result.count!;
+      this.films = result.films;
     } else {
       const result = await this.apiService.getFilms(this.offset);
-      this.count = result.count;
-      this.films = result.filmArray;
+      this.count = result.count!;
+      this.films = result.films;
     }
   }
 
@@ -91,9 +88,7 @@ export class Films implements OnInit {
 
   async onSelect(film: Film): Promise<void> {
     this.selectedFilm = film;
-    console.log(this.selectedFilm);
-    const result = await this.apiService.getStores(this.selectedFilm.film_id!);
-    this.stores = result.stores!;
+    this.stores = await this.apiService.getStores(this.selectedFilm.film_id!);
   }
 
   async jump(index: number): Promise<void> {

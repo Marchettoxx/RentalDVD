@@ -74,6 +74,12 @@
               <td> {{selectedFilm.rental_rate}} € </td>
             </tr>
             <tr>
+              <th scope="row"> Attori </th>
+              <td>
+                <p *ngFor="let actor of actors"> {{actor.first_name}} {{actor.last_name}} </p>
+              </td>
+            </tr>
+            <tr>
               <th scope="row"> Descrizione </th>
               <td> {{selectedFilm.description}} </td>
             </tr>
