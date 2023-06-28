@@ -252,12 +252,7 @@ const root = {
         const values = [args.title];
         return db
             .any(query, values)
-            .then(res => {
-                return {
-                    count: res.length,
-                    films: res.slice(args.offset, args.offset + args.limit)
-                }
-            })
+            .then(res => res.slice(args.offset, args.offset + args.limit))
             .catch(err => err);
     },
 

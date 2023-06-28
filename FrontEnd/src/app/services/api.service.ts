@@ -155,11 +155,8 @@ export class ApiService {
     this.films_searchQuery = this.apollo.watchQuery({
       query: gql`query films_search($title: String!){
         films_search( title: $title){
-          count
-          films {
-            film_id
-            title
-          }
+          film_id
+          title
         }
       }`,
       context: {

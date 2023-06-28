@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap } from "rxjs";
 
-import { Category, Film, Store } from "../utilities/typeDB";
+import {Actor, Category, Film, Store} from "../utilities/typeDB";
 import { ApiService } from "../services/api.service";
 
 @Component({
@@ -27,7 +27,9 @@ export class Films implements OnInit {
   selectedStore: Store = {store_id: 1, city: "Store"};
   selectedDate: Date = this.my_date;
 
-  films$!: Observable<Film[]> | undefined;
+  actors?: Actor[];
+
+  films$?: Observable<Film[]>;
   private searchTerms = new Subject<string>();
 
   constructor(private apiService: ApiService) {}
@@ -48,7 +50,7 @@ export class Films implements OnInit {
           // if not search term, return empty hero array.
           return of([]);
         } else {
-          return this.apiService.getFilms_search(term)
+          return this.apiService.getFilms_search(term);
         }
       })
     );
@@ -87,8 +89,9 @@ export class Films implements OnInit {
   }
 
   async onSelect(film: Film): Promise<void> {
-    this.selectedFilm = film;
-    this.stores = await this.apiService.getStores(this.selectedFilm.film_id!);
+    this.selectedFilm = await this.apiService.getFilm(film.film_id!);
+    this.actors = await this.apiService.getActors(film.film_id!);
+    this.stores = await this.apiService.getStores(film.film_id!);
   }
 
   async jump(index: number): Promise<void> {

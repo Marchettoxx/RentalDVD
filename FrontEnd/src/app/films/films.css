@@ -1,20 +1,23 @@
-.browse {
+/*
+  Principal Page
+ */
+.space {
+  display: inline-block;
+  height: 3em;
+}
+
+.browseMyStyle {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.browse > * {
-  width: 100%;
-  max-width: 800px;
-}
-
-.browse h1 {
+h1 {
   color: white;
   text-align: center;
-  font-size: 30px;
-  font-weight: bold
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .modal-title {
@@ -24,85 +27,44 @@
 }
 
 .col-sm-6 {
-  margin-bottom:50px
+  margin-bottom:5em
 }
 
 .card {
-  border-radius: 40px 40px 40px 40px;
-  background: hsla(0, 0%, 100%, 0.85)
+  border-radius: 2em 2em 2em 2em;
+  background: white
 }
 
 .card-body {
   text-align:center
 }
 
-.title {
+/*.title {
   background-color: transparent;
   color: darkblue;
   font-weight: bold;
   font-size: 150%
-}
-
-.btn-info {
-  border-radius: 40px 40px 40px 40px
-}
-
-.menu-popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.prev {
-  float: left;
-  border-radius: 70px 70px 70px 70px;
-  font-size: 20px
-}
-
-.next {
-  float: right;
-  border-radius: 70px 70px 70px 70px;
-  font-size: 20px
-}
-
-label {
-  display: block;
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-top: 1rem;
-  margin-bottom: .5rem;
-}
+}*/
 
 input {
-  padding: .5rem;
-  width: 100%;
-  max-width: 600px;
-  box-sizing: border-box;
-  display: block;
+  padding: .6em;
+  width: 25%;
 }
 
-input:focus {
+/*input:focus {
   outline: #336699 auto 1px;
-}
+}*/
+
 
 .search-result li {
-  border-bottom: 1px solid gray;
-  border-left: 1px solid gray;
-  border-right: 1px solid gray;
-  display: inline-block;
-  width: 100%;
-  max-width: 600px;
-  padding: .5rem;
-  box-sizing: border-box;
-  text-decoration: none;
-  color: black;
+  border-bottom: .1em solid gray;
+  width: 25%;
+  padding: .6em;
   background-color: white;
 }
 
 .search-result li:hover {
   background-color: greenyellow;
-  color: gainsboro;
 }
 
 ul.search-result {
@@ -150,14 +112,3 @@ button.selected:active {
   position: absolute;
   z-index: 9999;
 }
-
-.space {
-  display: inline-block;
-  height: 30px;
-}
-
-.index {
-  margin: auto;
-  width: 45%;
-}
-
