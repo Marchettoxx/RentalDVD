@@ -28,7 +28,7 @@ const root = {
                     },
                     process.env.JWT,
                     {
-                        expiresIn: '6h'
+                        expiresIn: '5s'
                     });
                 return {
                     customer_id: user.customer_id,
@@ -57,7 +57,7 @@ const root = {
                     films: res.slice(args.offset, args.offset + args.limit)
                 }
             })
-            .catch(err => err);
+            .catch(err => console.log("errore"));
     },
 
     /*
@@ -293,7 +293,7 @@ const root = {
                 AND inventory_id NOT IN ( 
                     SELECT inventory_id 
                     FROM rental r   
-                    WHERE return_date IS NULL)`
+                    WHERE return_date IS NULL))`
         const values = [args.film_id];
         return db
             .any(query, values)

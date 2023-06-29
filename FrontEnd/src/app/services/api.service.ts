@@ -33,7 +33,10 @@ export class ApiService {
             username
             token
         }
-      }`
+      }`,
+      context: {
+        headers: new HttpHeaders().set("authorization", "login"),
+      }
     });
 
     this.filmsQuery = this.apollo.watchQuery({
@@ -228,6 +231,7 @@ export class ApiService {
 
   async getFilms(offset: number): Promise<listFilms> {
     const result = await this.filmsQuery.refetch({ offset });
+    console.log("Ciao sono qui", result.data.films);
     return result.data.films;
   }
 

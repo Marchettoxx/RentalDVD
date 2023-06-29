@@ -16,11 +16,11 @@ import { Films_rentedComponent } from "./films_rented/films_rented.component";
  */
 const routes: Routes = [
   //{ path: '', component: HomeComponent, canActivate: [AuthGuard]},
-  { path : '', pathMatch : 'full' ,redirectTo : 'login'},
-  { path: 'login', component: LoginComponent},
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-  { path: 'films', component: Films, canActivate: [AuthGuard]},
-  { path: 'films_rented', component: Films_rentedComponent, canActivate: [AuthGuard]},
+  { path : '', pathMatch : 'full' ,redirectTo : 'login' },
+  { path: 'login', component: LoginComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'films', component: Films, canActivate: [AuthGuard] },
+  { path: 'films_rented', component: Films_rentedComponent, canActivate: [AuthGuard] },
 
   // if insert an url not correct
   { path: '**', redirectTo: '' }

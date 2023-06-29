@@ -5,7 +5,8 @@ const { buildSchema } = require('graphql');
 const { root } = require("./queries");
 const cors = require('cors');
 const { json } = require('body-parser');
-const {verify} = require("jsonwebtoken");
+const { verify} = require("jsonwebtoken");
+const HttpHeaders = require("express/lib/application");
 
 const PORT = 4000;
 const SK = process.env.JWT;
@@ -16,24 +17,34 @@ app.use(cors());
 app.use(json());
 
 const verifyUser = async (req) => {
+    console.log("Sono qui")
     try{
         const token = req.headers["authorization"] || "";
-        req.user = await verify(token, SK);
-
-        console.log("Pass verifyUser: ", req.user);
-    }catch(err) {
+        if (token == "") {
+            console.log("Graphql");
+            req.next();
+        } else if (token == "login") {
+            console.log("Login");
+            req.next();
+        }
+        else {
+            const { user } = await verify(token, SK);
+            req.user = user
+            console.log("Pass verifyUser: ", req.user);
+            req.next();
+        }
+    } catch(err) {
         console.log("Error verifyUser: ", err);
     }
-    req.next();
 };
 
 app.use(verifyUser);
 
-app.use('/graphql', graphqlHTTP({
+app.use('/graphql', graphqlHTTP( req => ({
     rootValue: root,
     schema: schema,
-    graphiql: true
-}));
+    graphiql: true,
+})));
 
 app.listen(PORT, () => {
     console.log(`🚀 Running a GraphQL API server at http://localhost:${PORT}/graphql`)
