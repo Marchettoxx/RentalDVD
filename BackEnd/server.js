@@ -6,7 +6,6 @@ const { root } = require("./queries");
 const cors = require('cors');
 const { json } = require('body-parser');
 const { verify} = require("jsonwebtoken");
-const HttpHeaders = require("express/lib/application");
 
 const PORT = 4000;
 const SK = process.env.JWT;
@@ -17,19 +16,19 @@ app.use(cors());
 app.use(json());
 
 const verifyUser = async (req) => {
-    console.log("Sono qui")
     try{
-        const token = req.headers["authorization"] || "";
-        if (token == "") {
-            console.log("Graphql");
+        const token = req.headers["authorization"] || "GRAPHQL";
+        if (token === "GRAPHQL") {
+            console.log("GRAPHQL");
             req.next();
-        } else if (token == "login") {
-            console.log("Login");
+        } else if (token === "LOGIN") {
+            console.log("LOGIN");
             req.next();
+        } else if (token === "NO_TOKEN") {
+            console.log("NO_TOKEN");
         }
         else {
-            const { user } = await verify(token, SK);
-            req.user = user
+            req.user = await verify(token, SK);
             console.log("Pass verifyUser: ", req.user);
             req.next();
         }
@@ -40,7 +39,7 @@ const verifyUser = async (req) => {
 
 app.use(verifyUser);
 
-app.use('/graphql', graphqlHTTP( req => ({
+app.use('/graphql', graphqlHTTP( _ => ({
     rootValue: root,
     schema: schema,
     graphiql: true,

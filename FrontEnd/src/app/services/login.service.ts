@@ -12,10 +12,7 @@ export class LoginService {
   private userSubject: BehaviorSubject<Login | null>;
   public user: Observable<Login | null>;
 
-  constructor(
-    private router: Router,
-    private apiService: ApiService
-  ) {
+  constructor(private router: Router, private apiService: ApiService) {
     this.userSubject = new BehaviorSubject(JSON.parse(sessionStorage.getItem('user')!));
     this.user = this.userSubject.asObservable();
   }
@@ -25,11 +22,8 @@ export class LoginService {
   }
 
   login(username: string, password: string) {
-    console.log("login");
     return this.apiService.getLogin(username, password).then(user => {
-        if (user.customer_id) {
-          console.log("login");
-          console.log(user);
+        if (user) {
           sessionStorage.setItem('user', JSON.stringify(user));
           this.userSubject.next(user);
           this.userSubject.asObservable();
@@ -39,8 +33,8 @@ export class LoginService {
           return user;
         }
       }).catch(_ => {
-      const user: Login = {customer_id: -1}
-      return user;
+          const user: Login = {customer_id: -1}
+          return user;
     });
   }
 

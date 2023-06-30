@@ -28,7 +28,7 @@ const root = {
                     },
                     process.env.JWT,
                     {
-                        expiresIn: '5s'
+                        expiresIn: '10s'
                     });
                 return {
                     customer_id: user.customer_id,
@@ -57,7 +57,7 @@ const root = {
                     films: res.slice(args.offset, args.offset + args.limit)
                 }
             })
-            .catch(err => console.log("errore"));
+            .catch(err => err);
     },
 
     /*

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql, QueryRef } from 'apollo-angular';
 
-import {Login, Film, Store, Actor, listFilms, Category} from '../utilities/typeDB';
-import {HttpHeaders} from "@angular/common/http";
+import { Login, Film, Store, Actor, listFilms, Category } from '../utilities/typeDB';
+import { HttpHeaders } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +23,9 @@ export class ApiService {
   private storesQuery: QueryRef<{stores_available: Store[]}, {film_id: number}>;
 
   constructor(private apollo: Apollo) {
-    const user = JSON.parse(sessionStorage.getItem('user')!) || "";
-    console.log(user.token);
+    const user = JSON.parse(sessionStorage.getItem('user')!);
+    const token = user ? user.token : "NO_TOKEN";
+    console.log(token);
 
     this.loginQuery = this.apollo.watchQuery({
       query: gql`query login($username: String!, $password: String!) {
@@ -35,7 +36,7 @@ export class ApiService {
         }
       }`,
       context: {
-        headers: new HttpHeaders().set("authorization", "login"),
+        headers: new HttpHeaders().set("authorization", "LOGIN"),
       }
     });
 
@@ -55,7 +56,7 @@ export class ApiService {
         }
       }`,
       context: {
-        headers: new HttpHeaders().set("authorization", user.token),
+        headers: new HttpHeaders().set("authorization", token),
       }
     });
 
@@ -75,7 +76,7 @@ export class ApiService {
         }
       }`,
       context: {
-        headers: new HttpHeaders().set("authorization", user.token),
+        headers: new HttpHeaders().set("authorization", token),
       }
     });
 
@@ -94,7 +95,7 @@ export class ApiService {
         }
       }`,
       context: {
-        headers: new HttpHeaders().set("authorization", user.token),
+        headers: new HttpHeaders().set("authorization", token),
       }
     });
 
@@ -113,7 +114,7 @@ export class ApiService {
         }
       }`,
       context: {
-        headers: new HttpHeaders().set("authorization", user.token),
+        headers: new HttpHeaders().set("authorization", token),
       }
     });
 
@@ -132,7 +133,7 @@ export class ApiService {
         }
       }`,
       context: {
-        headers: new HttpHeaders().set("authorization", user.token),
+        headers: new HttpHeaders().set("authorization", token),
       }
     });
 
@@ -151,7 +152,7 @@ export class ApiService {
         }
       }`,
       context: {
-        headers: new HttpHeaders().set("authorization", user.token),
+        headers: new HttpHeaders().set("authorization", token),
       }
     });
 
@@ -163,7 +164,7 @@ export class ApiService {
         }
       }`,
       context: {
-        headers: new HttpHeaders().set("authorization", user.token),
+        headers: new HttpHeaders().set("authorization", token),
       }
     });
 
@@ -175,7 +176,7 @@ export class ApiService {
         }
       }`,
       context: {
-        headers: new HttpHeaders().set("authorization", user.token),
+        headers: new HttpHeaders().set("authorization", token),
       }
     });
 
@@ -195,7 +196,7 @@ export class ApiService {
         }
       }`,
       context: {
-        headers: new HttpHeaders().set("authorization", user.token),
+        headers: new HttpHeaders().set("authorization", token),
       }
     });
 
@@ -207,7 +208,7 @@ export class ApiService {
         }
       }`,
       context: {
-        headers: new HttpHeaders().set("authorization", user.token),
+        headers: new HttpHeaders().set("authorization", token),
       }
     });
 
@@ -219,7 +220,7 @@ export class ApiService {
         }
       }`,
       context: {
-        headers: new HttpHeaders().set("authorization", user.token),
+        headers: new HttpHeaders().set("authorization", token),
       }
     });
   }

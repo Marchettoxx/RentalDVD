@@ -36,12 +36,15 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.f["username"].value, this.f["password"].value)
       .then(user => {
           if (user.customer_id! > 0) {
-            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home';
-            this.router.navigateByUrl(returnUrl);
+            //const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home';
+            //this.router.navigateByUrl(returnUrl);
+              console.log("login, OK")
+              this.router.navigate(['/home']);
           } else {
-            this.loading = false;
-            this.form.reset();
-            this.router.navigate(['/login']);
+              console.log("login, NOT OK")
+              this.loading = false;
+              this.form.reset();
+              this.router.navigate(['/login']);
           }
         }
       );
