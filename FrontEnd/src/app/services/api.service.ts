@@ -25,7 +25,7 @@ export class ApiService {
   constructor(private apollo: Apollo) {
     const user = JSON.parse(sessionStorage.getItem('user')!);
     const token = user ? user.token : "NO_TOKEN";
-    console.log(token);
+    console.log("TOKEN", token);
 
     this.loginQuery = this.apollo.watchQuery({
       query: gql`query login($username: String!, $password: String!) {
@@ -36,7 +36,7 @@ export class ApiService {
         }
       }`,
       context: {
-        headers: new HttpHeaders().set("authorization", "LOGIN"),
+        headers: new HttpHeaders().set("authorization", token),
       }
     });
 
@@ -232,7 +232,6 @@ export class ApiService {
 
   async getFilms(offset: number): Promise<listFilms> {
     const result = await this.filmsQuery.refetch({ offset });
-    console.log("Ciao sono qui", result.data.films);
     return result.data.films;
   }
 

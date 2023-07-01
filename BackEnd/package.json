@@ -9,6 +9,7 @@
     "graphql": "^15.8.0",
     "join-monster": "^3.1.1",
     "jsonwebtoken": "^9.0.0",
+    "lodash": "^4.17.21",
     "pg": "^8.11.0",
     "pg-promise": "^11.4.3"
   },

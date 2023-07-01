@@ -18,31 +18,31 @@ app.use(json());
 const verifyUser = async (req) => {
     try{
         const token = req.headers["authorization"] || "GRAPHQL";
+        console.log(token);
+        const { user } = await verify(token, SK);
+        req.user = user;
         if (token === "GRAPHQL") {
             console.log("GRAPHQL");
-            req.next();
-        } else if (token === "LOGIN") {
-            console.log("LOGIN");
-            req.next();
         } else if (token === "NO_TOKEN") {
             console.log("NO_TOKEN");
         }
-        else {
-            req.user = await verify(token, SK);
-            console.log("Pass verifyUser: ", req.user);
-            req.next();
-        }
+        console.log("Pass verifyUser: ", req.user);
     } catch(err) {
         console.log("Error verifyUser: ", err);
     }
+    req.next();
 };
 
 app.use(verifyUser);
 
-app.use('/graphql', graphqlHTTP( _ => ({
+app.use('/graphql', graphqlHTTP( req => ({
     rootValue: root,
     schema: schema,
     graphiql: true,
+    context: {
+        SK,
+        user: req.user
+    }
 })));
 
 app.listen(PORT, () => {

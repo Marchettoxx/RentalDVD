@@ -41,25 +41,36 @@ export class Films_rentedComponent {
   async updateFilms() {
     if(this.selectedTitle){
       const result = await this.apiService.getFilms_user_title(this.offset, this.user.customer_id!);
+        if (!result) {
+            this.loginService.logout();
+        }
       this.count = result.count;
       this.films = result.films;
     }
     else if(this.selectedGenre){
       const result = await this.apiService.getFilms_user_genre(this.offset, this.user.customer_id!);
+        if (!result) {
+            this.loginService.logout();
+        }
       this.count = result.count;
       this.films = result.films;
     }
     else if(this.selectedReturnDate){
       const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id!);
+        if (!result) {
+            this.loginService.logout();
+        }
       this.count = result.count;
       this.films = result.films;
     }
     else if(this.selectedRentalDate){
       const result = await this.apiService.getFilms_user_rental_date(this.offset, this.user.customer_id!);
+        if (!result) {
+            this.loginService.logout();
+        }
       this.count = result.count;
       this.films = result.films;
     }
-    console.log(this.films);
   }
 
   showPrevious(n: number) {
@@ -83,8 +94,16 @@ export class Films_rentedComponent {
   }
 
   async onSelect(film: Film): Promise<void> {
-    this.selectedFilm = await this.apiService.getFilm(film.film_id!);
-    this.actors = await this.apiService.getActors(film.film_id!);
+    const result = await this.apiService.getFilm(film.film_id!);
+      if (!result) {
+          this.loginService.logout();
+      }
+    this.selectedFilm = result;
+      const result1 = await this.apiService.getActors(film.film_id!);
+      if (!result1) {
+          this.loginService.logout();
+      }
+    this.actors = result1;
   }
 
   async jump(index: number): Promise<void> {

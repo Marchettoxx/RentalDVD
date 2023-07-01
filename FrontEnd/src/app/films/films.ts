@@ -3,6 +3,7 @@ import { debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap 
 
 import {Actor, Category, Film, Store} from "../utilities/typeDB";
 import { ApiService } from "../services/api.service";
+import {LoginService} from "../services/login.service";
 
 @Component({
   selector: 'app-films',
@@ -22,7 +23,7 @@ export class Films implements OnInit {
   films?: Film[];
   selectedFilm: Film = {};
   categories?: Category[];
-  selectedCategory: Category = {category_id: 1, name: "Categorie"};
+  selectedCategory: Category = {category_id: -1, name: "Categorie"};
   stores?: Store[];
   selectedStore: Store = {store_id: 1, city: "Store"};
   selectedDate: Date = this.my_date;
@@ -32,37 +33,47 @@ export class Films implements OnInit {
   films$?: Observable<Film[]>;
   private searchTerms = new Subject<string>();
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private loginService: LoginService) {}
 
   async ngOnInit(): Promise<void> {
     this.tomorrow.setDate(this.tomorrow.getDate()+1);
     this.afterTomorrow.setDate(this.afterTomorrow.getDate()+2);
-    await this.updateFilms();
-    this.categories = await this.apiService.getCategories();
-    this.films$ = this.searchTerms.pipe(
-      // wait 300ms after each keystroke before considering the term
-      debounceTime(300),
-      // ignore new term if same as previous term
-      distinctUntilChanged(),
-      // switch to new search observable each time the term changes
-      switchMap((term: string) => {
-        if (!term.trim()) {
-          // if not search term, return empty hero array.
-          return of([]);
-        } else {
-          return this.apiService.getFilms_search(term);
-        }
-      })
-    );
+      const result = await this.apiService.getCategories();
+      if (!result) {
+          this.loginService.logout();
+      }
+      this.categories = result;
+      this.films$ = this.searchTerms.pipe(
+          // wait 300ms after each keystroke before considering the term
+          debounceTime(300),
+          // ignore new term if same as previous term
+          distinctUntilChanged(),
+          // switch to new search observable each time the term changes
+          switchMap((term: string) => {
+              if (!term.trim()) {
+                  // if not search term, return empty hero array.
+                  return of([]);
+              } else {
+                  return this.apiService.getFilms_search(term);
+              }
+          })
+      );
+      await this.updateFilms();
   }
 
   async updateFilms() {
-    if (this.selectedCategory) {
+    if (this.selectedCategory.category_id! > 0) {
       const result = await this.apiService.getFilms_category(this.offset, this.selectedCategory.category_id!);
+      if (!result) {
+          this.loginService.logout();
+      }
       this.count = result.count!;
       this.films = result.films;
     } else {
       const result = await this.apiService.getFilms(this.offset);
+        if (!result) {
+            this.loginService.logout();
+        }
       this.count = result.count!;
       this.films = result.films;
     }
@@ -89,9 +100,21 @@ export class Films implements OnInit {
   }
 
   async onSelect(film: Film): Promise<void> {
-    this.selectedFilm = await this.apiService.getFilm(film.film_id!);
-    this.actors = await this.apiService.getActors(film.film_id!);
-    this.stores = await this.apiService.getStores(film.film_id!);
+      const result = await this.apiService.getFilm(film.film_id!);
+      if (!result) {
+          this.loginService.logout();
+      }
+      this.selectedFilm = result
+      const result1 = await this.apiService.getActors(film.film_id!);
+      if (!result1) {
+          this.loginService.logout();
+      }
+      this.actors = result1;
+      const result2 = await this.apiService.getStores(film.film_id!);
+      if (!result2) {
+          this.loginService.logout();
+      }
+      this.stores = result2;
   }
 
   async jump(index: number): Promise<void> {
