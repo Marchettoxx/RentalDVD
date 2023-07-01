@@ -1,25 +1,25 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule, NgOptimizedImage } from "@angular/common";
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { Films } from './films/films';
-import { Films_rentedComponent } from './films_rented/films_rented.component';
-import { HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { GraphQLModule } from './utilities/graphql.module';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {Films} from './films/films';
+import {Films_rentedComponent} from './films_rented/films_rented.component';
+import {HttpClientModule} from '@angular/common/http';
+import {HomeComponent} from './home/home.component';
+import {LoginComponent} from './login/login.component';
+import {GraphQLModule} from './utilities/graphql.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    Films,
-    HomeComponent,
-    LoginComponent,
-    Films_rentedComponent
-  ],
+    declarations: [
+        AppComponent,
+        Films,
+        HomeComponent,
+        LoginComponent,
+        Films_rentedComponent
+    ],
     imports: [
         BrowserModule,
         CommonModule,
@@ -30,7 +30,8 @@ import { GraphQLModule } from './utilities/graphql.module';
         GraphQLModule,
         NgOptimizedImage
     ],
-  providers: [],
-  bootstrap: [AppComponent]
+    providers: [],
+    bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

@@ -29,7 +29,7 @@ const root = {
                     },
                     SK,
                     {
-                        expiresIn: '5s'
+                        expiresIn: '10s'
                     });
                 return {
                     customer_id: user.customer_id,
@@ -285,14 +285,17 @@ const root = {
         Query per ottenere tutte le categorie e utilizzarle per filtrare i film
         in "films"
      */
-    categories: ({ user }) => {
-        console.log(user);
-            const query = `SELECT * FROM category ORDER BY category_id ASC`;
-            return db
-                .any(query)
-                .then(res => res)
-                .catch(err => err);
-
+    categories: (args, { user }) => {
+        console.log("categories", user);
+        if (!user) {
+            return null
+        } else {
+        const query = `SELECT * FROM category ORDER BY category_id ASC`;
+        return db
+            .any(query)
+            .then(res => res)
+            .catch(err => err);
+        }
     },
 
     /*

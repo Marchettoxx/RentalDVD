@@ -24,10 +24,10 @@ export class LoginService {
   login(username: string, password: string) {
     return this.apiService.getLogin(username, password).then(user => {
         if (user) {
-          sessionStorage.setItem('user', JSON.stringify(user));
-          this.userSubject.next(user);
-          this.userSubject.asObservable();
-          return user;
+            sessionStorage.setItem('user', JSON.stringify(user));
+            this.userSubject.next(user);
+            this.userSubject.asObservable();
+            return user;
         } else {
           const user: Login = {customer_id: -1}
           return user;

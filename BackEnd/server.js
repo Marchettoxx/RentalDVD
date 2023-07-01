@@ -18,7 +18,7 @@ app.use(json());
 const verifyUser = async (req) => {
     try{
         const token = req.headers["authorization"] || "GRAPHQL";
-        console.log(token);
+        console.log("TOKEN BACK", token);
         const { user } = await verify(token, SK);
         req.user = user;
         if (token === "GRAPHQL") {
