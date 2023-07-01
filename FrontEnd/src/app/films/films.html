@@ -3,7 +3,7 @@
 
   <h1> Films </h1>
 
-  <div *ngIf="rented" class="alert alert-success alert-dismissible fade show" role="alert">
+  <div *ngIf="rented" class="alert alert-success alert-dismissible fade show" role="alert" aria-live="assertive">
     <strong>{{rentedFilm.title}}</strong> noleggiato con successo.
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
@@ -100,6 +100,7 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <button class="dropdown-item" *ngFor="let store of stores" (click)="selectStore(store)"> Store:{{store.city}}, Indirizzo:{{store.address}}</button>
               </div>
+                <p *ngIf="error"> Errore: seleziona lo store</p>
             </div>
           </div>
 
@@ -119,7 +120,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-info" data-dismiss="modal" (click)="rent()" routerLink="/films"> Prenota </button>
+          <button type="button" class="btn btn-info" [disabled]="validRent"  data-dismiss="modal" (click)="rent()" routerLink="/films"> Prenota </button>
         </div>
       </div>
     </div>

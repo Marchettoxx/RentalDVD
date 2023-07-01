@@ -29,7 +29,7 @@ const root = {
                     },
                     SK,
                     {
-                        expiresIn: '10s'
+                        expiresIn: '1h'
                     });
                 return {
                     customer_id: user.customer_id,
@@ -290,11 +290,11 @@ const root = {
         if (!user) {
             return null
         } else {
-        const query = `SELECT * FROM category ORDER BY category_id ASC`;
-        return db
-            .any(query)
-            .then(res => res)
-            .catch(err => err);
+            const query = `SELECT * FROM category ORDER BY category_id ASC`;
+            return db
+                .any(query)
+                .then(res => res)
+                .catch(err => err);
         }
     },
 

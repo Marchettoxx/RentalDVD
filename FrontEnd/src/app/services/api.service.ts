@@ -218,6 +218,7 @@ export class ApiService {
         this.storesQuery = this.apollo.watchQuery({
             query: gql`query stores_available($film_id: Int!){
                 stores_available(film_id: $film_id){
+                    store_id
                     city
                     address
                 }

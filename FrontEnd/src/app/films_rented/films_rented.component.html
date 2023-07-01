@@ -3,7 +3,8 @@
 
   <h1> Cronologia dei film noleggiati </h1>
 
-  <div class="dropdown">
+  <div class="container element">
+  <div class="dropdown" aria-label="Filtro per categorie">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       {{selectedFilter}}
     </button>
@@ -15,33 +16,34 @@
     </div>
   </div>
 
-  <div>
-    <button (click)="increaseFontSize()" [disabled]="isIncreased">+</button>
+  <div aria-label="Aumente dimensione testo" >
+    <button (click)="increaseFontSize()" [disabled]="isIncreased" aria-label="Aumente testo" >+</button>
     <button (click)="decreaseFontSize()" [disabled]="!isIncreased">-</button>
   </div>
+  </div>
 
-  <table class="table table-light table-hover table-bordered selectedMyStyle" [style.fontSize.em]="fontSize">
+  <table class="table table-light table-hover table-bordered selectedMyStyle" [style.fontSize.em]="fontSize" aria-label="Tabella dei tuoi noleggi" >
     <thead class="table-info">
-      <tr>
-        <th> TITOLO </th>
-        <th> GENERE </th>
-        <th> DATA NOLEGGIO </th>
-        <th> DATA RICONSEGNA </th>
-        <th> SPESA </th>
+      <tr aria-label="">
+        <th scope="col" id="col1" role="columnheader"> TITOLO </th>
+        <th scope="col" id="col2" role="columnheader"> GENERE </th>
+        <th scope="col" id="col3" role="columnheader"> DATA NOLEGGIO </th>
+        <th scope="col" id="col4" role="columnheader"> DATA RICONSEGNA </th>
+        <th scope="col" id="col5" role="columnheader"> SPESA </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let film of films">
-        <td><a data-toggle="modal" data-target="#myModal" (click)="onSelect(film)"> {{film.title}} </a></td>
-        <td> {{film.genre}} </td>
-        <td> {{film.rental_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
-        <td> {{film.return_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
-        <td> {{calculateCost(film.rental_date!, film.return_date!, film.rental_rate!)|number:'1.2-4'}} € </td>
+      <tr *ngFor="let film of films"  scope="row" id="row1">
+        <td headers="col1 row1"><a data-toggle="modal" data-target="#myModal" (click)="onSelect(film)"> {{film.title}} </a></td>
+        <td headers="col2 row1"> {{film.genre}} </td>
+        <td headers="col3 row1"> {{film.rental_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
+        <td headers="col4 row1"> {{film.return_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
+        <td headers="col5 row1"> {{calculateCost(film.rental_date!, film.return_date!, film.rental_rate!)|number:'1.2-4'}} € </td>
       </tr>
     </tbody>
   </table>
 
-  <div id="myModal" class="modal fade menu-popup" role="dialog">
+  <div id="myModal" class="modal fade menu-popup" role="dialog" aria-label="Pop up prenotazione noleggio">
     <div class="modal-dialog" >
       <div class="modal-content">
 
@@ -92,7 +94,7 @@
     </div>
   </div>
 
-  <nav aria-label="Page navigation">
+  <nav aria-label="Tasti di navigazione pagina">
     <ul class="pagination pagination-lg">
       <li class="page-item"><a class="page-link" *ngIf="showPrevious(0)" (click)="onPrevious()"> PREV </a></li>
       <li class="page-item"><a class="page-link" *ngIf="showPrevious(10)" (click)="jump(current_page-2)"> {{current_page-2}} </a></li>

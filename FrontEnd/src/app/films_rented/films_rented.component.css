@@ -45,6 +45,15 @@ a.selected:hover {
   color: white;
 }
 
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.element {
+  flex: 1 0 40%;
+  margin-bottom: 40px;
+}
 
 
 

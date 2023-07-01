@@ -19,13 +19,16 @@ export class Films implements OnInit {
     afterTomorrow = new Date();
     rented = false;
     rentedFilm: Film = {}
+    error: boolean = false
+    validRent: boolean = true
+
 
     films?: Film[];
     selectedFilm: Film = {};
     categories?: Category[];
     selectedCategory: Category = {category_id: -1, name: "Categorie"};
     stores?: Store[];
-    selectedStore: Store = {store_id: 1, city: "Store"};
+    selectedStore: Store = {store_id: -1, city: "Store"};
     selectedDate: Date = this.my_date;
 
     actors?: Actor[];
@@ -118,6 +121,7 @@ export class Films implements OnInit {
                     this.loginService.logout();
                 } else {
                     this.stores = result2;
+                    console.log(this.stores)
                 }
             }
         }
@@ -136,6 +140,7 @@ export class Films implements OnInit {
 
     selectStore(store: Store) {
         this.selectedStore = store;
+        this.validRent = false
     }
 
     search(term: string): void {
@@ -148,10 +153,21 @@ export class Films implements OnInit {
     }
 
     rent() {
-        this.rented = true;
-        this.rentedFilm = this.selectedFilm;
-        setTimeout(() => {
-            this.rented = false;
-        }, 3000)
+        console.log(this.selectedStore)
+        if(this.selectedStore.store_id! > 0){
+            console.log(this.selectedStore)
+            this.rented = true;
+            this.rentedFilm = this.selectedFilm;
+            setTimeout(() => {
+                this.rented = false;
+            }, 3000)
+            setTimeout(() => {
+                this.validRent = true
+            }, 1000)
+            this.selectedStore = {store_id: -1, city: "Store"}
+        }
+        else{
+            this.error = true
+        }
     }
 }
