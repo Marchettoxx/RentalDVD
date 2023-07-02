@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Apollo, gql, QueryRef} from 'apollo-angular';
 
-import {Login, Film, Store, Actor, listFilms, Category} from '../utilities/typeDB';
+import {Login, Film, Store, Actor, listFilms, Category, Inventory} from '../utilities/typeDB';
 import {HttpHeaders} from "@angular/common/http";
 
 @Injectable({
@@ -24,6 +24,7 @@ export class ApiService {
     private actorsQuery: QueryRef<{ actors: Actor[] }, { film_id: number }>;
     private categoriesQuery: QueryRef<{ categories: Category[] }>;
     private storesQuery: QueryRef<{ stores_available: Store[] }, { film_id: number }>;
+    private rent_filmQuery: QueryRef <{ rent_film: Inventory[]}, {store_id: number, film_id: number, rental_date: Date, customer_id: number}>;
 
     constructor(private apollo: Apollo) {
         const user = JSON.parse(sessionStorage.getItem('user')!);
@@ -227,6 +228,17 @@ export class ApiService {
                 headers: new HttpHeaders().set("authorization", token),
             }
         });
+
+        this.rent_filmQuery = this.apollo.watchQuery({
+            query: gql`query rent_film($film_id: Int!, $store_id: Int!,  $rental_date: Date!, $customer_id: Int!){
+                rent_film(film_id: $film_id, store_id: $store_id, rental_date: $rental_date, customer_id: $customer_id){
+                    inventory_id
+                }
+            }`,
+            context: {
+                headers: new HttpHeaders().set("authorization", token),
+            }
+        });
     }
 
     async getLogin(username: string, password: string): Promise<Login> {
@@ -288,5 +300,10 @@ export class ApiService {
     async getStores(film_id: number): Promise<Store[]> {
         const result = await this.storesQuery.refetch({film_id});
         return result.data.stores_available;
+    }
+
+    async putRentFilm(store_id: number, film_id: number, rental_date: Date, customer_id: number): Promise<Inventory[]> {
+        const result = await this.rent_filmQuery.refetch({store_id, film_id, rental_date, customer_id});
+        return result.data.rent_film;
     }
 }

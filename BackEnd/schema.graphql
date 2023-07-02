@@ -13,6 +13,7 @@ type Query {
     categories: [Category]
     stores_available(film_id: Int): [Store]
     actors(film_id: Int): [Actor]
+    rent_film (store_id: Int, film_id: Int, rental_date: Date!, customer_id: Int): [Inventory]
 }
 
 type Login {
@@ -62,4 +63,8 @@ type Actor {
     actor_id: Int
     first_name: String
     last_name: String
+}
+
+type Inventory {
+    inventory_id: Int
 }

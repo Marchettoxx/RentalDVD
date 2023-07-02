@@ -1,44 +1,48 @@
 <div class="browseMyStyle">
   <span class="space"></span>
 
-  <h1> Cronologia dei film noleggiati </h1>
+  <h1 id="tableTitle"> Cronologia dei film noleggiati </h1>
 
-  <div class="container element">
-  <div class="dropdown" aria-label="Filtro per categorie">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {{selectedFilter}}
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
-      <button class="dropdown-item" (click)="sortByTitle()"> titolo </button>
-      <button class="dropdown-item" (click)="sortByGenre()"> genere </button>
-      <button class="dropdown-item" (click)="sortByRentedDate()"> data noleggio </button>
-      <button class="dropdown-item" (click)="sortByReturnDate()"> data riconsegna </button>
-    </div>
+  <div class="container ">
+      <div class="element">
+          <div class="dropdown" aria-label="Filtro per categorie">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{selectedFilter}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
+                  <button class="dropdown-item" (click)="sortByTitle()"> titolo </button>
+                  <button class="dropdown-item" (click)="sortByGenre()"> genere </button>
+                  <button class="dropdown-item" (click)="sortByRentedDate()"> data noleggio </button>
+                  <button class="dropdown-item" (click)="sortByReturnDate()"> data riconsegna </button>
+              </div>
+          </div>
+      </div>
+
+      <div class="element">
+          <div aria-label="Aumente dimensione testo" >
+              <button (click)="increaseFontSize()" [disabled]="isIncreased" aria-label="Aumente testo" >+</button>
+              <button (click)="decreaseFontSize()" [disabled]="!isIncreased">-</button>
+          </div>
+      </div>
   </div>
 
-  <div aria-label="Aumente dimensione testo" >
-    <button (click)="increaseFontSize()" [disabled]="isIncreased" aria-label="Aumente testo" >+</button>
-    <button (click)="decreaseFontSize()" [disabled]="!isIncreased">-</button>
-  </div>
-  </div>
-
-  <table class="table table-light table-hover table-bordered selectedMyStyle" [style.fontSize.em]="fontSize" aria-label="Tabella dei tuoi noleggi" >
+  <table class="table table-light table-hover table-bordered selectedMyStyle" [style.fontSize.em]="fontSize"  aria-labelledby="tableTitle">
     <thead class="table-info">
       <tr aria-label="">
-        <th scope="col" id="col1" role="columnheader"> TITOLO </th>
-        <th scope="col" id="col2" role="columnheader"> GENERE </th>
-        <th scope="col" id="col3" role="columnheader"> DATA NOLEGGIO </th>
-        <th scope="col" id="col4" role="columnheader"> DATA RICONSEGNA </th>
-        <th scope="col" id="col5" role="columnheader"> SPESA </th>
+        <th scope="col" id="col1" role="columnheader" aria-label="prima colonna: Titolo."> TITOLO </th>
+        <th scope="col" id="col2" role="columnheader" aria-label="seconda colonna: Genere."> GENERE </th>
+        <th scope="col" id="col3" role="columnheader" aria-label="terza colonna: Data noleggio."> DATA NOLEGGIO </th>
+        <th scope="col" id="col4" role="columnheader" aria-label="quarta colonna: Data riconsegna."> DATA RICONSEGNA </th>
+        <th scope="col" id="col5" role="columnheader" aria-label="quinta colonna: Spesa."> SPESA </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let film of films"  scope="row" id="row1">
-        <td headers="col1 row1"><a data-toggle="modal" data-target="#myModal" (click)="onSelect(film)"> {{film.title}} </a></td>
-        <td headers="col2 row1"> {{film.genre}} </td>
-        <td headers="col3 row1"> {{film.rental_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
-        <td headers="col4 row1"> {{film.return_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
-        <td headers="col5 row1"> {{calculateCost(film.rental_date!, film.return_date!, film.rental_rate!)|number:'1.2-4'}} € </td>
+        <td headers="col1"><a data-toggle="modal" data-target="#myModal" (click)="onSelect(film)"> {{film.title}} </a></td>
+        <td headers="col2"> {{film.genre}} </td>
+        <td headers="col3"> {{film.rental_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
+        <td headers="col4"> {{film.return_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
+        <td headers="col5"> {{calculateCost(film.rental_date!, film.return_date!, film.rental_rate!)|number:'1.2-4'}} € </td>
       </tr>
     </tbody>
   </table>
@@ -106,3 +110,5 @@
     </ul>
   </nav>
 </div>
+
+

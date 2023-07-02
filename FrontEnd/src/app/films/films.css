@@ -2,113 +2,102 @@
   Principal Page
  */
 .space {
-  display: inline-block;
-  height: 3em;
+      display: inline-block;
+      height: 3em;
 }
 
 .browseMyStyle {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 }
 
 h1 {
-  color: white;
-  text-align: center;
-  font-size: 2em;
-  font-weight: bold;
+      color: white;
+      text-align: center;
+      font-size: 2em;
+      font-weight: bold;
 }
 
 .modal-title {
-  color: darkblue;
-  font-weight: bold;
-  font-size: 150%
+      color: darkblue;
+      font-weight: bold;
+      font-size: 150%
 }
 
 .col-sm-6 {
-  margin-bottom:5em
+      margin-bottom:5em
 }
 
 .card {
-  border-radius: 2em 2em 2em 2em;
-  background: white
+      border-radius: 2em 2em 2em 2em;
+      background: white
 }
 
 .card-body {
-  text-align:center
+      text-align:center
 }
-
-/*.title {
-  background-color: transparent;
-  color: darkblue;
-  font-weight: bold;
-  font-size: 150%
-}*/
 
 input {
-  padding: .6em;
-  width: 25%;
+      padding: .6em;
+      width: 25%;
 }
 
-/*input:focus {
-  outline: #336699 auto 1px;
-}*/
-
-
 .search-result li {
-  border-bottom: .1em solid gray;
-  width: 25%;
-  padding: .6em;
-  background-color: white;
+      border-bottom: .1em solid gray;
+      width: 100%;
+      padding: .6em;
+      background-color: white;
 }
 
 .search-result li:hover {
-  background-color: greenyellow;
+      background-color: greenyellow;
 }
 
 ul.search-result {
-  margin-top: 0;
-  padding-left: 0;
+      margin-top: 0;
+      padding-left: 0;
 }
 
 .container {
-  display: flex;
-  flex-wrap: wrap;
+      display: flex;
+      flex-wrap: wrap;
+      text-align: center;
 }
 
 .element {
-  flex: 1 0 40%;
-  margin-bottom: 40px;
+      flex: 1 0 40%;
+      margin-bottom: 40px;
 }
 
 .dropdown-menu {
-  z-index: 1;
-  position: relative;
+      z-index: 1;
+      position: relative;
 }
 
-
 #search-component {
-  position: relative;
-  z-index: 2;
+      position: relative;
+      z-index: 2;
 }
 
 button.selected {
-  background-color: black;
-  color: white;
+      background-color: black;
+      color: white;
 }
 
 button.selected:hover {
-  background-color: #505050;
-  color: white;
+      background-color: #505050;
+      color: white;
 }
 
 button.selected:active {
-  background-color: black;
-  color: white;
+      background-color: black;
+      color: white;
 }
 
 .search-container {
-  position: absolute;
-  z-index: 9999;
+    position: absolute;
+    background-color: white;
+    z-index: 9999;
 }

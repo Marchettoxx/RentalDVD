@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap} from "rxjs";
 
-import {Actor, Category, Film, Store} from "../utilities/typeDB";
+import {Actor, Category, Film, Login, Store} from "../utilities/typeDB";
 import {ApiService} from "../services/api.service";
 import {LoginService} from "../services/login.service";
 
@@ -22,6 +22,7 @@ export class Films implements OnInit {
     error: boolean = false
     validRent: boolean = true
 
+    user!: Login;
 
     films?: Film[];
     selectedFilm: Film = {};
@@ -37,6 +38,7 @@ export class Films implements OnInit {
     private searchTerms = new Subject<string>();
 
     constructor(private apiService: ApiService, private loginService: LoginService) {
+        this.loginService.user.subscribe(x => this.user = x!);
     }
 
     async ngOnInit(): Promise<void> {
@@ -156,15 +158,22 @@ export class Films implements OnInit {
         console.log(this.selectedStore)
         if(this.selectedStore.store_id! > 0){
             console.log(this.selectedStore)
+            console.log("data", this.selectedDate)
             this.rented = true;
             this.rentedFilm = this.selectedFilm;
-            setTimeout(() => {
-                this.rented = false;
-            }, 3000)
-            setTimeout(() => {
-                this.validRent = true
-            }, 1000)
-            this.selectedStore = {store_id: -1, city: "Store"}
+            const result = this.apiService.putRentFilm( this.selectedStore.store_id!, this.selectedFilm.film_id!, this.selectedDate, this.user.customer_id!);
+            if (!result){
+                this.loginService.logout();
+            }
+            else{
+                setTimeout(() => {
+                    this.rented = false;
+                }, 3000)
+                setTimeout(() => {
+                    this.validRent = true
+                }, 1000)
+                this.selectedStore = {store_id: -1, city: "Store"}
+            }
         }
         else{
             this.error = true

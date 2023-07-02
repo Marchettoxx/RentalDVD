@@ -46,3 +46,7 @@ export class Actor {
     first_name?: string;
     last_name?: string;
 }
+
+export class Inventory{
+    inventory_id?: number;
+}

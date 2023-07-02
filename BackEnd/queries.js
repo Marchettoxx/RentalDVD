@@ -2,7 +2,7 @@ const { db, db1 } = require("./pgAdaptor");
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const bcrypt = require('bcrypt');
-const { _ } = require("lodash");
+const { _, now} = require("lodash");
 
 const root = {
     /*
@@ -137,17 +137,7 @@ const root = {
             JOIN category c ON c.category_id = fc.category_id
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
-            WHERE f.film_id in (
-                SELECT i.film_id
-                FROM inventory i
-                JOIN rental r ON i.inventory_id = r.inventory_id
-                WHERE r.customer_id = $1
-                AND i.inventory_id not in (
-                    SELECT inventory_id
-                    FROM rental r
-                    WHERE return_date is NULL)
-                    GROUP BY film_id)
-            ORDER BY f.film_id`
+            WHERE r.customer_id = $1`
             const values = [args.customer_id];
             return db
                 .any(query, values)
@@ -171,16 +161,7 @@ const root = {
             JOIN category c ON c.category_id = fc.category_id
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
-            WHERE f.film_id in (
-                SELECT i.film_id
-                FROM inventory i
-                JOIN rental r ON i.inventory_id = r.inventory_id
-                WHERE r.customer_id = $1
-                AND i.inventory_id not in (
-                    SELECT inventory_id
-                    FROM rental r
-                    WHERE return_date is NULL)
-                    GROUP BY film_id)
+            WHERE r.customer_id = $1
             ORDER BY r.rental_date`;
             const values = [args.customer_id];
             return db
@@ -205,16 +186,7 @@ const root = {
             JOIN category c ON c.category_id = fc.category_id
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
-            WHERE f.film_id in (
-                SELECT i.film_id
-                FROM inventory i
-                JOIN rental r ON i.inventory_id = r.inventory_id
-                WHERE r.customer_id = $1
-                AND i.inventory_id not in (
-                    SELECT inventory_id
-                    FROM rental r
-                    WHERE return_date is NULL)
-                    GROUP BY film_id)
+            WHERE r.customer_id = $1
             ORDER BY f.title`;
             const values = [args.customer_id];
             return db
@@ -238,16 +210,7 @@ const root = {
             JOIN category c ON c.category_id = fc.category_id
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
-            WHERE f.film_id in (
-                SELECT i.film_id
-                FROM inventory i
-                JOIN rental r ON i.inventory_id = r.inventory_id
-                WHERE r.customer_id = $1
-                AND i.inventory_id not in (
-                    SELECT inventory_id
-                    FROM rental r
-                    WHERE return_date is NULL)
-                    GROUP BY film_id)
+            WHERE r.customer_id = $1
             ORDER BY c.name`;
             const values = [args.customer_id];
             return db
@@ -323,6 +286,39 @@ const root = {
                 .any(query, values)
                 .then(res => res)
                 .catch(err => err);
+        }
+    },
+
+    rent_film: async (args, {user}) => {
+        console.log(args.rental_date)
+        if (!user) {
+            return null
+        } else {
+            const query1 = `SELECT inventory_id
+            FROM rental
+            WHERE inventory_id IN (SELECT inventory_id 
+            FROM inventory i 
+            WHERE film_id = $1 AND store_id = $2) 
+             AND inventory_id NOT IN (
+                 SELECT inventory_id
+                 FROM rental
+                 WHERE return_date is null)
+                 GROUP BY inventory_id;`
+            const values = [args.film_id, args.store_id];
+            const result = await db
+                .any(query1, values)
+                .then(res => res)
+                .catch(err => err);
+
+            const query2 = `INSERT INTO rental (rental_date, inventory_id, customer_id, return_date, staff_id, last_update) 
+                        VALUES($1, $2, $3, NULL, 1, now());`
+            const values2 = [args.rental_date, result[0].inventory_id, args.customer_id];
+            /*return db
+                .any(query2, values2)
+                .then(res => res)
+                .catch(err => err); */
+            console.log(args.rental_date.slice(0, 19).replace('T', ' '), result[0].inventory_id, args.customer_id, now())
+            return result
         }
     },
 }

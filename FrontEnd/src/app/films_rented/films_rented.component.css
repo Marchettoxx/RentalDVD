@@ -46,13 +46,14 @@ a.selected:hover {
 }
 
 .container {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
 }
 
 .element {
-  flex: 1 0 40%;
-  margin-bottom: 40px;
+    flex: 1 0 40%;
+    margin-bottom: 40px;
 }
 
 
