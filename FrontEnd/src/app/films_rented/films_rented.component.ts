@@ -98,13 +98,15 @@ export class Films_rentedComponent {
         const result = await this.apiService.getFilm(film.film_id!);
         if (!result) {
             this.loginService.logout();
+        } else {
+            this.selectedFilm = result;
+            const result1 = await this.apiService.getActors(film.film_id!);
+            if (!result1) {
+                this.loginService.logout();
+            } else {
+                this.actors = result1;
+            }
         }
-        this.selectedFilm = result;
-        const result1 = await this.apiService.getActors(film.film_id!);
-        if (!result1) {
-            this.loginService.logout();
-        }
-        this.actors = result1;
     }
 
     async jump(index: number): Promise<void> {
@@ -149,11 +151,10 @@ export class Films_rentedComponent {
         await this.updateFilms()
     }
 
-    calculateCost(rental_date: Date, return_date: Date, rental_rate: number) {
+    calculateDuration(rental_date: Date, return_date: Date) {
         const rentalDate = new Date(rental_date);
         const returnDate = new Date(return_date);
-        const days = Math.ceil((returnDate.getTime() - rentalDate.getTime()) / 86400000);
-        return days * rental_rate;
+        return Math.ceil((returnDate.getTime() - rentalDate.getTime()) / 86400000);
     }
 
     increaseFontSize() {

@@ -92,6 +92,7 @@ export class ApiService {
                         rental_date
                         return_date
                         rental_rate
+                        amount
                     }
                 }
             }`,
@@ -111,6 +112,7 @@ export class ApiService {
                         rental_date
                         return_date
                         rental_rate
+                        amount
                     }
                 }
             }`,
@@ -130,6 +132,7 @@ export class ApiService {
                         rental_date
                         return_date
                         rental_rate
+                        amount
                     }
                 }
             }`,
@@ -149,6 +152,7 @@ export class ApiService {
                         rental_date
                         return_date
                         rental_rate
+                        amount
                     }
                 }
             }`,

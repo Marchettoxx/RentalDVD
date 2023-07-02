@@ -102,3 +102,15 @@ button.selected:active {
     z-index: 9999;
 }
 
+a.selected {
+    background-color: lightskyblue;
+    color: white;
+    border-width: thin;
+    border-color: black;
+}
+
+a.selected:hover {
+    background-color: lightblue;
+    color: white;
+}
+

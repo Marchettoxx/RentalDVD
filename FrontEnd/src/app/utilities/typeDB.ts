@@ -23,6 +23,7 @@ export class Film {
     store_id?: string;
     customer_id?: string;
     rental_date?: Date;
+    amount?: number;
 }
 
 export class listFilms {

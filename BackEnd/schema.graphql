@@ -41,6 +41,7 @@ type Film {
     store_id: String
     customer_id: String
     rental_date: Date!
+    amount: Float!
 }
 
 type FilmsResult {

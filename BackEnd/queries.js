@@ -131,12 +131,13 @@ const root = {
         if (!user) {
             return null
         } else {
-            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate
+            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, p.amount
             FROM film f
             JOIN film_category fc ON f.film_id = fc.film_id
             JOIN category c ON c.category_id = fc.category_id
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
+            JOIN payment p ON p.rental_id = r.rental_id
             WHERE r.customer_id = $1`
             const values = [args.customer_id];
             return db
@@ -155,12 +156,13 @@ const root = {
         if (!user) {
             return null
         } else {
-            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate
+            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, p.amount
             FROM film f
             JOIN film_category fc ON f.film_id = fc.film_id
             JOIN category c ON c.category_id = fc.category_id
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
+            JOIN payment p ON p.rental_id = r.rental_id
             WHERE r.customer_id = $1
             ORDER BY r.rental_date`;
             const values = [args.customer_id];
@@ -180,12 +182,13 @@ const root = {
         if (!user) {
             return null
         } else {
-            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate
+            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, p.amount
             FROM film f
             JOIN film_category fc ON f.film_id = fc.film_id
             JOIN category c ON c.category_id = fc.category_id
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
+            JOIN payment p ON p.rental_id = r.rental_id
             WHERE r.customer_id = $1
             ORDER BY f.title`;
             const values = [args.customer_id];
@@ -204,12 +207,13 @@ const root = {
         if (!user) {
             return null
         } else {
-            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate
+            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, p.amount
             FROM film f
             JOIN film_category fc ON f.film_id = fc.film_id
             JOIN category c ON c.category_id = fc.category_id
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
+            JOIN payment p ON p.rental_id = r.rental_id
             WHERE r.customer_id = $1
             ORDER BY c.name`;
             const values = [args.customer_id];
