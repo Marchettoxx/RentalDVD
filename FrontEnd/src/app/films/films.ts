@@ -14,9 +14,9 @@ export class Films implements OnInit {
     offset: number = 0;
     count?: number = 0;
     current_page: number = 0;
-    my_date = new Date();
-    tomorrow = new Date();
-    afterTomorrow = new Date();
+    today!: Date;
+    tomorrow!: Date;
+    afterTomorrow!: Date;
     rented = false;
     rentedFilm: Film = {}
     error: boolean = false
@@ -33,7 +33,7 @@ export class Films implements OnInit {
     selectedCategory: Category = {category_id: -1, name: "Categorie"};
     stores?: Store[];
     selectedStore: Store = {store_id: -1, city: "Store"};
-    selectedDate: Date = this.my_date;
+    selectedDate!: Date;
 
     actors?: Actor[];
 
@@ -45,8 +45,15 @@ export class Films implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
+        this.today = new Date();
+        this.today.setHours(this.today.getHours() - this.today.getTimezoneOffset() / 60);
+        this.tomorrow = new Date();
+        this.tomorrow.setHours(this.tomorrow.getHours() - this.tomorrow.getTimezoneOffset() / 60);
+        this.afterTomorrow = new Date();
+        this.afterTomorrow.setHours(this.afterTomorrow.getHours() - this.afterTomorrow.getTimezoneOffset() / 60);
         this.tomorrow.setDate(this.tomorrow.getDate() + 1);
         this.afterTomorrow.setDate(this.afterTomorrow.getDate() + 2);
+        this.selectedDate = this.today;
         this.films$ = this.searchTerms.pipe(
             // wait 300ms after each keystroke before considering the term
             debounceTime(300),
@@ -158,13 +165,10 @@ export class Films implements OnInit {
     }
 
     rent() {
-        console.log(this.selectedStore)
         if(this.selectedStore.store_id! > 0){
-            console.log(this.selectedStore)
-            console.log("data", this.selectedDate)
             this.rented = true;
             this.rentedFilm = this.selectedFilm;
-            const result = this.apiService.putRentFilm( this.selectedStore.store_id!, this.selectedFilm.film_id!, this.selectedDate, this.user.customer_id!);
+            const result = this.apiService.putRentFilm(this.selectedStore.store_id!, this.selectedFilm.film_id!, this.selectedDate.toISOString(), this.user.customer_id!);
             if (!result){
                 this.loginService.logout();
             }

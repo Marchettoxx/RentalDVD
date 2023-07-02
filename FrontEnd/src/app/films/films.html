@@ -118,7 +118,7 @@
                 {{selectedDate |date: 'dd/MM/yyyy'}}
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" [style.fontSize.em]="fontSize">
-                <button class="dropdown-item" (click)="onSelectDate(my_date)"> Oggi: {{my_date | date: 'dd/MM/yyyy'}}</button>
+                <button class="dropdown-item" (click)="onSelectDate(today)"> Oggi: {{today | date: 'dd/MM/yyyy'}}</button>
                 <button class="dropdown-item" (click)="onSelectDate(tomorrow)"> Domani: {{tomorrow | date: 'dd/MM/yyyy'}}</button>
                 <button class="dropdown-item" (click)="onSelectDate(afterTomorrow)"> Dopodomani: {{afterTomorrow | date: 'dd/MM/yyyy'}}</button>
               </div>

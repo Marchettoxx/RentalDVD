@@ -13,10 +13,7 @@ export class ApiService {
     private filmsQuery: QueryRef<{ films: listFilms }, { offset: number }>;
     private films_categoryQuery: QueryRef<{ films_category: listFilms }, { offset: number, category_id: number }>;
     private films_userQuery: QueryRef<{ films_user: listFilms }, { offset: number, customer_id: number }>;
-    private films_user_rental_dateQuery: QueryRef<{ films_user_rental_date: listFilms }, {
-        offset: number,
-        customer_id: number
-    }>;
+    private films_user_rental_dateQuery: QueryRef<{ films_user_rental_date: listFilms }, { offset: number, customer_id: number }>;
     private films_user_titleQuery: QueryRef<{ films_user_title: listFilms }, { offset: number, customer_id: number }>;
     private films_user_genreQuery: QueryRef<{ films_user_genre: listFilms }, { offset: number, customer_id: number }>;
     private films_searchQuery: QueryRef<{ films_search: Film[] }, { title: string }>;
@@ -24,7 +21,7 @@ export class ApiService {
     private actorsQuery: QueryRef<{ actors: Actor[] }, { film_id: number }>;
     private categoriesQuery: QueryRef<{ categories: Category[] }>;
     private storesQuery: QueryRef<{ stores_available: Store[] }, { film_id: number }>;
-    private rent_filmQuery: QueryRef <{ rent_film: Inventory[]}, {store_id: number, film_id: number, rental_date: Date, customer_id: number}>;
+    private rent_filmQuery: QueryRef <{ rent_film: Inventory}, {store_id: number, film_id: number, rental_date: string, customer_id: number}>;
 
     constructor(private apollo: Apollo) {
         const user = JSON.parse(sessionStorage.getItem('user')!);
@@ -230,7 +227,7 @@ export class ApiService {
         });
 
         this.rent_filmQuery = this.apollo.watchQuery({
-            query: gql`query rent_film($film_id: Int!, $store_id: Int!,  $rental_date: Date!, $customer_id: Int!){
+            query: gql`query rent_film($film_id: Int!, $store_id: Int!,  $rental_date: String!, $customer_id: Int!){
                 rent_film(film_id: $film_id, store_id: $store_id, rental_date: $rental_date, customer_id: $customer_id){
                     inventory_id
                 }
@@ -302,7 +299,7 @@ export class ApiService {
         return result.data.stores_available;
     }
 
-    async putRentFilm(store_id: number, film_id: number, rental_date: Date, customer_id: number): Promise<Inventory[]> {
+    async putRentFilm(store_id: number, film_id: number, rental_date: string, customer_id: number): Promise<Inventory> {
         const result = await this.rent_filmQuery.refetch({store_id, film_id, rental_date, customer_id});
         return result.data.rent_film;
     }

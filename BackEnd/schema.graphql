@@ -13,7 +13,7 @@ type Query {
     categories: [Category]
     stores_available(film_id: Int): [Store]
     actors(film_id: Int): [Actor]
-    rent_film (store_id: Int, film_id: Int, rental_date: Date!, customer_id: Int): [Inventory]
+    rent_film (store_id: Int, film_id: Int, rental_date: String!, customer_id: Int): Inventory
 }
 
 type Login {
