@@ -22,6 +22,9 @@ export class Films implements OnInit {
     error: boolean = false
     validRent: boolean = true
 
+    fontSize: number = 1;
+    isIncreased: boolean = false;
+
     user!: Login;
 
     films?: Film[];
@@ -177,6 +180,17 @@ export class Films implements OnInit {
         }
         else{
             this.error = true
+        }
+    }
+    increaseFontSize() {
+        this.fontSize += 0.3;
+        this.isIncreased = true;
+    }
+
+    decreaseFontSize() {
+        this.fontSize -= 0.3;
+        if (this.fontSize <= 1) {
+            this.isIncreased = false;
         }
     }
 }

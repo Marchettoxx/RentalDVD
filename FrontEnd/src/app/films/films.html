@@ -13,40 +13,47 @@
   <div class="container">
     <div class="element">
       <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="ordina per categoria">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="ordina per categoria" [style.fontSize.em]="fontSize">
           {{selectedCategory.name}}
         </button>
         <div class="dropdown-menu" >
-          <button class="dropdown-item" *ngFor="let category of categories" (click)="filter(category)">{{category.name}}</button>
+          <button class="dropdown-item" *ngFor="let category of categories" (click)="filter(category)" [style.fontSize.em]="fontSize">{{category.name}}</button>
         </div>
       </div>
     </div>
 
     <div class="element">
       <div id="search-component">
-        <input type="search" #searchBox id="search-box" (input)="search(searchBox.value)" aria-label="Ricerca per nome"/>
+        <input type="search" #searchBox id="search-box" (input)="search(searchBox.value)" aria-label="Ricerca per nome" [style.fontSize.em]="fontSize"/>
         <ul class="search-result search-container">
           <li *ngFor="let film of films$ | async">
-            <a><button type="button" class="btn" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" style="background-color: transparent; color: darkblue; font-weight: bold ">{{ film.title }} </button></a>
+            <a><button type="button" class="btn" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" style="background-color: transparent; color: darkblue; font-weight: bold " [style.fontSize.em]="fontSize">{{ film.title }} </button></a>
           </li>
         </ul>
       </div>
     </div>
+      <div class="element">
+          <div >
+              <p [style.fontSize.em]="fontSize" id="size" aria-labelledby="size" style="color: white" >Modifica la dimensione del testo:</p>
+              <button (click)="increaseFontSize()" [disabled]="isIncreased" >+</button>
+              <button (click)="decreaseFontSize()" [disabled]="!isIncreased">-</button>
+          </div>
+      </div>
   </div>
 
   <div class="row"  aria-label="Tutti i film disponibili nel nostro store:">
     <div class="col-sm-6" *ngFor="let film of films" >
-      <div class="card" >
+      <div class="card" [style.fontSize.em]="fontSize">
         <div class="card-body" >
-          <button type="button" class="btn title" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" >{{film.title}}</button>
+          <button type="button" class="btn title" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" [style.fontSize.em]="fontSize">{{film.title}}</button>
           <p class="card-text"> Anno: {{film.release_year}}, Genere: {{film.genre}}, Lingua: {{film.language}}, Rating:{{film.rating}}, Costo: {{film.rental_rate}} €</p>
-          <button type="button" class="btn btn-info" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" > Prenota </button>
+          <button type="button" class="btn btn-info" data-toggle="modal" (click)="onSelect(film)" data-target="#myModal" [style.fontSize.em]="fontSize"> Prenota </button>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="myModal" class="modal fade menu-popup" role="dialog">
+  <div id="myModal" class="modal fade menu-popup" role="dialog" [style.fontSize.em]="fontSize">
     <div class="modal-dialog" >
       <div class="modal-content" >
         <div class="modal-header">
@@ -94,11 +101,11 @@
           <div class="element">
             <div class="dropdown">
               <p>Seleziona lo store:</p>
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [style.fontSize.em]="fontSize">
                 {{selectedStore.city}}
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <button class="dropdown-item" *ngFor="let store of stores" (click)="selectStore(store)"> Store:{{store.city}}, Indirizzo:{{store.address}}</button>
+                <button class="dropdown-item" *ngFor="let store of stores" (click)="selectStore(store)" [style.fontSize.em]="fontSize"> Store:{{store.city}}, Indirizzo:{{store.address}}</button>
               </div>
                 <p *ngIf="error"> Errore: seleziona lo store</p>
             </div>
@@ -107,10 +114,10 @@
           <div class="element">
             <div class="dropdown">
               <p>Seleziona la data di inizio noleggio:</p>
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [style.fontSize.em]="fontSize">
                 {{selectedDate |date: 'dd/MM/yyyy'}}
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" [style.fontSize.em]="fontSize">
                 <button class="dropdown-item" (click)="onSelectDate(my_date)"> Oggi: {{my_date | date: 'dd/MM/yyyy'}}</button>
                 <button class="dropdown-item" (click)="onSelectDate(tomorrow)"> Domani: {{tomorrow | date: 'dd/MM/yyyy'}}</button>
                 <button class="dropdown-item" (click)="onSelectDate(afterTomorrow)"> Dopodomani: {{afterTomorrow | date: 'dd/MM/yyyy'}}</button>
@@ -120,7 +127,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-info" [disabled]="validRent"  data-dismiss="modal" (click)="rent()" routerLink="/films"> Prenota </button>
+          <button type="button" class="btn btn-info" [disabled]="validRent"  data-dismiss="modal" (click)="rent()" routerLink="/films" [style.fontSize.em]="fontSize"> Prenota </button>
         </div>
       </div>
     </div>
