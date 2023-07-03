@@ -25,7 +25,6 @@ export class Films_rentedComponent {
 
     selectedReturnDate: Boolean = false;
     selectedTitle: Boolean = false;
-    selectedGenre: Boolean = false;
     selectedRentalDate: Boolean = true;
     selectedAmount: Boolean = false;
     selectedDuration: Boolean = false;
@@ -43,14 +42,6 @@ export class Films_rentedComponent {
     async updateFilms() {
         if (this.selectedTitle) {
             const result = await this.apiService.getFilms_user_title(this.offset, this.user.customer_id!);
-            if (!result) {
-                this.loginService.logout();
-            } else {
-                this.count = result.count;
-                this.films = result.films;
-            }
-        } else if (this.selectedGenre) {
-            const result = await this.apiService.getFilms_user_genre(this.offset, this.user.customer_id!);
             if (!result) {
                 this.loginService.logout();
             } else {
@@ -136,18 +127,6 @@ export class Films_rentedComponent {
     async sortByTitle() {
         this.selectedFilter = "Titolo";
         this.selectedTitle = true;
-        this.selectedGenre = false;
-        this.selectedReturnDate = false;
-        this.selectedRentalDate = false;
-        this.selectedAmount = false;
-        this.selectedDuration = false;
-        await this.updateFilms()
-    }
-
-    async sortByGenre() {
-        this.selectedFilter = "Genere";
-        this.selectedTitle = false;
-        this.selectedGenre = true;
         this.selectedReturnDate = false;
         this.selectedRentalDate = false;
         this.selectedAmount = false;
@@ -158,7 +137,6 @@ export class Films_rentedComponent {
     async sortByReturnDate() {
         this.selectedFilter = "Data Riconsegna";
         this.selectedTitle = false;
-        this.selectedGenre = false;
         this.selectedReturnDate = true;
         this.selectedRentalDate = false;
         this.selectedAmount = false;
@@ -169,7 +147,6 @@ export class Films_rentedComponent {
     async sortByRentedDate() {
         this.selectedFilter = "Data noleggio";
         this.selectedTitle = false;
-        this.selectedGenre = false;
         this.selectedReturnDate = false;
         this.selectedRentalDate = true;
         this.selectedAmount = false;
@@ -180,7 +157,6 @@ export class Films_rentedComponent {
     async sortByAmount() {
         this.selectedFilter = "Spesa";
         this.selectedTitle = false;
-        this.selectedGenre = false;
         this.selectedReturnDate = false;
         this.selectedRentalDate = false;
         this.selectedAmount = true;
@@ -191,7 +167,6 @@ export class Films_rentedComponent {
     async sortByDuration() {
         this.selectedFilter = "Durata";
         this.selectedTitle = false;
-        this.selectedGenre = false;
         this.selectedReturnDate = false;
         this.selectedRentalDate = false;
         this.selectedAmount = false;

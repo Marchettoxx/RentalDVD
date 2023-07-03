@@ -15,7 +15,6 @@ export class ApiService {
     private films_userQuery: QueryRef<{ films_user: listFilms }, { offset: number, customer_id: number }>;
     private films_user_rental_dateQuery: QueryRef<{ films_user_rental_date: listFilms }, { offset: number, customer_id: number }>;
     private films_user_titleQuery: QueryRef<{ films_user_title: listFilms }, { offset: number, customer_id: number }>;
-    private films_user_genreQuery: QueryRef<{ films_user_genre: listFilms }, { offset: number, customer_id: number }>;
     private films_user_amountQuery: QueryRef<{ films_user_amount: listFilms }, { offset: number, customer_id: number }>;
     private films_user_durationQuery: QueryRef<{ films_user_duration: listFilms }, { offset: number, customer_id: number }>;
     private films_searchQuery: QueryRef<{ films_search: Film[] }, { title: string }>;
@@ -128,27 +127,6 @@ export class ApiService {
         this.films_user_titleQuery = this.apollo.watchQuery({
             query: gql`query films_user_title($offset: Int!, $customer_id: Int!){
                 films_user_title(offset: $offset, customer_id: $customer_id){
-                    count
-                    films {
-                        film_id
-                        title
-                        genre
-                        rental_date
-                        return_date
-                        rental_rate
-                        amount
-                        duration
-                    }
-                }
-            }`,
-            context: {
-                headers: new HttpHeaders().set("authorization", token),
-            }
-        });
-
-        this.films_user_genreQuery = this.apollo.watchQuery({
-            query: gql`query films_user_genre($offset: Int!, $customer_id: Int!){
-                films_user_genre(offset: $offset, customer_id: $customer_id){
                     count
                     films {
                         film_id
@@ -319,11 +297,6 @@ export class ApiService {
     async getFilms_user_title(offset: number, customer_id: number): Promise<listFilms> {
         const result = await this.films_user_titleQuery.refetch({offset, customer_id});
         return result.data.films_user_title;
-    }
-
-    async getFilms_user_genre(offset: number, customer_id: number): Promise<listFilms> {
-        const result = await this.films_user_genreQuery.refetch({offset, customer_id});
-        return result.data.films_user_genre;
     }
 
     async getFilms_user_amount(offset: number, customer_id: number): Promise<listFilms> {

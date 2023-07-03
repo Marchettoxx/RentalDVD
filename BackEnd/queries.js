@@ -204,32 +204,6 @@ const root = {
         }
     },
 
-    films_user_genre: (args, { user }) => {
-        if (!user) {
-            return null
-        } else {
-            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, r.return_date-rental_date AS duration, p.amount
-            FROM film f
-            JOIN film_category fc ON f.film_id = fc.film_id
-            JOIN category c ON c.category_id = fc.category_id
-            JOIN inventory i ON i.film_id = f.film_id 
-            JOIN rental r ON r.inventory_id = i.inventory_id
-            LEFT JOIN payment p ON p.rental_id = r.rental_id
-            WHERE r.customer_id = $1
-            ORDER BY c.name`;
-            const values = [args.customer_id];
-            return db
-                .any(query, values)
-                .then(res => {
-                    return {
-                        count: res.length,
-                        films: res.slice(args.offset, args.offset + args.limit)
-                    }
-                })
-                .catch(err => err);
-        }
-    },
-
     films_user_amount: (args, { user }) => {
         if (!user) {
             return null

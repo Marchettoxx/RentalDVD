@@ -10,7 +10,6 @@ type Query {
     films_user(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_rental_date(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_title (customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
-    films_user_genre (customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_amount (customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_duration (customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     categories: [Category]
