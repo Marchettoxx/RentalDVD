@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-import {Actor, Film, Login} from "../utilities/typeDB";
+import {Actor, Film, Interval, Login} from "../utilities/typeDB";
 import {ApiService} from "../services/api.service";
 import {LoginService} from "../services/login.service";
 
@@ -21,7 +21,7 @@ export class Films_rentedComponent {
 
     films?: Film[];
     selectedFilm: Film = {};
-    selectedFilter = "Filtro";
+    selectedFilter: string = "Filtro";
 
     selectedReturnDate: Boolean = false;
     selectedTitle: Boolean = false;
@@ -199,17 +199,6 @@ export class Films_rentedComponent {
         await this.updateFilms()
     }
 
-    calculateDuration(rental_date: Date, return_date: Date) {
-        if(return_date == null){
-            return 0;
-        }
-        else {
-            const rentalDate = new Date(rental_date);
-            const returnDate = new Date(return_date);
-            return Math.ceil((returnDate.getTime() - rentalDate.getTime()) / 86400000);
-        }
-    }
-
     dataIsNull(return_date: Date){
         if(return_date == null){
             return ;
@@ -224,16 +213,16 @@ export class Films_rentedComponent {
             return '-';
         }
         else{
-            return amount + '€';
+            return amount + ' €';
         }
     }
 
-    durationIsNull(duration: string){
+    durationIsNull(duration: Interval){
         if(duration == null){
             return '-';
         }
         else{
-            return duration ;
+            return duration.days + ' giorni';
         }
     }
 

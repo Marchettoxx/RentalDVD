@@ -24,6 +24,13 @@ export class Film {
     customer_id?: string;
     rental_date?: Date;
     amount?: number;
+    duration?: Interval;
+}
+
+export class Interval {
+    days?: number;
+    hours?: number;
+    minutes?: number;
 }
 
 export class listFilms {

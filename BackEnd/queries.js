@@ -131,7 +131,7 @@ const root = {
         if (!user) {
             return null
         } else {
-            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, p.amount
+            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, r.return_date-rental_date as duration, p.amount
             FROM film f
             JOIN film_category fc ON f.film_id = fc.film_id
             JOIN category c ON c.category_id = fc.category_id
@@ -156,7 +156,7 @@ const root = {
         if (!user) {
             return null
         } else {
-            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, p.amount
+            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, r.return_date-rental_date AS duration, p.amount
             FROM film f
             JOIN film_category fc ON f.film_id = fc.film_id
             JOIN category c ON c.category_id = fc.category_id
@@ -182,7 +182,7 @@ const root = {
         if (!user) {
             return null
         } else {
-            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, p.amount
+            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, r.return_date-rental_date AS duration, p.amount
             FROM film f
             JOIN film_category fc ON f.film_id = fc.film_id
             JOIN category c ON c.category_id = fc.category_id
@@ -208,7 +208,7 @@ const root = {
         if (!user) {
             return null
         } else {
-            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, p.amount
+            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, r.return_date-rental_date AS duration, p.amount
             FROM film f
             JOIN film_category fc ON f.film_id = fc.film_id
             JOIN category c ON c.category_id = fc.category_id
@@ -234,7 +234,7 @@ const root = {
         if (!user) {
             return null
         } else {
-            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, p.amount
+            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, r.return_date-rental_date AS duration, p.amount
             FROM film f
             JOIN film_category fc ON f.film_id = fc.film_id
             JOIN category c ON c.category_id = fc.category_id
