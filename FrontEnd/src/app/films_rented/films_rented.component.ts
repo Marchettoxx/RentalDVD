@@ -27,6 +27,8 @@ export class Films_rentedComponent {
     selectedTitle: Boolean = false;
     selectedGenre: Boolean = false;
     selectedRentalDate: Boolean = true;
+    selectedAmount: Boolean = false;
+    selectedDuration: Boolean = false;
 
     actors?: Actor[];
 
@@ -65,6 +67,22 @@ export class Films_rentedComponent {
             }
         } else if (this.selectedRentalDate) {
             const result = await this.apiService.getFilms_user_rental_date(this.offset, this.user.customer_id!);
+            if (!result) {
+                this.loginService.logout();
+            } else {
+                this.count = result.count;
+                this.films = result.films;
+            }
+        } else if (this.selectedAmount) {
+            const result = await this.apiService.getFilms_user_amount(this.offset, this.user.customer_id!);
+            if (!result) {
+                this.loginService.logout();
+            } else {
+                this.count = result.count;
+                this.films = result.films;
+            }
+        } else if (this.selectedDuration) {
+            const result = await this.apiService.getFilms_user_duration(this.offset, this.user.customer_id!);
             if (!result) {
                 this.loginService.logout();
             } else {
@@ -121,6 +139,8 @@ export class Films_rentedComponent {
         this.selectedGenre = false;
         this.selectedReturnDate = false;
         this.selectedRentalDate = false;
+        this.selectedAmount = false;
+        this.selectedDuration = false;
         await this.updateFilms()
     }
 
@@ -130,6 +150,8 @@ export class Films_rentedComponent {
         this.selectedGenre = true;
         this.selectedReturnDate = false;
         this.selectedRentalDate = false;
+        this.selectedAmount = false;
+        this.selectedDuration = false;
         await this.updateFilms()
     }
 
@@ -139,6 +161,8 @@ export class Films_rentedComponent {
         this.selectedGenre = false;
         this.selectedReturnDate = true;
         this.selectedRentalDate = false;
+        this.selectedAmount = false;
+        this.selectedDuration = false;
         await this.updateFilms()
     }
 
@@ -148,13 +172,69 @@ export class Films_rentedComponent {
         this.selectedGenre = false;
         this.selectedReturnDate = false;
         this.selectedRentalDate = true;
+        this.selectedAmount = false;
+        this.selectedDuration = false;
+        await this.updateFilms()
+    }
+
+    async sortByAmount() {
+        this.selectedFilter = "Spesa";
+        this.selectedTitle = false;
+        this.selectedGenre = false;
+        this.selectedReturnDate = false;
+        this.selectedRentalDate = false;
+        this.selectedAmount = true;
+        this.selectedDuration = false;
+        await this.updateFilms()
+    }
+
+    async sortByDuration() {
+        this.selectedFilter = "Durata";
+        this.selectedTitle = false;
+        this.selectedGenre = false;
+        this.selectedReturnDate = false;
+        this.selectedRentalDate = false;
+        this.selectedAmount = false;
+        this.selectedDuration = true;
         await this.updateFilms()
     }
 
     calculateDuration(rental_date: Date, return_date: Date) {
-        const rentalDate = new Date(rental_date);
-        const returnDate = new Date(return_date);
-        return Math.ceil((returnDate.getTime() - rentalDate.getTime()) / 86400000);
+        if(return_date == null){
+            return 0;
+        }
+        else {
+            const rentalDate = new Date(rental_date);
+            const returnDate = new Date(return_date);
+            return Math.ceil((returnDate.getTime() - rentalDate.getTime()) / 86400000);
+        }
+    }
+
+    dataIsNull(return_date: Date){
+        if(return_date == null){
+            return ;
+        }
+        else{
+            return return_date;
+        }
+    }
+
+    amountIsNull(amount: number){
+        if(amount == null){
+            return '-';
+        }
+        else{
+            return amount + '€';
+        }
+    }
+
+    durationIsNull(duration: string){
+        if(duration == null){
+            return '-';
+        }
+        else{
+            return duration ;
+        }
     }
 
     increaseFontSize() {

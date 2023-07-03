@@ -16,6 +16,8 @@ export class ApiService {
     private films_user_rental_dateQuery: QueryRef<{ films_user_rental_date: listFilms }, { offset: number, customer_id: number }>;
     private films_user_titleQuery: QueryRef<{ films_user_title: listFilms }, { offset: number, customer_id: number }>;
     private films_user_genreQuery: QueryRef<{ films_user_genre: listFilms }, { offset: number, customer_id: number }>;
+    private films_user_amountQuery: QueryRef<{ films_user_amount: listFilms }, { offset: number, customer_id: number }>;
+    private films_user_durationQuery: QueryRef<{ films_user_duration: listFilms }, { offset: number, customer_id: number }>;
     private films_searchQuery: QueryRef<{ films_search: Film[] }, { title: string }>;
     private filmQuery: QueryRef<{ film: Film }, { film_id: number }>;
     private actorsQuery: QueryRef<{ actors: Actor[] }, { film_id: number }>;
@@ -93,6 +95,7 @@ export class ApiService {
                         return_date
                         rental_rate
                         amount
+                        duration
                     }
                 }
             }`,
@@ -113,6 +116,7 @@ export class ApiService {
                         return_date
                         rental_rate
                         amount
+                        duration
                     }
                 }
             }`,
@@ -133,6 +137,7 @@ export class ApiService {
                         return_date
                         rental_rate
                         amount
+                        duration
                     }
                 }
             }`,
@@ -153,6 +158,49 @@ export class ApiService {
                         return_date
                         rental_rate
                         amount
+                        duration
+                    }
+                }
+            }`,
+            context: {
+                headers: new HttpHeaders().set("authorization", token),
+            }
+        });
+
+        this.films_user_amountQuery = this.apollo.watchQuery({
+            query: gql`query films_user_amount($offset: Int!, $customer_id: Int!){
+                films_user_amount(offset: $offset, customer_id: $customer_id){
+                    count
+                    films {
+                        film_id
+                        title
+                        genre
+                        rental_date
+                        return_date
+                        rental_rate
+                        amount
+                        duration
+                    }
+                }
+            }`,
+            context: {
+                headers: new HttpHeaders().set("authorization", token),
+            }
+        });
+
+        this.films_user_durationQuery = this.apollo.watchQuery({
+            query: gql`query films_user_duration($offset: Int!, $customer_id: Int!){
+                films_user_duration(offset: $offset, customer_id: $customer_id){
+                    count
+                    films {
+                        film_id
+                        title
+                        genre
+                        rental_date
+                        return_date
+                        rental_rate
+                        amount
+                        duration
                     }
                 }
             }`,
@@ -276,6 +324,16 @@ export class ApiService {
     async getFilms_user_genre(offset: number, customer_id: number): Promise<listFilms> {
         const result = await this.films_user_genreQuery.refetch({offset, customer_id});
         return result.data.films_user_genre;
+    }
+
+    async getFilms_user_amount(offset: number, customer_id: number): Promise<listFilms> {
+        const result = await this.films_user_amountQuery.refetch({offset, customer_id});
+        return result.data.films_user_amount;
+    }
+
+    async getFilms_user_duration(offset: number, customer_id: number): Promise<listFilms> {
+        const result = await this.films_user_durationQuery.refetch({offset, customer_id});
+        return result.data.films_user_duration;
     }
 
     async getFilms_search(title: string): Promise<Film[]> {

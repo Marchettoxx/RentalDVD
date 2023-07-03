@@ -137,7 +137,7 @@ const root = {
             JOIN category c ON c.category_id = fc.category_id
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
-            JOIN payment p ON p.rental_id = r.rental_id
+            LEFT JOIN payment p ON p.rental_id = r.rental_id
             WHERE r.customer_id = $1`
             const values = [args.customer_id];
             return db
@@ -162,7 +162,7 @@ const root = {
             JOIN category c ON c.category_id = fc.category_id
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
-            JOIN payment p ON p.rental_id = r.rental_id
+            LEFT JOIN payment p ON p.rental_id = r.rental_id
             WHERE r.customer_id = $1
             ORDER BY r.rental_date`;
             const values = [args.customer_id];
@@ -188,7 +188,7 @@ const root = {
             JOIN category c ON c.category_id = fc.category_id
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
-            JOIN payment p ON p.rental_id = r.rental_id
+            LEFT JOIN payment p ON p.rental_id = r.rental_id
             WHERE r.customer_id = $1
             ORDER BY f.title`;
             const values = [args.customer_id];
@@ -203,6 +203,7 @@ const root = {
                 .catch(err => err);
         }
     },
+
     films_user_genre: (args, { user }) => {
         if (!user) {
             return null
@@ -213,9 +214,61 @@ const root = {
             JOIN category c ON c.category_id = fc.category_id
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
-            JOIN payment p ON p.rental_id = r.rental_id
+            LEFT JOIN payment p ON p.rental_id = r.rental_id
             WHERE r.customer_id = $1
             ORDER BY c.name`;
+            const values = [args.customer_id];
+            return db
+                .any(query, values)
+                .then(res => {
+                    return {
+                        count: res.length,
+                        films: res.slice(args.offset, args.offset + args.limit)
+                    }
+                })
+                .catch(err => err);
+        }
+    },
+
+    films_user_amount: (args, { user }) => {
+        if (!user) {
+            return null
+        } else {
+            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, p.amount
+            FROM film f
+            JOIN film_category fc ON f.film_id = fc.film_id
+            JOIN category c ON c.category_id = fc.category_id
+            JOIN inventory i ON i.film_id = f.film_id 
+            JOIN rental r ON r.inventory_id = i.inventory_id
+            LEFT JOIN payment p ON p.rental_id = r.rental_id
+            WHERE r.customer_id = $1
+            ORDER BY p.amount`;
+            const values = [args.customer_id];
+            return db
+                .any(query, values)
+                .then(res => {
+                    return {
+                        count: res.length,
+                        films: res.slice(args.offset, args.offset + args.limit)
+                    }
+                })
+                .catch(err => err);
+        }
+    },
+
+    films_user_duration: (args, { user }) => {
+        if (!user) {
+            return null
+        } else {
+            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, p.amount, r.return_date - r.rental_date AS duration
+            FROM film f
+            JOIN film_category fc ON f.film_id = fc.film_id
+            JOIN category c ON c.category_id = fc.category_id
+            JOIN inventory i ON i.film_id = f.film_id 
+            JOIN rental r ON r.inventory_id = i.inventory_id
+            LEFT JOIN payment p ON p.rental_id = r.rental_id
+            WHERE r.customer_id = 1
+            ORDER BY duration`;
             const values = [args.customer_id];
             return db
                 .any(query, values)
@@ -318,12 +371,10 @@ const root = {
             const last_update = now.toISOString().slice(0, 19).replace('T', ' ');
             const mutation = `INSERT INTO rental (rental_date, inventory_id, customer_id, return_date, staff_id, last_update) 
                         VALUES($1, $2, $3, NULL, 1, $4);`
-            //const valuesMutation = [rental_date, result[0].inventory_id, args.customer_id, last_update];
-            /*return db
-                .any(mutation, valuesMutation)
+            const valuesMutation = [rental_date, result[0].inventory_id, args.customer_id, last_update];
+            db.any(mutation, valuesMutation)
                 .then(res => res)
-                .catch(err => err); */
-            console.log(rental_date, result[0].inventory_id, args.customer_id, last_update);
+                .catch(err => err);
             return result[0].inventory_id;
         }
     }

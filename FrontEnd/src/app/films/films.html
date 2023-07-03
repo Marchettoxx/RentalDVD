@@ -81,13 +81,17 @@
             </tr>
             <tr>
               <th scope="row"> Costo </th>
-              <td> {{selectedFilm.rental_rate}} € </td>
+              <td> {{selectedFilm.rental_rate}} € al giorno per i primi {{selectedFilm.rental_duration}} giorni </td>
             </tr>
             <tr>
               <th scope="row"> Attori </th>
               <td>
                 <p *ngFor="let actor of actors"> {{actor.first_name}} {{actor.last_name}} </p>
               </td>
+            </tr>
+            <tr>
+                <th scope="row"> Durata Film</th>
+                <td> {{selectedFilm.length}} minuti</td>
             </tr>
             <tr>
               <th scope="row"> Descrizione </th>
