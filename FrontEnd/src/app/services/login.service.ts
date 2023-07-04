@@ -38,11 +38,12 @@ export class LoginService {
         });
     }
 
-    async logout() {
+    async logout(expired: boolean = false) {
         // remove user from local storage and set current user to null
         sessionStorage.removeItem('user');
         this.userSubject.next(null);
         await this.router.navigate(['/login']);
         window.location.reload();
+        sessionStorage.setItem('session', JSON.stringify(expired));
     }
 }

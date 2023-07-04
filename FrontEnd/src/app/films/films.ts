@@ -72,7 +72,7 @@ export class Films implements OnInit {
         await this.updateFilms();
         const result = await this.apiService.getCategories();
         if (!result) {
-            this.loginService.logout();
+            await this.loginService.logout(true);
         }
         this.categories = result;
     }
@@ -81,7 +81,7 @@ export class Films implements OnInit {
         if (this.selectedCategory.category_id! > 0) {
             const result = await this.apiService.getFilms_category(this.offset, this.selectedCategory.category_id!);
             if (!result) {
-                this.loginService.logout();
+                await this.loginService.logout(true);
             } else {
                 this.count = result.count;
                 this.films = result.films;
@@ -89,7 +89,7 @@ export class Films implements OnInit {
         } else {
             const result = await this.apiService.getFilms(this.offset);
             if (!result) {
-                this.loginService.logout();
+                await this.loginService.logout(true);
             } else {
                 this.count = result.count;
                 this.films = result.films;
@@ -120,17 +120,17 @@ export class Films implements OnInit {
     async onSelect(film: Film): Promise<void> {
         const result = await this.apiService.getFilm(film.film_id!);
         if (!result) {
-            this.loginService.logout();
+            await this.loginService.logout(true);
         } else {
             this.selectedFilm = result
             const result1 = await this.apiService.getActors(film.film_id!);
             if (!result1) {
-                this.loginService.logout();
+                await this.loginService.logout(true);
             } else {
                 this.actors = result1;
                 const result2 = await this.apiService.getStores(film.film_id!);
                 if (!result2) {
-                    this.loginService.logout();
+                    await this.loginService.logout(true);
                 } else {
                     this.stores = result2;
                 }
@@ -168,7 +168,7 @@ export class Films implements OnInit {
             this.rentedFilm = this.selectedFilm;
             const result = await this.apiService.putRentFilm(this.selectedStore.store_id!, this.selectedFilm.film_id!, this.selectedDate.toISOString(), this.user.customer_id!);
             if (!result){
-                this.loginService.logout();
+                await this.loginService.logout(true);
             }
             else{
                 setTimeout(() => {

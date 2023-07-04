@@ -43,7 +43,7 @@ export class Films_rentedComponent {
         if (this.selectedTitle) {
             const result = await this.apiService.getFilms_user_title(this.offset, this.user.customer_id!);
             if (!result) {
-                this.loginService.logout();
+                await this.loginService.logout(true);
             } else {
                 this.count = result.count;
                 this.films = result.films;
@@ -51,7 +51,7 @@ export class Films_rentedComponent {
         } else if (this.selectedReturnDate) {
             const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id!);
             if (!result) {
-                this.loginService.logout();
+                await this.loginService.logout(true);
             } else {
                 this.count = result.count;
                 this.films = result.films;
@@ -59,7 +59,7 @@ export class Films_rentedComponent {
         } else if (this.selectedRentalDate) {
             const result = await this.apiService.getFilms_user_rental_date(this.offset, this.user.customer_id!);
             if (!result) {
-                this.loginService.logout();
+                await this.loginService.logout(true);
             } else {
                 this.count = result.count;
                 this.films = result.films;
@@ -67,7 +67,7 @@ export class Films_rentedComponent {
         } else if (this.selectedAmount) {
             const result = await this.apiService.getFilms_user_amount(this.offset, this.user.customer_id!);
             if (!result) {
-                this.loginService.logout();
+                await this.loginService.logout(true);
             } else {
                 this.count = result.count;
                 this.films = result.films;
@@ -75,7 +75,7 @@ export class Films_rentedComponent {
         } else if (this.selectedDuration) {
             const result = await this.apiService.getFilms_user_duration(this.offset, this.user.customer_id!);
             if (!result) {
-                this.loginService.logout();
+                await this.loginService.logout(true);
             } else {
                 this.count = result.count;
                 this.films = result.films;
@@ -106,12 +106,12 @@ export class Films_rentedComponent {
     async onSelect(film: Film): Promise<void> {
         const result = await this.apiService.getFilm(film.film_id!);
         if (!result) {
-            this.loginService.logout();
+            await this.loginService.logout(true);
         } else {
             this.selectedFilm = result;
             const result1 = await this.apiService.getActors(film.film_id!);
             if (!result1) {
-                this.loginService.logout();
+                await this.loginService.logout(true);
             } else {
                 this.actors = result1;
             }
@@ -176,9 +176,8 @@ export class Films_rentedComponent {
 
     dataIsNull(return_date: Date){
         if(return_date == null){
-            return ;
-        }
-        else{
+            return;
+        } else {
             return return_date;
         }
     }
@@ -186,8 +185,7 @@ export class Films_rentedComponent {
     amountIsNull(amount: number){
         if(amount == null){
             return '-';
-        }
-        else{
+        } else {
             return amount + ' €';
         }
     }
@@ -195,8 +193,7 @@ export class Films_rentedComponent {
     durationIsNull(duration: Interval){
         if(duration == null){
             return '-';
-        }
-        else{
+        } else {
             return duration.days + ' giorni';
         }
     }
