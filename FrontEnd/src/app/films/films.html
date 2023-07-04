@@ -53,12 +53,12 @@
     </div>
   </div>
 
-  <div *ngIf="dismissModal" id="myModal" class="modal fade menu-popup" role="dialog" [style.fontSize.em]="fontSize" >
+  <div id="myModal" class="modal fade menu-popup" role="dialog" [style.fontSize.em]="fontSize" >
     <div class="modal-dialog" >
       <div class="modal-content" >
         <div class="modal-header">
           <h4 class="modal-title" >{{selectedFilm.title}}</h4>
-          <button type="button" class="close" data-dismiss="modal" >&times;</button>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
           <table class="table table-bordered">
