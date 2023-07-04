@@ -1,21 +1,21 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
-import { LoginService } from "./services/login.service";
-import { Login } from "./utilities/typeDB";
+import {LoginService} from "./services/login.service";
+import {User} from "./utilities/typeDB";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  user?: Login | null = null;
+    public user!: User | null;
 
-  constructor(private loginService: LoginService) {
-    this.loginService.user.subscribe(x => this.user = x);
-  }
+    constructor(private loginService: LoginService) {
+        this.loginService.user.subscribe(x => this.user = x);
+    }
 
-  logout() {
-    this.loginService.logout();
-  }
+    async logout() {
+        await this.loginService.logout();
+    }
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap } from "rxjs";
+import {Component, OnInit} from '@angular/core';
+import {debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap} from "rxjs";
 
-import {Actor, Category, Film, Login, Store} from "../utilities/typeDB";
+import {Actor, Category, Film, Store, User} from "../utilities/typeDB";
 import {ApiService} from "../services/api.service";
 import {LoginService} from "../services/login.service";
 
@@ -12,32 +12,33 @@ import {LoginService} from "../services/login.service";
 })
 export class Films implements OnInit {
     offset: number = 0;
-    count?: number = 0;
+    count: number = 0;
     current_page: number = 0;
+    fontSize: number = 1;
+
     today!: Date;
     tomorrow!: Date;
     afterTomorrow!: Date;
-    rented = false;
-    rentedFilm: Film = {}
-    error: boolean = false
-    validRent: boolean = true
-
-    fontSize: number = 1;
-    isIncreased: boolean = false;
-
-    user!: Login;
-
-    films?: Film[];
-    selectedFilm: Film = {};
-    categories?: Category[];
-    selectedCategory: Category = {category_id: -1, name: "Categorie"};
-    stores?: Store[];
-    selectedStore: Store = {store_id: -1, city: "Store"};
     selectedDate!: Date;
 
-    actors?: Actor[];
+    rented: boolean = false;
+    error: boolean = false;
+    validRent: boolean = true;
+    isIncreased: boolean = false;
 
-    films$?: Observable<Film[]>;
+    user!: User;
+
+    rentedFilm!: Film;
+    films!: Film[];
+    selectedFilm!: Film;
+    categories!: Category[];
+    selectedCategory: Category = {category_id: -1, name: "Categorie"};
+    stores!: Store[];
+    selectedStore: Store = {store_id: -1, city: "Store", address: ""};
+
+    actors!: Actor[];
+
+    films$!: Observable<Film[]>;
     private searchTerms = new Subject<string>();
 
     constructor(private apiService: ApiService, private loginService: LoginService) {
@@ -163,27 +164,26 @@ export class Films implements OnInit {
     }
 
     async rent() {
-        if(this.selectedStore.store_id! > 0){
+        if (this.selectedStore.store_id! > 0) {
             this.rented = true;
             this.rentedFilm = this.selectedFilm;
             const result = await this.apiService.putRentFilm(this.selectedStore.store_id!, this.selectedFilm.film_id!, this.selectedDate.toISOString(), this.user.customer_id!);
-            if (!result){
+            if (!result) {
                 await this.loginService.logout(true);
-            }
-            else{
+            } else {
                 setTimeout(() => {
                     this.rented = false;
                 }, 3000)
                 setTimeout(() => {
                     this.validRent = true
                 }, 1000)
-                this.selectedStore = {store_id: -1, city: "Store"}
+                this.selectedStore = {store_id: -1, city: "Store", address:""}
             }
-        }
-        else{
+        } else {
             this.error = true
         }
     }
+
     increaseFontSize() {
         this.fontSize += 0.3;
         this.isIncreased = true;
