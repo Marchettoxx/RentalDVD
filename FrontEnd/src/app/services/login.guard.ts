@@ -4,7 +4,7 @@ import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '
 import {LoginService} from './login.service';
 
 @Injectable({providedIn: 'root'})
-export class AuthGuard implements CanActivate {
+export class LoginGuard implements CanActivate {
     constructor(
         private router: Router,
         private loginService: LoginService
@@ -14,14 +14,12 @@ export class AuthGuard implements CanActivate {
     async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const user = this.loginService.userValue;
         if (user) {
-            // authorised so return true
-            console.log("canActivate, user_logged");
-            return true;
+            if (state.url == '/login'){
+               await this.router.navigate(['/home']);
+            }
+            return false;
         }
-        console.log("canActivate, user_not_logged");
-        // not logged in so redirect to login page with the return url
-        await this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
-        return false;
+        return true;
     }
 
 }

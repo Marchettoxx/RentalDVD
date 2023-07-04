@@ -6,6 +6,7 @@ import { AuthGuard } from "./services/auth.guard";
 import { LoginComponent } from "./login/login.component";
 import { Films } from "./films/films";
 import { Films_rentedComponent } from "./films_rented/films_rented.component";
+import {LoginGuard} from "./services/login.guard";
 
 /*
   --canActivate-- (https://angular.io/api/router/CanActivate#description)
@@ -16,14 +17,12 @@ import { Films_rentedComponent } from "./films_rented/films_rented.component";
  */
 const routes: Routes = [
   //{ path: '', component: HomeComponent, canActivate: [AuthGuard]},
-  { path : '', pathMatch : 'full' ,redirectTo : 'login' },
-  { path: 'login', component: LoginComponent },
+  { path : '', pathMatch : 'full' ,redirectTo : 'home' },
+  { path: 'login', component: LoginComponent, canActivate:[LoginGuard]},
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'films', component: Films, canActivate: [AuthGuard] },
   { path: 'films_rented', component: Films_rentedComponent, canActivate: [AuthGuard] },
-
-  // if insert an url not correct
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'home' } // if insert an url not correct
 ];
 
 @NgModule({

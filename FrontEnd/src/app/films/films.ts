@@ -21,6 +21,7 @@ export class Films implements OnInit {
     rentedFilm: Film = {}
     error: boolean = false
     validRent: boolean = true
+    dismissModal: boolean = true;
 
     fontSize: number = 1;
     isIncreased: boolean = false;
@@ -120,16 +121,19 @@ export class Films implements OnInit {
     async onSelect(film: Film): Promise<void> {
         const result = await this.apiService.getFilm(film.film_id!);
         if (!result) {
+            this.dismissModal=false;
             this.loginService.logout();
         } else {
             this.selectedFilm = result
             const result1 = await this.apiService.getActors(film.film_id!);
             if (!result1) {
+                this.dismissModal=false;
                 this.loginService.logout();
             } else {
                 this.actors = result1;
                 const result2 = await this.apiService.getStores(film.film_id!);
                 if (!result2) {
+                    this.dismissModal=false;
                     this.loginService.logout();
                 } else {
                     this.stores = result2;
@@ -164,11 +168,11 @@ export class Films implements OnInit {
         this.selectedDate = date;
     }
 
-    rent() {
+    async rent() {
         if(this.selectedStore.store_id! > 0){
             this.rented = true;
             this.rentedFilm = this.selectedFilm;
-            const result = this.apiService.putRentFilm(this.selectedStore.store_id!, this.selectedFilm.film_id!, this.selectedDate.toISOString(), this.user.customer_id!);
+            const result = await this.apiService.putRentFilm(this.selectedStore.store_id!, this.selectedFilm.film_id!, this.selectedDate.toISOString(), this.user.customer_id!);
             if (!result){
                 this.loginService.logout();
             }

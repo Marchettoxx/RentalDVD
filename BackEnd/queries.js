@@ -29,7 +29,7 @@ const root = {
                     },
                     SK,
                     {
-                        expiresIn: '1h'
+                        expiresIn: '15s'
                     });
                 return {
                     customer_id: user.customer_id,

@@ -7,7 +7,6 @@ import {LoginService} from '../services/login.service';
 @Component({templateUrl: 'login.component.html'})
 export class LoginComponent implements OnInit {
     form!: FormGroup;
-    loading = false;
     submitted = false;
 
     constructor(
@@ -34,7 +33,6 @@ export class LoginComponent implements OnInit {
         if (this.form.invalid) {
             return;
         }
-        this.loading = true;
         this.loginService.login(this.f["username"].value, this.f["password"].value)
             .then(user => {
                     if (user.customer_id! > 0) {
@@ -44,7 +42,6 @@ export class LoginComponent implements OnInit {
                         this.router.navigate(['/home']);
                     } else {
                         console.log("login, NOT OK")
-                        this.loading = false;
                         this.form.reset();
                         this.router.navigate(['/login']);
                     }
