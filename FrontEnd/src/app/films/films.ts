@@ -18,9 +18,11 @@ export class Films implements OnInit {
     tomorrow!: Date;
     afterTomorrow!: Date;
     rented = false;
-    rentedFilm: Film = {}
-    error: boolean = false
-    validRent: boolean = true
+    rentedFilm: Film = {};
+    error: boolean = false;
+    validRent: boolean = true;
+
+    noStores!: boolean;
 
     fontSize: number = 1;
     isIncreased: boolean = false;
@@ -70,39 +72,39 @@ export class Films implements OnInit {
             })
         );
         await this.updateFilms();
-        const result = await this.apiService.getCategories();
-        if (!result) {
+        const categories = await this.apiService.getCategories();
+        if (!categories) {
             await this.loginService.logout(true);
         }
-        this.categories = result;
+        this.categories = categories;
     }
 
     async updateFilms() {
         if (this.selectedCategory.category_id! > 0) {
-            const result = await this.apiService.getFilms_category(this.offset, this.selectedCategory.category_id!);
-            if (!result) {
+            const listFilmsCategory = await this.apiService.getFilms_category(this.offset, this.selectedCategory.category_id!);
+            if (!listFilmsCategory) {
                 await this.loginService.logout(true);
             } else {
-                this.count = result.count;
-                this.films = result.films;
+                this.count = listFilmsCategory.count;
+                this.films = listFilmsCategory.films;
             }
         } else {
-            const result = await this.apiService.getFilms(this.offset);
-            if (!result) {
+            const listFilms = await this.apiService.getFilms(this.offset);
+            if (!listFilms) {
                 await this.loginService.logout(true);
             } else {
-                this.count = result.count;
-                this.films = result.films;
+                this.count = listFilms.count;
+                this.films = listFilms.films;
             }
         }
     }
 
-    showPrevious(n: number) {
-        return this.offset - n > 0;
+    showPrevious(pos: number) {
+        return this.offset - pos > 0;
     }
 
-    showNext(n: number) {
-        return this.offset + 10 + n < this.count!;
+    showNext(pos: number) {
+        return this.offset + 10 + pos < this.count!;
     }
 
     async onPrevious() {
@@ -118,23 +120,24 @@ export class Films implements OnInit {
     }
 
     async onSelect(film: Film): Promise<void> {
-        const result = await this.apiService.getFilm(film.film_id!);
-        if (!result) {
+        const filmDetails = await this.apiService.getFilm(film.film_id!);
+        if (!filmDetails) {
             await this.loginService.logout(true);
         } else {
-            this.selectedFilm = result
-            console.log(result);
-            const result1 = await this.apiService.getActors(film.film_id!);
-            if (!result1) {
+            this.selectedFilm = filmDetails
+            const actors = await this.apiService.getActors(film.film_id!);
+            if (!actors) {
                 await this.loginService.logout(true);
             } else {
-                this.actors = result1;
-                const result2 = await this.apiService.getStores(film.film_id!);
-                console.log(result2);
-                if (!result2) {
+                this.actors = actors;
+                const stores = await this.apiService.getStores(film.film_id!);
+                if (stores === null) {
                     await this.loginService.logout(true);
+                } else if (stores.length === 0) {
+                    this.noStores = false;
                 } else {
-                    this.stores = result2;
+                    this.noStores = true;
+                    this.stores = stores;
                 }
             }
         }
