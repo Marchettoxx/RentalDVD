@@ -3,14 +3,14 @@ import {Router} from '@angular/router';
 import {BehaviorSubject, Observable} from 'rxjs';
 
 import {ApiService} from "./api.service";
-import {Login} from "../utilities/typeDB";
+import {User} from "../utilities/typeDB";
 
 @Injectable({
     providedIn: 'root'
 })
 export class LoginService {
-    private userSubject: BehaviorSubject<Login | null>;
-    public user: Observable<Login | null>;
+    private userSubject: BehaviorSubject<User | null>;
+    public user: Observable<User | null>;
 
     constructor(private router: Router, private apiService: ApiService) {
         this.userSubject = new BehaviorSubject(JSON.parse(sessionStorage.getItem('user')!));
@@ -29,11 +29,11 @@ export class LoginService {
                 this.userSubject.asObservable();
                 return user;
             } else {
-                const user: Login = {customer_id: -1}
+                const user: User = {customer_id: -1, username: "", token: ""}
                 return user;
             }
-        }).catch(_ => {
-            const user: Login = {customer_id: -1}
+        }).catch( _ => {
+            const user: User = {customer_id: -1, username: "", token: ""}
             return user;
         });
     }

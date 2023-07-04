@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-import {Actor, Film, Interval, Login} from "../utilities/typeDB";
+import {Actor, Film, Interval, User} from "../utilities/typeDB";
 import {ApiService} from "../services/api.service";
 import {LoginService} from "../services/login.service";
 
@@ -11,25 +11,22 @@ import {LoginService} from "../services/login.service";
 })
 export class Films_rentedComponent {
     offset: number = 0;
-    count?: number = 0;
+    count: number = 0;
     current_page: number = 0;
-
     fontSize: number = 1;
-    isIncreased: boolean = false;
 
-    user!: Login;
-
-    films?: Film[];
-    selectedFilm: Film = {};
+    user!: User;
+    actors!: Actor[];
+    films!: Film[];
+    selectedFilm!: Film;
     selectedFilter: string = "Filtro";
 
+    isIncreased: boolean = false;
     selectedReturnDate: Boolean = false;
     selectedTitle: Boolean = false;
     selectedRentalDate: Boolean = true;
     selectedAmount: Boolean = false;
     selectedDuration: Boolean = false;
-
-    actors?: Actor[];
 
     constructor(private loginService: LoginService, private apiService: ApiService) {
         this.loginService.user.subscribe(x => this.user = x!);
