@@ -123,12 +123,14 @@ export class Films implements OnInit {
             await this.loginService.logout(true);
         } else {
             this.selectedFilm = result
+            console.log(result);
             const result1 = await this.apiService.getActors(film.film_id!);
             if (!result1) {
                 await this.loginService.logout(true);
             } else {
                 this.actors = result1;
                 const result2 = await this.apiService.getStores(film.film_id!);
+                console.log(result2);
                 if (!result2) {
                     await this.loginService.logout(true);
                 } else {
@@ -171,6 +173,7 @@ export class Films implements OnInit {
                 await this.loginService.logout(true);
             }
             else{
+                console.log(this.selectedStore);
                 setTimeout(() => {
                     this.rented = false;
                 }, 3000)

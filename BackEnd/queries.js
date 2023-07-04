@@ -29,7 +29,7 @@ const root = {
                     },
                     SK,
                     {
-                        expiresIn: '10s'
+                        expiresIn: '10h'
                     });
                 return {
                     customer_id: user.customer_id,
@@ -304,11 +304,12 @@ const root = {
             FROM store s 
             JOIN address a ON a.address_id = s.address_id
             JOIN city ci ON ci.city_id = a.city_id
-            WHERE store_id IN (
+            WHERE s.store_id IN (
                 SELECT i.store_id 
                 FROM inventory i
+                JOIN rental r ON r.inventory_id = i.inventory_id
                 WHERE i.film_id = $1 
-                AND inventory_id NOT IN ( 
+                AND i.inventory_id NOT IN ( 
                     SELECT inventory_id 
                     FROM rental r   
                     WHERE return_date IS NULL))`
