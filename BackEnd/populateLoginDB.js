@@ -37,8 +37,6 @@ function write(customer_id, username, password) {
     });
 }
 
-
-
 async function populateLogin() {
     const users = await getUsers();
     for (let user of users) {
@@ -54,4 +52,4 @@ async function populateLogin() {
     }
 }
 
-populateLogin();
+populateLogin().then();
