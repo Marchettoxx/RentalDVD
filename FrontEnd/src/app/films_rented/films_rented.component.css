@@ -27,12 +27,15 @@
 }
 
 .selectedMyStyle {
+    color: blue;
 }
 
 .selectedMyStyle:hover {
-    background-color: black;
-    color: white;
-    padding: 5%;
+    border-color: black;
+}
+
+.selectedMyStyle:visited {
+    color: red;
 }
 
 a.selected {
