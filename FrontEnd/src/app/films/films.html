@@ -32,13 +32,14 @@
         </ul>
       </div>
     </div>
-      <div class="element">
-          <div >
-              <p [style.fontSize.em]="fontSize" id="size" aria-labelledby="size" style="color: white" >Modifica la dimensione del testo:</p>
-              <button (click)="increaseFontSize()" [disabled]="isIncreased" >+</button>
-              <button (click)="decreaseFontSize()" [disabled]="!isIncreased">-</button>
-          </div>
+
+    <div class="element">
+      <div >
+          <p [style.fontSize.em]="fontSize" id="size" aria-labelledby="size" style="color: white" >Modifica la dimensione del testo:</p>
+          <button (click)="increaseFontSize()" [disabled]="isIncreased" >+</button>
+          <button (click)="decreaseFontSize()" [disabled]="!isIncreased">-</button>
       </div>
+    </div>
   </div>
 
   <div class="row"  aria-label="Tutti i film disponibili nel nostro store:">
@@ -101,7 +102,7 @@
           </table>
         </div>
 
-        <div class="container">
+        <div *ngIf="noStores" class="container">
           <div class="element">
             <div class="dropdown">
               <p>Seleziona lo store:</p>
@@ -111,7 +112,6 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <button class="dropdown-item" *ngFor="let store of stores" (click)="selectStore(store)" [style.fontSize.em]="fontSize"> Store:{{store.city}}, Indirizzo:{{store.address}}</button>
               </div>
-                <p *ngIf="error"> Errore: seleziona lo store</p>
             </div>
           </div>
 
@@ -130,8 +130,12 @@
           </div>
         </div>
 
-        <div class="modal-footer">
+        <div *ngIf="noStores" class="modal-footer">
           <button type="button" class="btn btn-info" [disabled]="validRent"  data-dismiss="modal" (click)="rent()" routerLink="/films" [style.fontSize.em]="fontSize"> Prenota </button>
+        </div>
+
+        <div *ngIf="!noStores" class="alert alert-primary" style="text-align: center">
+          <strong> Non ci sono DVD disponibili </strong>
         </div>
       </div>
     </div>
