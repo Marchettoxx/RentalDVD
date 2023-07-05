@@ -18,6 +18,7 @@ h1 {
       text-align: center;
       font-size: 2em;
       font-weight: bold;
+      background-color: black;
 }
 
 .modal-title {
@@ -104,14 +105,16 @@ button.selected:active {
 }
 
 a.selected {
-    background-color: lightskyblue;
+    background-color: black;
     color: white;
     border-width: thin;
     border-color: black;
 }
 
 a.selected:hover {
-    background-color: lightblue;
+    background-color: darkgrey;
     color: white;
 }
+
+
 

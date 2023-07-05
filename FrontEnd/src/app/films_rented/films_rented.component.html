@@ -1,7 +1,7 @@
 <div class="browseMyStyle">
   <span class="space"></span>
 
-  <h1 id="tableTitle" > Cronologia dei film noleggiati </h1>
+  <h1 class="titleRented" id="tableTitle" > Cronologia dei film noleggiati </h1>
 
   <div class="container ">
       <div class="element">
@@ -21,7 +21,6 @@
 
       <div class="element">
           <div >
-              <p [style.fontSize.em]="fontSize" id="size" aria-labelledby="size" >Modifica la dimensione del testo:</p>
               <button (click)="increaseFontSize()" [disabled]="isIncreased" >+</button>
               <button (click)="decreaseFontSize()" [disabled]="!isIncreased">-</button>
           </div>
@@ -30,12 +29,12 @@
 
   <table class="table table-light table-hover table-bordered selectedMyStyle" [style.fontSize.em]="fontSize"  aria-labelledby="tableTitle">
       <thead class="table-info">
-      <tr aria-label="">
+      <tr>
           <th scope="col" id="col1" role="columnheader" aria-label="prima colonna: Titolo."> TITOLO </th>
-          <th scope="col" id="col2" role="columnheader" aria-label="terza colonna: Data noleggio."> DATA NOLEGGIO </th>
-          <th scope="col" id="col3" role="columnheader" aria-label="quarta colonna: Data riconsegna."> DATA RICONSEGNA </th>
-          <th scope="col" id="col4" role="columnheader" aria-label="quinta colonna: Durata."> DURATA </th>
-          <th scope="col" id="col5" role="columnheader" aria-label="sesta colonna: Spesa."> SPESA </th>
+          <th scope="col" id="col2" role="columnheader" aria-label="seconda colonna: Data noleggio."> DATA NOLEGGIO </th>
+          <th scope="col" id="col3" role="columnheader" aria-label="terza colonna: Data riconsegna."> DATA RICONSEGNA </th>
+          <th scope="col" id="col4" role="columnheader" aria-label="quarta colonna: Durata."> DURATA </th>
+          <th scope="col" id="col5" role="columnheader" aria-label="quinta colonna: Spesa."> SPESA </th>
       </tr>
       </thead>
       <tbody>
@@ -52,47 +51,24 @@
   <div id="myModal" class="modal fade menu-popup" role="dialog" aria-label="Pop up prenotazione noleggio">
     <div class="modal-dialog" >
       <div class="modal-content">
-
         <div class="modal-header">
-          <h2 class="font-weight-bold"> {{selectedFilm.title}} </h2>
+          <h2 class="font-weight-bold" aria-label="titolo"> {{selectedFilm.title}} </h2>
           <button type="button" class="btn-close" aria-label="Close" data-dismiss="modal">&times;</button>
         </div>
-
         <div class="modal-body">
-          <table class="table table-bordered">
-            <tbody>
-            <tr>
-              <th scope="row"> Anno </th>
-              <td> {{selectedFilm.release_year}} </td>
-            </tr>
-            <tr>
-              <th scope="row"> Genere </th>
-              <td> {{selectedFilm.genre}} </td>
-            </tr>
-            <tr>
-              <th scope="row"> Lingua </th>
-              <td> {{selectedFilm.language}} </td>
-            </tr>
-            <tr>
-              <th scope="row"> Rating </th>
-              <td> {{selectedFilm.rating}} </td>
-            </tr>
-            <tr>
-              <th scope="row"> Costo </th>
-              <td> {{selectedFilm.rental_rate}} € </td>
-            </tr>
-            <tr>
-              <th scope="row"> Attori </th>
-              <td>
-                <section *ngFor="let actor of actors"> {{actor.first_name}} {{actor.last_name}} </section>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row"> Descrizione </th>
-              <td> {{selectedFilm.description}} </td>
-            </tr>
-            </tbody>
-          </table>
+            <ul>
+                <li>Anno: {{selectedFilm.release_year}}</li>
+                <li>Genere: {{selectedFilm.genre}}</li>
+                <li>Lingua: {{selectedFilm.language}}</li>
+                <li>Rating: {{selectedFilm.rating}}</li>
+                <li>Costo:{{selectedFilm.rental_rate}} €</li>
+                <li >Attori :
+                    <section *ngFor="let actor of actors"> {{actor.first_name}} {{actor.last_name}} </section>
+                </li>
+                <li> Descrizione: {{selectedFilm.description}}</li>
+
+            </ul>
+
         </div>
 
         <div class="modal-footer"></div>

@@ -13,18 +13,19 @@
   align-items: center;
 }
 
-h1 {
+.titleRented{
   color: white;
   text-align: center;
   font-size: 2em;
   font-weight: bold;
+    background-color: black;
 }
 
 .selectedMyStyle {
 }
 
 .selectedMyStyle a:hover {
-  background-color: greenyellow;
+  background-color: black;
   color: white;
   padding: 5%;
 }
@@ -34,14 +35,14 @@ h1 {
  */
 
 a.selected {
-  background-color: lightskyblue;
+  background-color: black;
   color: white;
   border-width: thin;
   border-color: black;
 }
 
 a.selected:hover {
-  background-color: lightblue;
+  background-color: darkgrey;
   color: white;
 }
 
@@ -59,140 +60,3 @@ a.selected:hover {
 p{
     color: white;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-.browse > * {
-  width: 100%;
-  max-width: 50em;
-}*/
-
-/*.tableStyle {
-  margin-top: 1em;
-  margin-bottom: 1em;
-  border-collapse: separate;
-  border: 0.2em solid gray;
-  background: white;
-  text-align: center;
-  border-spacing: 1em;
-}*/
-
-/*.top {
-  background: darkseagreen;
-  text-size-adjust: auto;
-}*/
-
-/*.nameTitle {
-  background-color: transparent;
-  color: darkblue;
-  font-weight: bold;
-}*/
-
-
-
-/*.prev {
-  float: left;
-  border-radius: 3em 3em 3em 3em;
-  font-size: 1.5em
-}
-
-.next {
-  float: right;
-  border-radius: 3em 3em 3em 3em;
-  font-size: 1.5em
-}
-
-
-.btn:hover{
-  background-color: #42A948;
-}
-
-button.selected {
-  background-color: black;
-  color: white;
-}
-
-button.selected:hover {
-  background-color: #505050;
-  color: white;
-}
-
-button.selected:active {
-  background-color: black;
-  color: white;
-}
-
-.curve {
-  border-radius: 4.375em 4.375em 4.375em 4.375em;
-  font-size: 1.25em
-}*/
-
-/*.index {
-  margin: auto;
-  width: 45%;
-}*/
-
-/*.modal-title {
-  color: darkblue;
-  font-weight: bold;
-  font-size: 150%;
-}*/
-
-/*.title {
-  background-color: transparent;
-  color: darkblue;
-  font-weight: bold;
-  font-size: 150%
-}*/
-
-/*.btn-info {
-  border-radius: 2.5em 2.5em 2.5em 2.5em
-}*/
-
-
-/*label {
-  display: block;
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-top: 1rem;
-  margin-bottom: .5rem;
-}*/
-
-
-/*.button-container {
-  display: flex;
-  justify-content: flex-end;
-}
-*/
-
-
-
-
-
-
