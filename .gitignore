@@ -1,6 +1,7 @@
 /BackEnd/node_modules/
 /FrontEnd/node_modules/
 /BackEnd/.env
+/BackEnd/password.txt
 
 # Project exclude paths
 /FrontEnd/.angular/
