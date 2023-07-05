@@ -1,107 +1,72 @@
-/*
-  Principal Page
- */
-.space {
-      display: inline-block;
-      height: 3em;
-}
-
 .browseMyStyle {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-h1 {
-      color: white;
-      text-align: center;
-      font-size: 2em;
-      font-weight: bold;
-      background-color: black;
-}
-
-.modal-title {
-      color: darkblue;
-      font-weight: bold;
-      font-size: 150%
+.titleRented {
+    color: white;
+    text-align: center;
+    font-size: 3em;
+    font-weight: bold;
+    background-color: black;
+    margin-top: 0.8em;
+    padding: 0.3em;
 }
 
 .col-sm-6 {
-      margin-bottom:5em
+    margin-bottom: 5em
 }
 
 .card {
-      border-radius: 2em 2em 2em 2em;
-      background: white
+    border-radius: 2em 2em 2em 2em;
+    background: white
 }
 
 .card-body {
-      text-align:center
-}
-
-input {
-      padding: .6em;
-      width: 25%;
-}
-
-.search-result li {
-      width: 100%;
-      padding: .6em;
-}
-
-.search-result li:hover {
-      background-color: greenyellow;
-}
-
-ul.search-result {
-      padding-left: 0;
+    text-align: center
 }
 
 .search-container {
     position: absolute;
     background-color: white;
-    z-index: 9999;
+    z-index: 1;
 }
 
-#search-component {
+.search {
     position: relative;
-    width: 50em;
-    z-index: 2;
+    width: 10em;
+    padding: .6em;
 }
 
 .container {
     display: flex;
-    justify-content: space-between;
     margin-bottom: 3em;
 }
 
 .element {
-    margin-right: 10em;
-}
-
-.element:last-child {
-    margin-right: 0;
+    flex-basis: 25%;
 }
 
 .dropdown-menu {
-      z-index: 1;
-      position: relative;
+    z-index: 1;
+    position: relative;
 }
 
 button.selected {
-      background-color: black;
-      color: white;
+    background-color: black;
+    color: white;
 }
 
 button.selected:hover {
-      background-color: #505050;
-      color: white;
+    background-color: #505050;
+    color: white;
 }
 
 button.selected:active {
-      background-color: black;
-      color: white;
+    background-color: black;
+    color: white;
 }
 
 a.selected {
