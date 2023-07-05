@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Apollo, gql, QueryRef} from 'apollo-angular';
 
-import {Login, Film, Store, Actor, listFilms, Category, Inventory} from '../utilities/typeDB';
+import {User, Film, Store, Actor, listFilms, Category, Inventory} from '../utilities/typeDB';
 import {HttpHeaders} from "@angular/common/http";
 
 @Injectable({
@@ -9,7 +9,7 @@ import {HttpHeaders} from "@angular/common/http";
 })
 export class ApiService {
 
-    private loginQuery: QueryRef<{ login: Login }, { username: string, password: string }>;
+    private loginQuery: QueryRef<{ login: User }, { username: string, password: string }>;
     private filmsQuery: QueryRef<{ films: listFilms }, { offset: number }>;
     private films_categoryQuery: QueryRef<{ films_category: listFilms }, { offset: number, category_id: number }>;
     private films_userQuery: QueryRef<{ films_user: listFilms }, { offset: number, customer_id: number }>;
@@ -268,7 +268,7 @@ export class ApiService {
         });
     }
 
-    async getLogin(username: string, password: string): Promise<Login> {
+    async getLogin(username: string, password: string): Promise<User> {
         const result = await this.loginQuery.refetch({username, password});
         return result.data.login;
     }
