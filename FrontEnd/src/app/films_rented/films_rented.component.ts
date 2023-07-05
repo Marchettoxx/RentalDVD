@@ -18,7 +18,7 @@ export class Films_rentedComponent {
     user!: User;
     actors!: Actor[];
     films!: Film[];
-    selectedFilm!: Film;
+    selectedFilm: Film = {};
     selectedFilter: string = "Filtro";
 
     isIncreased: boolean = false;
