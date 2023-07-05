@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap } from "rxjs";
 
-import {Actor, Category, Film, Login, Store} from "../utilities/typeDB";
+import {Actor, Category, Film, User, Store} from "../utilities/typeDB";
 import {ApiService} from "../services/api.service";
 import {LoginService} from "../services/login.service";
 
@@ -27,7 +27,7 @@ export class Films implements OnInit {
     fontSize: number = 1;
     isIncreased: boolean = false;
 
-    user!: Login;
+    user!: User;
 
     films?: Film[];
     selectedFilm: Film = {};

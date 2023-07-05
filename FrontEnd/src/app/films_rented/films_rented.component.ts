@@ -42,40 +42,40 @@ export class Films_rentedComponent {
             if (!result) {
                 await this.loginService.logout(true);
             } else {
-                this.count = result.count;
-                this.films = result.films;
+                this.count = result.count!;
+                this.films = result.films!;
             }
         } else if (this.selectedReturnDate) {
             const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id!);
             if (!result) {
                 await this.loginService.logout(true);
             } else {
-                this.count = result.count;
-                this.films = result.films;
+                this.count = result.count!;
+                this.films = result.films!;
             }
         } else if (this.selectedRentalDate) {
             const result = await this.apiService.getFilms_user_rental_date(this.offset, this.user.customer_id!);
             if (!result) {
                 await this.loginService.logout(true);
             } else {
-                this.count = result.count;
-                this.films = result.films;
+                this.count = result.count!;
+                this.films = result.films!;
             }
         } else if (this.selectedAmount) {
             const result = await this.apiService.getFilms_user_amount(this.offset, this.user.customer_id!);
             if (!result) {
                 await this.loginService.logout(true);
             } else {
-                this.count = result.count;
-                this.films = result.films;
+                this.count = result.count!;
+                this.films = result.films!;
             }
         } else if (this.selectedDuration) {
             const result = await this.apiService.getFilms_user_duration(this.offset, this.user.customer_id!);
             if (!result) {
                 await this.loginService.logout(true);
             } else {
-                this.count = result.count;
-                this.films = result.films;
+                this.count = result.count!;
+                this.films = result.films!;
             }
         }
     }
