@@ -76,8 +76,7 @@ ul.search-result {
 }
 
 .element {
-    flex: 1;
-    margin-right: 20px;
+    margin-right: 10em;
 }
 
 .element:last-child {

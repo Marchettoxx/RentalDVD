@@ -1,49 +1,18 @@
-/*
-  Principal Page
- */
-.space {
-  display: inline-block;
-  height: 3em;
-}
-
 .browseMyStyle {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.titleRented{
-  color: white;
-  text-align: center;
-  font-size: 2em;
-  font-weight: bold;
+.titleRented {
+    color: white;
+    text-align: center;
+    font-size: 3em;
+    font-weight: bold;
     background-color: black;
-}
-
-.selectedMyStyle {
-}
-
-.selectedMyStyle a:hover {
-  background-color: black;
-  color: white;
-  padding: 5%;
-}
-
-/*
-  Pagination style
- */
-
-a.selected {
-  background-color: black;
-  color: white;
-  border-width: thin;
-  border-color: black;
-}
-
-a.selected:hover {
-  background-color: darkgrey;
-  color: white;
+    margin-top: 0.8em;
+    padding: 0.3em;
 }
 
 .container {
@@ -54,9 +23,27 @@ a.selected:hover {
 
 .element {
     flex: 1 0 40%;
-    margin-bottom: 40px;
+    margin-bottom: 2em;
 }
 
-p{
+.selectedMyStyle {
+}
+
+.selectedMyStyle:hover {
+    background-color: black;
     color: white;
+    padding: 5%;
+}
+
+a.selected {
+    background-color: black;
+    color: white;
+    border-width: thin;
+    border-color: black;
+}
+
+a.selected:hover {
+    background-color: lightgray;
+    color: black;
+    border-width: initial;
 }
