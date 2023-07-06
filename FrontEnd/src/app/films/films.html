@@ -1,7 +1,5 @@
 <section>
     <h1 class="title"> Lista film in vendita </h1>
-
-
     <div *ngIf="rented" class="alert alert-success alert-dismissible fade show" role="alert" aria-live="assertive">
         <strong>{{rentedFilm.title}}</strong> noleggiato con successo.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -28,12 +26,12 @@
                 <input id="search-box" class="search" placeholder="Cerca per Titolo:" type="search" #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome" [style.fontSize.em]="fontSize"/>
                 <div class="search-container">
                     <button type="button" class="dropdown-item" data-toggle="modal" *ngFor="let film of films$ | async"
-                            (click)="onSelect(film)" data-target="#myModal" [style.fontSize.em]="fontSize">{{ film.title }} </button>
+                            (click)="onSelect(film)" data-target="#myModal" [style.fontSize.em]="fontSize">{{ film.title }}</button>
                 </div>
             </div>
             <div class="col">
-                <button class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased">+</button>
-                <button class="btn btn-lg" (click)="decreaseFontSize()" [disabled]="!isIncreased">-</button>
+                <button class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased" aria-label="aumenta testo">+</button>
+                <button class="btn btn-lg" (click)="decreaseFontSize()" [disabled]="!isIncreased" aria-label="diminuisci testo">-</button>
             </div>
         </div>
     </div>
@@ -47,8 +45,113 @@
                                 data-target="#myModal" [style.fontSize.em]="fontSize">{{film.title}}</button>
                         <article class="card-text"> Anno: {{film.release_year}}, Genere: {{film.genre}}, Lingua: {{film.language}}
                             , Rating:{{film.rating}}, Costo: {{film.rental_rate}} €</article>
-                        <button type="button" class="card-footer btn btn-default" data-toggle="modal" (click)="onSelect(film)"
+                        <button type="button" class="btn btn-default" data-toggle="modal" (click)="onSelect(film)"
                                 data-target="#myModal" [style.fontSize.em]="fontSize"> Prenota
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="myModal" class="modal modal-iframe fade menu-popup" role="dialog" aria-modal="true" aria-live="assertive">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 tabindex="0" class="font-weight-bold" id="detailsTitle" aria-label="Titolo film">
+                            {{selectedFilm.title}}
+                        </h1>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group">
+                            <li tabindex="0" class="list-group-item"><strong>Anno:</strong>
+                                <ul>
+                                    <li>{{selectedFilm.release_year}}</li>
+                                </ul>
+                            </li>
+                            <li tabindex="0" class="list-group-item"><strong>Genere:</strong>
+                                <ul>
+                                    <li>{{selectedFilm.genre}}</li>
+                                </ul>
+                            </li>
+                            <li tabindex="0" class="list-group-item"><strong>Lingua:</strong>
+                                <ul>
+                                    <li>{{selectedFilm.language}}</li>
+                                </ul>
+                            </li>
+                            <li tabindex="0" class="list-group-item"><strong>Rating:</strong>
+                                <ul>
+                                    <li>{{selectedFilm.rating}}</li>
+                                </ul>
+                            </li>
+                            <li tabindex="0" class="list-group-item"><strong>Costo:</strong>
+                                <ul>
+                                    <li>{{selectedFilm.rental_rate}} €</li>
+                                </ul>
+                            </li>
+                            <li tabindex="0" class="list-group-item"><strong>Attori:</strong>
+                                <ul>
+                                    <li *ngFor="let actor of actors"> {{actor.first_name}} {{actor.last_name}} </li>
+                                </ul>
+                            </li>
+                            <li tabindex="0" class="list-group-item"><strong>Descrizione:</strong>
+                                <ul>
+                                    <li>{{selectedFilm.description}}</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div *ngIf="noStores" class="container margin">
+                        <div class="row">
+                            <div class="col">
+                                <div class="dropdown">
+                                    <p>Seleziona store</p>
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="store"
+                                            [style.fontSize.em]="fontSize">
+                                        {{selectedStore.city}}
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <button class="dropdown-item" *ngFor="let store of stores" (click)="selectStore(store)"
+                                                [style.fontSize.em]="fontSize"> Store:{{store.city}},
+                                            Indirizzo:{{store.address}}</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="dropdown">
+                                    <p>Data inizio noleggio</p>
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="data prenotazione"
+                                            [style.fontSize.em]="fontSize">
+                                        {{selectedDate |date: 'dd/MM/yyyy'}}
+                                    </button>
+                                    <div class="dropdown-menu" [style.fontSize.em]="fontSize">
+                                        <button class="dropdown-item" (click)="onSelectDate(today)">
+                                            Oggi: {{today | date: 'dd/MM/yyyy'}}</button>
+                                        <button class="dropdown-item" (click)="onSelectDate(tomorrow)">
+                                            Domani: {{tomorrow | date: 'dd/MM/yyyy'}}</button>
+                                        <button class="dropdown-item" (click)="onSelectDate(afterTomorrow)">
+                                            Dopodomani: {{afterTomorrow | date: 'dd/MM/yyyy'}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="noStores" class="modal-footer">
+                        <button type="button" class="btn btn-primary" [disabled]="validRent" data-dismiss="modal"
+                                (click)="rent()" aria-label="prenotazione" routerLink="/films" [style.fontSize.em]="fontSize"> Prenota
+                        </button>
+                    </div>
+
+                    <div *ngIf="!noStores" class="alert alert-success alert-dismissible fade show" aria-live="assertive">
+                        <strong> Non ci sono DVD disponibili </strong>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                 </div>
@@ -56,124 +159,29 @@
         </div>
     </div>
 
-    <div id="myModal" class="modal fade menu-popup" role="dialog" aria-modal="true" aria-live="assertive">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="font-weight-bold" id="detailsTitle" aria-label="Titolo film">
-                        {{selectedFilm.title}}
-                    </h1>
-                    <button type="button" class="btn-close" aria-label="Close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <ul class="list-group">
-                        <li class="list-group-item"><strong>Anno:</strong>
-                            <ul>
-                                <li>{{selectedFilm.release_year}}</li>
-                            </ul>
-                        </li>
-                        <li class="list-group-item"><strong>Genere:</strong>
-                            <ul>
-                                <li>{{selectedFilm.genre}}</li>
-                            </ul>
-                        </li>
-                        <li class="list-group-item"><strong>Lingua:</strong>
-                            <ul>
-                                <li>{{selectedFilm.language}}</li>
-                            </ul>
-                        </li>
-                        <li class="list-group-item"><strong>Rating:</strong>
-                            <ul>
-                                <li>{{selectedFilm.rating}}</li>
-                            </ul>
-                        </li>
-                        <li class="list-group-item"><strong>Costo:</strong>
-                            <ul>
-                                <li>{{selectedFilm.rental_rate}} €</li>
-                            </ul>
-                        </li>
-                        <li class="list-group-item"><strong>Attori:</strong>
-                            <ul>
-                                <li *ngFor="let actor of actors"> {{actor.first_name}} {{actor.last_name}} </li>
-                            </ul>
-                        </li>
-                        <li class="list-group-item"><strong>Descrizione:</strong>
-                            <ul>
-                                <li>{{selectedFilm.description}}</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <div *ngIf="noStores" class="container">
-                    <div class="element">
-                        <div class="dropdown">
-                            <p>Seleziona lo store:</p>
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    [style.fontSize.em]="fontSize">
-                                {{selectedStore.city}}
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <button class="dropdown-item" *ngFor="let store of stores" (click)="selectStore(store)"
-                                        [style.fontSize.em]="fontSize"> Store:{{store.city}},
-                                    Indirizzo:{{store.address}}</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="element">
-                        <div class="dropdown">
-                            <p>Seleziona la data di inizio noleggio:</p>
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    [style.fontSize.em]="fontSize">
-                                {{selectedDate |date: 'dd/MM/yyyy'}}
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                 [style.fontSize.em]="fontSize">
-                                <button class="dropdown-item" (click)="onSelectDate(today)">
-                                    Oggi: {{today | date: 'dd/MM/yyyy'}}</button>
-                                <button class="dropdown-item" (click)="onSelectDate(tomorrow)">
-                                    Domani: {{tomorrow | date: 'dd/MM/yyyy'}}</button>
-                                <button class="dropdown-item" (click)="onSelectDate(afterTomorrow)">
-                                    Dopodomani: {{afterTomorrow | date: 'dd/MM/yyyy'}}</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div *ngIf="noStores" class="modal-footer">
-                    <button type="button" class="btn btn-primary" [disabled]="validRent" data-dismiss="modal"
-                            (click)="rent()" routerLink="/films" [style.fontSize.em]="fontSize"> Prenota
-                    </button>
-                </div>
-
-                <div *ngIf="!noStores" class="alert alert-primary" style="text-align: center">
-                    <strong> Non ci sono DVD disponibili </strong>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <nav aria-label="Page navigation">
+    <nav aria-label="paginazione">
         <ul class="pagination pagination-lg justify-content-center">
-            <li class="page-item"><a class="page-link" *ngIf="showPrevious(0)" (click)="onPrevious()"> PREV </a></li>
-            <li class="page-item"><a class="page-link" *ngIf="showPrevious(10)"
-                                     (click)="jump(current_page-2)"> {{current_page - 2}} </a></li>
-            <li class="page-item"><a class="page-link" *ngIf="showPrevious(0)"
-                                     (click)="jump(current_page-1)"> {{current_page - 1}} </a></li>
-            <li class="page-item"><a class="page-link" [class.selected]="true"
-                                     (click)="jump(current_page)"> {{current_page}} </a></li>
-            <li class="page-item"><a class="page-link" *ngIf="showNext(0)"
-                                     (click)="jump(current_page+1)"> {{current_page + 1}} </a></li>
-            <li class="page-item"><a class="page-link" *ngIf="showNext(10)"
-                                     (click)="jump(current_page+2)"> {{current_page + 2}} </a></li>
-            <li class="page-item"><a class="page-link" *ngIf="showNext(0)" (click)="onNext()"> NEXT </a></li>
+            <li class="page-item">
+                <button type="button" aria-label="indietro" class="page-link btn" *ngIf="showPrevious(0)" (click)="onPrevious()"> PRECEDENTE </button>
+            </li>
+            <li class="page-item">
+                <button type="button" class="page-link btn" *ngIf="showPrevious(10)" (click)="jump(current_page-2)"> {{current_page - 2}}</button>
+            </li>
+            <li class="page-item">
+                <button type="button" class="page-link btn" *ngIf="showPrevious(0)" (click)="jump(current_page-1)"> {{current_page - 1}}</button>
+            </li>
+            <li class="page-item">
+                <button type="button" class="page-link btn" [class.selected]="true" (click)="jump(current_page)"> {{current_page}} </button>
+            </li>
+            <li class="page-item">
+                <button type="button" class="page-link btn" *ngIf="showNext(0)" (click)="jump(current_page+1)"> {{current_page + 1}} </button>
+            </li>
+            <li class="page-item">
+                <button type="button" class="page-link btn" *ngIf="showNext(10)" (click)="jump(current_page+2)"> {{current_page + 2}} </button>
+            </li>
+            <li class="page-item">
+                <button type="button" aria-label="avanti" class="page-link btn" *ngIf="showNext(0)" (click)="onNext()"> PROSSIMO </button>
+            </li>
         </ul>
     </nav>
 </section>
-
-
-
-
