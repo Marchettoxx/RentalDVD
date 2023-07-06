@@ -39,7 +39,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let film of films" id="row1">
-            <td headers="col1" ><button type="button" class="btn btn-sm btn-block" data-toggle="modal" data-target="#myModal" (click)="onSelect(film)"> {{film.title}} </button></td>
+            <td headers="col1" ><button type="button" class="btn btn-sm btn-block" data-toggle="modal" data-target="#myModal" (click)="onSelect(film)" tabindex="0"> {{film.title}} </button></td>
             <td headers="col2"> {{film.rental_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
             <td headers="col3"> {{dataIsNull(film.return_date!) | date: 'dd/MM/yyyy  -  HH:mm'}}</td>
             <td headers="col4"> {{durationIsNull(film.duration!)}} </td>
@@ -52,52 +52,50 @@
         <div class="modal-dialog" >
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="font-weight-bold" id="detailsTitle" aria-label="Titolo film">
+                    <h1 class="font-weight-bold" id="detailsTitle" tabindex="2">
                         {{selectedFilm.title}}
                     </h1>
-                    <button type="button" class="btn-close" aria-label="Close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="btn-close" aria-label="Chiudi" data-dismiss="modal" tabindex="1">&times;</button>
                 </div>
                 <div class="modal-body">
                     <ul class="list-group">
-                        <li class="list-group-item"><strong>Anno:</strong>
+                        <li class="list-group-item" tabindex="1"><strong>Anno:</strong>
                             <ul>
-                                <li>{{selectedFilm.release_year}}</li>
+                                <li >{{selectedFilm.release_year}}</li>
                             </ul>
                         </li>
-                        <li class="list-group-item"><strong>Genere:</strong>
+                        <li class="list-group-item" tabindex="1"><strong>Genere:</strong>
                             <ul>
                                 <li>{{selectedFilm.genre}}</li>
                             </ul>
                         </li>
-                        <li class="list-group-item"><strong>Lingua:</strong>
+                        <li class="list-group-item" tabindex="1"><strong>Lingua:</strong>
                             <ul>
                                 <li>{{selectedFilm.language}}</li>
                             </ul>
                         </li>
-                        <li class="list-group-item"><strong>Rating:</strong>
+                        <li class="list-group-item" tabindex="1"><strong>Rating:</strong>
                             <ul>
                                 <li>{{selectedFilm.rating}}</li>
                             </ul>
                         </li>
-                        <li class="list-group-item"><strong>Costo:</strong>
+                        <li class="list-group-item" tabindex="1"><strong>Costo:</strong>
                             <ul>
                                 <li>{{selectedFilm.rental_rate}} €</li>
                             </ul>
                         </li>
-                        <li class="list-group-item"><strong>Attori:</strong>
+                        <li class="list-group-item" tabindex="1"><strong>Attori:</strong>
                             <ul>
-                                <li *ngFor="let actor of actors"> {{actor.first_name}} {{actor.last_name}} </li>
+                                <li *ngFor="let actor of actors" > {{actor.first_name}} {{actor.last_name}} </li>
                             </ul>
                         </li>
-                        <li class="list-group-item"><strong>Descrizione:</strong>
+                        <li class="list-group-item" tabindex="1"><strong>Descrizione:</strong>
                             <ul>
                                 <li>{{selectedFilm.description}}</li>
                             </ul>
                         </li>
                     </ul>
-
                 </div>
-
                 <div class="modal-footer"></div>
             </div>
         </div>
@@ -105,13 +103,13 @@
 
     <nav aria-label="Tasti di navigazione pagina">
         <ul class="pagination pagination-lg">
-            <li class="page-item"><a class="page-link" *ngIf="showPrevious(0)" (click)="onPrevious()" aria-label="pagina precedente"> PREV </a></li>
-            <li class="page-item"><a class="page-link" *ngIf="showPrevious(10)" (click)="jump(current_page-2)"> {{current_page-2}} </a></li>
-            <li class="page-item"><a class="page-link" *ngIf="showPrevious(0)" (click)="jump(current_page-1)"> {{current_page-1}} </a></li>
-            <li class="page-item"><a class="page-link" [class.selected]="true" (click)="jump(current_page)"> {{current_page}} </a></li>
-            <li class="page-item"><a class="page-link" *ngIf="showNext(0)" (click)="jump(current_page+1)"> {{current_page+1}} </a></li>
-            <li class="page-item"><a class="page-link" *ngIf="showNext(10)" (click)="jump(current_page+2)"> {{current_page+2}} </a></li>
-            <li class="page-item"><a class="page-link" *ngIf="showNext(0)" (click)="onNext()" aria-label="pagina precedente"> NEXT </a></li>
+            <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(0)" (click)="onPrevious()" aria-label="pagina precedente" > Precedente </button></li>
+            <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(10)" (click)="jump(current_page-2)" > {{current_page-2}} </button></li>
+            <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(0)" (click)="jump(current_page-1)" > {{current_page-1}} </button></li>
+            <li class="page-item"><button class="page-link btn" type="button" [class.selected]="true" (click)="jump(current_page)" > {{current_page}} </button></li>
+            <li class="page-item"><button class="page-link btn" type="button" *ngIf="showNext(0)" (click)="jump(current_page+1)" > {{current_page+1}} </button></li>
+            <li class="page-item"><button class="page-link btn" type="button" *ngIf="showNext(10)" (click)="jump(current_page+2)"> {{current_page+2}} </button></li>
+            <li class="page-item"><button class="page-link btn" type="button" *ngIf="showNext(0)" (click)="onNext()" aria-label="pagina precedente" > Successivo </button></li>
         </ul>
     </nav>
 </div>
