@@ -1,31 +1,20 @@
-.browseMyStyle {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.titleRented {
+.title {
     color: white;
     text-align: center;
     font-size: 3em;
+    margin-bottom: 1em;
     font-weight: bold;
     background-color: black;
     margin-top: 0.8em;
     padding: 0.3em;
 }
 
-.col-sm-6 {
-    margin-bottom: 5em
-}
-
-.card {
+.card-board {
     border-radius: 2em 2em 2em 2em;
-    background: white
 }
 
-.card-body {
-    text-align: center
+.margin {
+    margin-bottom: 2em;
 }
 
 .search-container {
@@ -38,15 +27,6 @@
     position: relative;
     width: 10em;
     padding: .6em;
-}
-
-.container {
-    display: flex;
-    margin-bottom: 3em;
-}
-
-.element {
-    flex-basis: 25%;
 }
 
 .dropdown-menu {

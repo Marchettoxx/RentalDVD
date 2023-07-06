@@ -1,27 +1,19 @@
-.title{
-  color: white;
-  background-color: transparent;
-  text-align: center;
-  font-size: 40px;
-  font-weight: bold
+.title {
+    color: white;
+    text-align: center;
+    font-size: 3em;
+    font-weight: bold;
+    background-color: black;
+    margin-top: 0.8em;
+    margin-bottom: 1em;
+    padding: 0.3em;
 }
 
-.card{
-  border-radius: 70px 70px 70px 70px;
-  background-color: white;
+.card-board {
+    border-radius: 2em 2em 2em 2em;
 }
 
-.card-body{
-  text-align:center
-}
-
-.btn-primary{
-  border-radius: 50px 50px 50px 50px;
-  background-color: grey;
-  border-color: grey
-}
-
-.space {
-  display: inline-block;
-  height: 100px;
+.margin {
+    margin-top: 5em;
+    margin-bottom: 5em;
 }

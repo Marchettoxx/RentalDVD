@@ -1,7 +1,6 @@
-<div class="browseMyStyle">
-    <span class="space"></span>
+<section>
+    <h1 class="title"> Lista film in vendita </h1>
 
-    <h1 class="titleRented"> Lista film in vendita </h1>
 
     <div *ngIf="rented" class="alert alert-success alert-dismissible fade show" role="alert" aria-live="assertive">
         <strong>{{rentedFilm.title}}</strong> noleggiato con successo.
@@ -10,56 +9,55 @@
         </button>
     </div>
 
-    <div class="container">
-        <div class="element">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle btn-lg" type="button" id="dropdownMenuBtn"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        aria-label="ordina per categoria" [style.fontSize.em]="fontSize">
-                    {{selectedCategory.name}}
-                </button>
-                <div class="dropdown-menu">
-                    <button class="dropdown-item" *ngFor="let category of categories" (click)="filter(category)"
-                            [style.fontSize.em]="fontSize">{{category.name}}</button>
+    <div class="container margin">
+        <div class="row">
+            <div class="col">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle btn-lg" type="button" id="dropdownMenuBtn"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            aria-label="ordina per categoria" [style.fontSize.em]="fontSize">
+                        {{selectedCategory.name}}
+                    </button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" *ngFor="let category of categories" (click)="filter(category)"
+                                [style.fontSize.em]="fontSize">{{category.name}}</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="element">
-            <div>
+            <div class="col">
                 <input id="search-box" class="search" placeholder="Cerca per Titolo:" type="search" #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome" [style.fontSize.em]="fontSize"/>
                 <div class="search-container">
                     <button type="button" class="dropdown-item" data-toggle="modal" *ngFor="let film of films$ | async"
                             (click)="onSelect(film)" data-target="#myModal" [style.fontSize.em]="fontSize">{{ film.title }} </button>
                 </div>
             </div>
-        </div>
-
-        <div class="element"></div>
-
-        <div class="element">
-            <button class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased">+</button>
-            <button class="btn btn-lg" (click)="decreaseFontSize()" [disabled]="!isIncreased">-</button>
+            <div class="col">
+                <button class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased">+</button>
+                <button class="btn btn-lg" (click)="decreaseFontSize()" [disabled]="!isIncreased">-</button>
+            </div>
         </div>
     </div>
 
-    <div class="row" aria-label="Tutti i film disponibili nel nostro store:">
-        <div class="col-sm-6" *ngFor="let film of films">
-            <div class="card" [style.fontSize.em]="fontSize">
-                <div class="card-body">
-                    <button type="button" class="btn btn-default" data-toggle="modal" (click)="onSelect(film)"
-                            data-target="#myModal" [style.fontSize.em]="fontSize">{{film.title}}</button>
-                    <p class="card-text"> Anno: {{film.release_year}}, Genere: {{film.genre}}, Lingua: {{film.language}}
-                        , Rating:{{film.rating}}, Costo: {{film.rental_rate}} €</p>
-                    <button type="button" class="btn btn-block" data-toggle="modal" (click)="onSelect(film)"
-                            data-target="#myModal" [style.fontSize.em]="fontSize"> Prenota
-                    </button>
+    <div class="container">
+        <div class="row" aria-label="Tutti i film disponibili nel nostro store:">
+            <div class="col-lg-6 margin" *ngFor="let film of films">
+                <div class="card card-board text-center" [style.fontSize.em]="fontSize">
+                    <div class="card-body">
+                        <button type="button" class="card-title btn btn-default" data-toggle="modal" (click)="onSelect(film)"
+                                data-target="#myModal" [style.fontSize.em]="fontSize">{{film.title}}</button>
+                        <article class="card-text"> Anno: {{film.release_year}}, Genere: {{film.genre}}, Lingua: {{film.language}}
+                            , Rating:{{film.rating}}, Costo: {{film.rental_rate}} €</article>
+                        <button type="button" class="card-footer btn btn-default" data-toggle="modal" (click)="onSelect(film)"
+                                data-target="#myModal" [style.fontSize.em]="fontSize"> Prenota
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <div id="myModal" class="modal fade menu-popup" role="dialog" aria-modal="true" aria-live="assertive">
-        <div class="modal-dialog" >
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="font-weight-bold" id="detailsTitle" aria-label="Titolo film">
@@ -159,7 +157,7 @@
     </div>
 
     <nav aria-label="Page navigation">
-        <ul class="pagination pagination-lg">
+        <ul class="pagination pagination-lg justify-content-center">
             <li class="page-item"><a class="page-link" *ngIf="showPrevious(0)" (click)="onPrevious()"> PREV </a></li>
             <li class="page-item"><a class="page-link" *ngIf="showPrevious(10)"
                                      (click)="jump(current_page-2)"> {{current_page - 2}} </a></li>
@@ -174,8 +172,7 @@
             <li class="page-item"><a class="page-link" *ngIf="showNext(0)" (click)="onNext()"> NEXT </a></li>
         </ul>
     </nav>
-    <span class="space"></span>
-</div>
+</section>
 
 
 

@@ -1,7 +1,7 @@
 <div class="browseMyStyle">
     <span class="space"></span>
 
-    <h1 class="titleRented" id="tableTitle" > Cronologia dei film noleggiati </h1>
+    <h1 class="title" id="tableTitle" > Cronologia dei film noleggiati </h1>
 
     <div class="container ">
         <div class="element">
@@ -39,7 +39,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let film of films" id="row1">
-            <td headers="col1" ><button type="button" class="btn btn-sm btn-block" data-toggle="modal" data-target="#myModal" (click)="onSelect(film)" aria-level="titolo:"> {{film.title}} </button></td>
+            <td headers="col1" ><button type="button" class="btn btn-sm btn-block" data-toggle="modal" data-target="#myModal" (click)="onSelect(film)"> {{film.title}} </button></td>
             <td headers="col2"> {{film.rental_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
             <td headers="col3"> {{dataIsNull(film.return_date!) | date: 'dd/MM/yyyy  -  HH:mm'}}</td>
             <td headers="col4"> {{durationIsNull(film.duration!)}} </td>
@@ -106,7 +106,7 @@
     <nav aria-label="Tasti di navigazione pagina">
         <ul class="pagination pagination-lg">
             <li class="page-item"><a class="page-link" *ngIf="showPrevious(0)" (click)="onPrevious()" aria-label="pagina precedente"> PREV </a></li>
-            <li class="page-item"><a class="page-link" *ngIf="showPrevious(10)" (click)="jump(current_page-2)"ar> {{current_page-2}} </a></li>
+            <li class="page-item"><a class="page-link" *ngIf="showPrevious(10)" (click)="jump(current_page-2)"> {{current_page-2}} </a></li>
             <li class="page-item"><a class="page-link" *ngIf="showPrevious(0)" (click)="jump(current_page-1)"> {{current_page-1}} </a></li>
             <li class="page-item"><a class="page-link" [class.selected]="true" (click)="jump(current_page)"> {{current_page}} </a></li>
             <li class="page-item"><a class="page-link" *ngIf="showNext(0)" (click)="jump(current_page+1)"> {{current_page+1}} </a></li>
