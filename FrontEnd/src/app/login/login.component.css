@@ -1,23 +1,10 @@
-.card{
-  background: hsla(0, 0%, 100%, 0.55);
-  backdrop-filter: blur(1.875rem);
-}
-
-.cascading-right {
-  margin-right: -3.125rem;
-}
-
-@media (max-width: 61.999rem) {
-  .cascading-right {
-    margin-right: 0;
-  }
-}
-
-.space {
-  display: inline-block;
-  height: 6.25rem;
-}
-
-.form-outline{
-    width: 10px;
+.title {
+    color: white;
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 1em;
+    font-weight: bold;
+    background-color: black;
+    margin-top: 0.8em;
+    padding: 0.3em;
 }
