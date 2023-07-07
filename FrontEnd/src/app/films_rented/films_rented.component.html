@@ -1,11 +1,12 @@
-<div class="browseMyStyle">
-    <span class="space"></span>
-
-    <h1 class="title" id="tableTitle" > Cronologia dei film noleggiati </h1>
-
-    <div class="container ">
-        <div class="element">
-            <div class="dropdown" aria-label="Filtro per categorie">
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="title" id="tableTitle" > Cronologia dei film noleggiati </h1>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col col-lg-8 dropdown" aria-label="Filtro per categorie">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{selectedFilter}}
                 </button>
@@ -17,15 +18,12 @@
                     <button class="dropdown-item" (click)="sortByDuration()"> Durata </button>
                 </div>
             </div>
-        </div>
 
-        <div class="element">
-            <div >
-                <button (click)="increaseFontSize()" [disabled]="isIncreased" >+</button>
-                <button (click)="decreaseFontSize()" [disabled]="!isIncreased">-</button>
+            <div class="col">
+                <button class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased" aria-label="aumenta testo">+</button>
+                <button class="btn btn-lg" (click)="decreaseFontSize()" [disabled]="!isIncreased" aria-label="diminuisci testo">-</button>
             </div>
         </div>
-    </div>
 
     <table class="table table-light table-hover table-bordered" [style.fontSize.em]="fontSize"  aria-labelledby="tableTitle">
         <thead class="table-info">
@@ -101,17 +99,20 @@
         </div>
     </div>
 
-    <nav aria-label="Tasti di navigazione pagina">
-        <ul class="pagination pagination-lg">
-            <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(0)" (click)="onPrevious()" aria-label="pagina precedente" > Precedente </button></li>
-            <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(10)" (click)="jump(current_page-2)" > {{current_page-2}} </button></li>
-            <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(0)" (click)="jump(current_page-1)" > {{current_page-1}} </button></li>
-            <li class="page-item"><button class="page-link btn" type="button" [class.selected]="true" (click)="jump(current_page)" > {{current_page}} </button></li>
-            <li class="page-item"><button class="page-link btn" type="button" *ngIf="showNext(0)" (click)="jump(current_page+1)" > {{current_page+1}} </button></li>
-            <li class="page-item"><button class="page-link btn" type="button" *ngIf="showNext(10)" (click)="jump(current_page+2)"> {{current_page+2}} </button></li>
-            <li class="page-item"><button class="page-link btn" type="button" *ngIf="showNext(0)" (click)="onNext()" aria-label="pagina precedente" > Successivo </button></li>
-        </ul>
-    </nav>
-</div>
+        <div class="row justify-content-center">
+            <nav aria-label="Tasti di navigazione pagina">
+                <ul class="pagination pagination-lg">
+                    <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(0)" (click)="onPrevious()" aria-label="pagina precedente" > Precedente </button></li>
+                    <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(10)" (click)="jump(current_page-2)" > {{current_page-2}} </button></li>
+                    <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(0)" (click)="jump(current_page-1)" > {{current_page-1}} </button></li>
+                    <li class="page-item"><button class="page-link btn" type="button" [class.selected]="true" (click)="jump(current_page)" > {{current_page}} </button></li>
+                    <li class="page-item"><button class="page-link btn" type="button" *ngIf="showNext(0)" (click)="jump(current_page+1)" > {{current_page+1}} </button></li>
+                    <li class="page-item"><button class="page-link btn" type="button" *ngIf="showNext(10)" (click)="jump(current_page+2)"> {{current_page+2}} </button></li>
+                    <li class="page-item"><button class="page-link btn" type="button" *ngIf="showNext(0)" (click)="onNext()" aria-label="pagina precedente" > Successivo </button></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
 
 

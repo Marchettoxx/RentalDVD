@@ -41,9 +41,7 @@
                 <button class="btn btn-lg" (click)="decreaseFontSize()" [disabled]="!isIncreased" aria-label="diminuisci testo">-</button>
             </div>
         </div>
-    </div>
 
-    <div class="container">
         <div class="row" aria-label="Tutti i film disponibili nel nostro store:">
             <div class="col-lg-6 mb-4" *ngFor="let film of films">
                 <div class="card card-board text-center" [style.fontSize.em]="fontSize">
@@ -168,31 +166,33 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <nav aria-label="paginazione">
-        <ul class="pagination pagination-lg justify-content-center">
-            <li class="page-item">
-                <button type="button" aria-label="indietro" class="page-link" *ngIf="showPrevious(0)" (click)="onPrevious()"> PRECEDENTE </button>
-            </li>
-            <li class="page-item">
-                <button type="button" class="page-link" *ngIf="showPrevious(10)" (click)="jump(current_page-2)"> {{current_page - 2}}</button>
-            </li>
-            <li class="page-item">
-                <button type="button" class="page-link" *ngIf="showPrevious(0)" (click)="jump(current_page-1)"> {{current_page - 1}}</button>
-            </li>
-            <li class="page-item">
-                <button type="button" class="page-link" [class.selected]="true" (click)="jump(current_page)"> {{current_page}} </button>
-            </li>
-            <li class="page-item">
-                <button type="button" class="page-link" *ngIf="showNext(0)" (click)="jump(current_page+1)"> {{current_page + 1}} </button>
-            </li>
-            <li class="page-item">
-                <button type="button" class="page-link" *ngIf="showNext(10)" (click)="jump(current_page+2)"> {{current_page + 2}} </button>
-            </li>
-            <li class="page-item">
-                <button type="button" aria-label="avanti" class="page-link" *ngIf="showNext(0)" (click)="onNext()"> PROSSIMO </button>
-            </li>
-        </ul>
-    </nav>
+        <div class="row justify-content-center">
+            <nav aria-label="paginazione">
+                <ul class="pagination pagination-lg">
+                    <li class="page-item">
+                        <button type="button" aria-label="indietro" class="page-link" *ngIf="showPrevious(0)" (click)="onPrevious()"> PRECEDENTE </button>
+                    </li>
+                    <li class="page-item">
+                        <button type="button" class="page-link" *ngIf="showPrevious(10)" (click)="jump(current_page-2)"> {{current_page - 2}}</button>
+                    </li>
+                    <li class="page-item">
+                        <button type="button" class="page-link" *ngIf="showPrevious(0)" (click)="jump(current_page-1)"> {{current_page - 1}}</button>
+                    </li>
+                    <li class="page-item">
+                        <button type="button" class="page-link" [class.selected]="true" (click)="jump(current_page)"> {{current_page}} </button>
+                    </li>
+                    <li class="page-item">
+                        <button type="button" class="page-link" *ngIf="showNext(0)" (click)="jump(current_page+1)"> {{current_page + 1}} </button>
+                    </li>
+                    <li class="page-item">
+                        <button type="button" class="page-link" *ngIf="showNext(10)" (click)="jump(current_page+2)"> {{current_page + 2}} </button>
+                    </li>
+                    <li class="page-item">
+                        <button type="button" aria-label="avanti" class="page-link" *ngIf="showNext(0)" (click)="onNext()"> PROSSIMO </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 </section>
