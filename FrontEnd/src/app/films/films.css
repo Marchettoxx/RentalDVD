@@ -13,10 +13,6 @@
     border-radius: 2em 2em 2em 2em;
 }
 
-.margin {
-    margin-bottom: 2em;
-}
-
 .search-container {
     position: absolute;
     background-color: white;
@@ -41,23 +37,6 @@ button.selected {
 
 button.selected:hover {
     background-color: #505050;
-    color: white;
-}
-
-button.selected:active {
-    background-color: black;
-    color: white;
-}
-
-a.selected {
-    background-color: black;
-    color: white;
-    border-width: thin;
-    border-color: black;
-}
-
-a.selected:hover {
-    background-color: darkgrey;
     color: white;
 }
 

@@ -1,14 +1,21 @@
 <section>
-    <h1 class="title"> Lista film in vendita </h1>
-    <div *ngIf="rented" class="alert alert-success alert-dismissible fade show" role="alert" aria-live="assertive">
-        <strong>{{rentedFilm.title}}</strong> noleggiato con successo.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
-    <div class="container margin">
+    <div class="container">
         <div class="row">
+            <div class="col">
+                <h1 class="title"> Lista film in vendita </h1>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <div *ngIf="rented" class="alert alert-success alert-dismissible fade show" role="alert" aria-live="assertive">
+                    <strong>{{rentedFilm.title}}</strong> noleggiato con successo.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
             <div class="col">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle btn-lg" type="button" id="dropdownMenuBtn"
@@ -38,14 +45,18 @@
 
     <div class="container">
         <div class="row" aria-label="Tutti i film disponibili nel nostro store:">
-            <div class="col-lg-6 margin" *ngFor="let film of films">
+            <div class="col-lg-6 mb-4" *ngFor="let film of films">
                 <div class="card card-board text-center" [style.fontSize.em]="fontSize">
                     <div class="card-body">
                         <button type="button" class="card-title btn btn-default" data-toggle="modal" (click)="onSelect(film)"
                                 data-target="#myModal" [style.fontSize.em]="fontSize">{{film.title}}</button>
-                        <article class="card-text"> Anno: {{film.release_year}}, Genere: {{film.genre}}, Lingua: {{film.language}}
-                            , Rating:{{film.rating}}, Costo: {{film.rental_rate}} €</article>
-                        <button type="button" class="btn btn-default" data-toggle="modal" (click)="onSelect(film)"
+                        <article class="card-text text-truncate">
+                            <p><strong>Anno:</strong> {{film.release_year}} <strong>Genere:</strong> {{film.genre}} <strong>Lingua:</strong> {{film.language}} <strong>Rating:</strong>{{film.rating}}</p>
+                            <p class="font-weight-bold"> Costo: {{film.rental_rate}} €</p>
+                        </article>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-dark btn-block" data-toggle="modal" (click)="onSelect(film)"
                                 data-target="#myModal" [style.fontSize.em]="fontSize"> Prenota
                         </button>
                     </div>
@@ -162,25 +173,25 @@
     <nav aria-label="paginazione">
         <ul class="pagination pagination-lg justify-content-center">
             <li class="page-item">
-                <button type="button" aria-label="indietro" class="page-link btn" *ngIf="showPrevious(0)" (click)="onPrevious()"> PRECEDENTE </button>
+                <button type="button" aria-label="indietro" class="page-link" *ngIf="showPrevious(0)" (click)="onPrevious()"> PRECEDENTE </button>
             </li>
             <li class="page-item">
-                <button type="button" class="page-link btn" *ngIf="showPrevious(10)" (click)="jump(current_page-2)"> {{current_page - 2}}</button>
+                <button type="button" class="page-link" *ngIf="showPrevious(10)" (click)="jump(current_page-2)"> {{current_page - 2}}</button>
             </li>
             <li class="page-item">
-                <button type="button" class="page-link btn" *ngIf="showPrevious(0)" (click)="jump(current_page-1)"> {{current_page - 1}}</button>
+                <button type="button" class="page-link" *ngIf="showPrevious(0)" (click)="jump(current_page-1)"> {{current_page - 1}}</button>
             </li>
             <li class="page-item">
-                <button type="button" class="page-link btn" [class.selected]="true" (click)="jump(current_page)"> {{current_page}} </button>
+                <button type="button" class="page-link" [class.selected]="true" (click)="jump(current_page)"> {{current_page}} </button>
             </li>
             <li class="page-item">
-                <button type="button" class="page-link btn" *ngIf="showNext(0)" (click)="jump(current_page+1)"> {{current_page + 1}} </button>
+                <button type="button" class="page-link" *ngIf="showNext(0)" (click)="jump(current_page+1)"> {{current_page + 1}} </button>
             </li>
             <li class="page-item">
-                <button type="button" class="page-link btn" *ngIf="showNext(10)" (click)="jump(current_page+2)"> {{current_page + 2}} </button>
+                <button type="button" class="page-link" *ngIf="showNext(10)" (click)="jump(current_page+2)"> {{current_page + 2}} </button>
             </li>
             <li class="page-item">
-                <button type="button" aria-label="avanti" class="page-link btn" *ngIf="showNext(0)" (click)="onNext()"> PROSSIMO </button>
+                <button type="button" aria-label="avanti" class="page-link" *ngIf="showNext(0)" (click)="onNext()"> PROSSIMO </button>
             </li>
         </ul>
     </nav>
