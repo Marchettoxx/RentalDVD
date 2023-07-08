@@ -12,18 +12,13 @@
 .search-container {
     position: absolute;
     background-color: white;
-    z-index: 2;
+    z-index: 1;
 }
 
 .search {
     position: relative;
     width: 10em;
     padding: .6em;
-}
-
-.dropdown-menu {
-    z-index: 1;
-    position: relative;
 }
 
 button.selected {
