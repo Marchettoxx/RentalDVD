@@ -104,13 +104,13 @@
         <div role="navigation" class="row justify-content-center">
             <nav aria-label="Tasti di navigazione pagina">
                 <ul class="pagination pagination-lg">
-                    <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(0)" (click)="onPrevious()" aria-label="pagina precedente" > Precedente </button></li>
+                    <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(0)" (click)="onPrevious()" aria-label="pagina precedente" > < </button></li>
                     <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(10)" (click)="jump(current_page-2)" > {{current_page-2}} </button></li>
                     <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(0)" (click)="jump(current_page-1)" > {{current_page-1}} </button></li>
                     <li class="page-item"><button class="page-link btn" type="button" [class.selected]="true" (click)="jump(current_page)" > {{current_page}} </button></li>
                     <li class="page-item"><button class="page-link btn" type="button" *ngIf="showNext(0)" (click)="jump(current_page+1)" > {{current_page+1}} </button></li>
                     <li class="page-item"><button class="page-link btn" type="button" *ngIf="showNext(10)" (click)="jump(current_page+2)"> {{current_page+2}} </button></li>
-                    <li class="page-item"><button class="page-link btn" type="button" *ngIf="showNext(0)" (click)="onNext()" aria-label="pagina precedente" > Successivo </button></li>
+                    <li class="page-item"><button class="page-link btn" type="button" *ngIf="showNext(0)" (click)="onNext()" aria-label="pagina precedente" > > </button></li>
                 </ul>
             </nav>
         </div>

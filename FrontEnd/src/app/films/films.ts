@@ -179,7 +179,7 @@ export class Films implements OnInit {
                 console.log(this.selectedStore);
                 setTimeout(() => {
                     this.rented = false;
-                }, 3000)
+                }, 20000)
                 setTimeout(() => {
                     this.validRent = true
                 }, 1000)

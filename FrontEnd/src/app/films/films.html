@@ -2,13 +2,13 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1 class="title"> Lista film in vendita </h1>
+                <h1 class="title"> Lista film noleggiabili </h1>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col">
                 <div *ngIf="rented" class="alert alert-success alert-dismissible fade show" role="alert" aria-live="assertive">
-                    <strong>{{rentedFilm.title}}</strong> noleggiato con successo.
+                    <button class="btn btn-link" type="button" routerLink="/films_rented" aria-label="Visualizza i film noleggiati"> <strong>{{rentedFilm.title}}</strong> </button>noleggiato con successo.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -49,7 +49,8 @@
                         <button type="button" class="card-title btn btn-default" data-toggle="modal" (click)="onSelect(film)"
                                 data-target="#myModal" [style.fontSize.em]="fontSize">{{film.title}}</button>
                         <article class="card-text text-truncate">
-                            <p><strong>Anno:</strong> {{film.release_year}} <strong>Genere:</strong> {{film.genre}} <strong>Lingua:</strong> {{film.language}} <strong>Rating:</strong>{{film.rating}}</p>
+                            <p><strong>Anno:</strong> {{film.release_year}} <strong>Genere:</strong> {{film.genre}} </p>
+                            <p><strong>Lingua:</strong> {{film.language}} <strong>Rating:</strong>{{film.rating}}</p>
                             <p class="font-weight-bold"> Costo: {{film.rental_rate}} €</p>
                         </article>
                     </div>
@@ -113,7 +114,7 @@
                     </div>
 
                     <div *ngIf="noStores" class="container margin">
-                        <div class="row">
+                        <div class="row mb-3">
                             <div class="col">
                                 <div class="dropdown">
                                     <p>Seleziona store</p>
@@ -153,7 +154,7 @@
 
                     <div *ngIf="noStores" class="modal-footer">
                         <button type="button" class="btn btn-primary" [disabled]="validRent" data-dismiss="modal"
-                                (click)="rent()" aria-label="prenotazione" routerLink="/films" [style.fontSize.em]="fontSize"> Prenota
+                                (click)="rent()" aria-label="prenota" routerLink="/films" [style.fontSize.em]="fontSize"> Prenota
                         </button>
                     </div>
 
@@ -171,7 +172,7 @@
             <nav aria-label="paginazione">
                 <ul class="pagination pagination-lg">
                     <li class="page-item">
-                        <button type="button" aria-label="indietro" class="page-link" *ngIf="showPrevious(0)" (click)="onPrevious()"> PRECEDENTE </button>
+                        <button type="button" aria-label="indietro" class="page-link" *ngIf="showPrevious(0)" (click)="onPrevious()"> < </button>
                     </li>
                     <li class="page-item">
                         <button type="button" class="page-link" *ngIf="showPrevious(10)" (click)="jump(current_page-2)"> {{current_page - 2}}</button>
@@ -189,7 +190,7 @@
                         <button type="button" class="page-link" *ngIf="showNext(10)" (click)="jump(current_page+2)"> {{current_page + 2}} </button>
                     </li>
                     <li class="page-item">
-                        <button type="button" aria-label="avanti" class="page-link" *ngIf="showNext(0)" (click)="onNext()"> PROSSIMO </button>
+                        <button type="button" aria-label="avanti" class="page-link" *ngIf="showNext(0)" (click)="onNext()"> > </button>
                     </li>
                 </ul>
             </nav>

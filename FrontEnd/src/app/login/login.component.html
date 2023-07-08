@@ -22,7 +22,7 @@
                     <div class="card-body">
                         <form [formGroup]="form" (ngSubmit)="onSubmit()">
                             <div class="form-outline mb-2">
-                                <label for="usernameForm"> <strong> Username: </strong></label>
+                                <label for="usernameForm"> <strong> Username: *</strong></label>
                                 <input aria-label="username" id="usernameForm" type="text" formControlName="username"
                                        placeholder="username" class="form-control"
                                        [ngClass]="{ 'is-invalid': submitted && f['username'].errors }"/>
@@ -34,7 +34,7 @@
                             </div>
 
                             <div class="form-outline mb-4">
-                                <label for="passwordForm"> <strong>Password:</strong> </label>
+                                <label for="passwordForm"> <strong>Password: *</strong> </label>
                                 <input aria-label="password" id="passwordForm" type="password"
                                        formControlName="password" placeholder="password" class="form-control"
                                        [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"/>
