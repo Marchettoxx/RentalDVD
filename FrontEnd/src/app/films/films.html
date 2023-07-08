@@ -29,8 +29,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <input id="search-box" class="search" placeholder="Cerca per Titolo:" type="search" #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome" [style.fontSize.em]="fontSize"/>
+            <div role="search" class="col">
+                <input  id="search-box" class="search" placeholder="Cerca per Titolo:" type="search" #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome" [style.fontSize.em]="fontSize"/>
                 <div class="search-container">
                     <button type="button" class="dropdown-item" data-toggle="modal" *ngFor="let film of films$ | async"
                             (click)="onSelect(film)" data-target="#myModal" [style.fontSize.em]="fontSize">{{ film.title }}</button>
@@ -43,7 +43,7 @@
         </div>
 
         <div class="row" aria-label="Tutti i film disponibili nel nostro store:">
-            <div class="col-lg-6 mb-4" *ngFor="let film of films">
+            <div role="main" class="col-lg-6 mb-4" *ngFor="let film of films">
                 <div class="card card-board text-center" [style.fontSize.em]="fontSize">
                     <div class="card-body">
                         <button type="button" class="card-title btn btn-default" data-toggle="modal" (click)="onSelect(film)"
@@ -167,7 +167,7 @@
             </div>
         </div>
 
-        <div class="row justify-content-center">
+        <div role="navigation" class="row justify-content-center">
             <nav aria-label="paginazione">
                 <ul class="pagination pagination-lg">
                     <li class="page-item">

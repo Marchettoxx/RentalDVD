@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div class="row mb-3">
+        <div role="main" class="row mb-3">
             <div class="col table-responsive">
                 <table class="table table-light table-hover table-bordered" [style.fontSize.em]="fontSize"  aria-labelledby="tableTitle">
                     <thead class="table-dark">
@@ -101,7 +101,7 @@
             </div>
         </div>
 
-        <div class="row justify-content-center">
+        <div role="navigation" class="row justify-content-center">
             <nav aria-label="Tasti di navigazione pagina">
                 <ul class="pagination pagination-lg">
                     <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(0)" (click)="onPrevious()" aria-label="pagina precedente" > Precedente </button></li>
