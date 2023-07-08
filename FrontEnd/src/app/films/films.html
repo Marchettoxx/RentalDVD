@@ -16,29 +16,27 @@
             </div>
         </div>
         <div class="row mb-4">
-            <div class="col">
-                <div class="dropdown">
-                    <button class="btn btn-secondary btn-lg dropdown-toggle btn-lg" type="button" id="dropdownMenuBtn"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                            aria-label="ordina per categoria" [style.fontSize.em]="fontSize">
-                        {{selectedCategory.name}}
-                    </button>
-                    <div class="dropdown-menu">
-                        <button class="dropdown-item" *ngFor="let category of categories" (click)="filter(category)"
-                                [style.fontSize.em]="fontSize">{{category.name}}</button>
-                    </div>
+            <div class="col col-lg-8 dropdown" aria-label="Filtro per categorie">
+                <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuBtn"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        aria-label="ordina per categoria" [style.fontSize.em]="fontSize">
+                    {{selectedCategory.name}}
+                </button>
+                <div class="dropdown-menu">
+                    <button class="dropdown-item" *ngFor="let category of categories" (click)="filter(category)"
+                            [style.fontSize.em]="fontSize">{{category.name}}</button>
                 </div>
             </div>
             <div role="search" class="col">
-                <input  id="search-box" class="search" placeholder="Cerca per Titolo:" type="search" #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome" [style.fontSize.em]="fontSize"/>
+                <input id="search-box" class="search form-control" placeholder="Cerca per Titolo:" type="search" #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome" [style.fontSize.em]="fontSize"/>
                 <div class="search-container">
                     <button type="button" class="dropdown-item" data-toggle="modal" *ngFor="let film of films$ | async"
                             (click)="onSelect(film)" data-target="#myModal" [style.fontSize.em]="fontSize">{{ film.title }}</button>
                 </div>
             </div>
             <div class="col">
-                <button class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased" aria-label="aumenta testo">+</button>
-                <button class="btn btn-lg" (click)="decreaseFontSize()" [disabled]="!isIncreased" aria-label="diminuisci testo">-</button>
+                <button type="button" class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased" aria-label="aumenta testo">+</button>
+                <button type="button" class="btn btn-lg" (click)="decreaseFontSize()" [disabled]="!isIncreased" aria-label="diminuisci testo">-</button>
             </div>
         </div>
 

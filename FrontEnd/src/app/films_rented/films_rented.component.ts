@@ -196,7 +196,7 @@ export class Films_rentedComponent {
     }
 
     increaseFontSize() {
-        this.fontSize += 0.6;
+        this.fontSize += 0.3;
         this.isIncreased = true;
     }
 

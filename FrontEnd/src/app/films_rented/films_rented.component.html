@@ -1,11 +1,13 @@
 <section>
     <div class="container">
-        <div class="row justify-content-center">
-            <h1 class="title" id="tableTitle" > Cronologia dei film noleggiati </h1>
+        <div class="row">
+            <div class="col">
+                <h1 class="title" id="tableTitle" > Cronologia dei film noleggiati </h1>
+            </div>
         </div>
         <div class="row mb-4">
-            <div class="col col-lg-8 dropdown" aria-label="Filtro per categorie">
-                <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="col col-lg-10 dropdown" aria-label="Filtro per colonne">
+                <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [style.fontSize.em]="fontSize">
                     {{selectedFilter}}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
@@ -17,7 +19,7 @@
                 </div>
             </div>
 
-            <div class="col">
+            <div class="col col-lg-2">
                 <button class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased" aria-label="aumenta testo">+</button>
                 <button class="btn btn-lg" (click)="decreaseFontSize()" [disabled]="!isIncreased" aria-label="diminuisci testo">-</button>
             </div>
@@ -25,7 +27,7 @@
 
         <div role="main" class="row mb-3">
             <div class="col table-responsive">
-                <table class="table table-light table-hover table-bordered" [style.fontSize.em]="fontSize"  aria-labelledby="tableTitle">
+                <table class="table table-light table-hover table-bordered" [style.fontSize.em]="fontSize" aria-labelledby="tableTitle">
                     <thead class="table-dark">
                     <tr>
                         <th scope="col" id="col1" role="columnheader" aria-label="prima colonna: Titolo."> TITOLO </th>
@@ -37,7 +39,7 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let film of films" id="row1">
-                        <td headers="col1" ><button type="button" class="btn btn-sm btn-block" data-toggle="modal" data-target="#myModal" (click)="onSelect(film)" tabindex="0"> {{film.title}} </button></td>
+                        <td headers="col1" ><button type="button" class="btn btn-block" data-toggle="modal" data-target="#myModal" (click)="onSelect(film)" tabindex="0" [style.fontSize.em]="fontSize"> {{film.title}} </button></td>
                         <td headers="col2"> {{film.rental_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
                         <td headers="col3"> {{dataIsNull(film.return_date!) | date: 'dd/MM/yyyy  -  HH:mm'}}</td>
                         <td headers="col4"> {{durationIsNull(film.duration!)}} </td>
