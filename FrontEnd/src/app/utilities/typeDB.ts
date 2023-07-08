@@ -55,3 +55,6 @@ export class Actor {
 export class Inventory {
     inventory_id?: number;
 }
+
+export class Amount {
+}

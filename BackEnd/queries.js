@@ -352,7 +352,23 @@ const root = {
                 .catch(err => err);
             return result[0].inventory_id;
         }
-    }
+    },
+
+    total_amount: (args, { user }) => {
+        if (!user) {
+            return null
+        } else {
+            const query = `SELECT SUM(amount)
+            FROM rental r
+            LEFT JOIN payment p ON p.rental_id = r.rental_id
+            WHERE customer_id = $1`;
+            const values = [args.customer_id];
+            return db
+                .any(query, values)
+                .then(res => res)
+                .catch(err => err);
+        }
+    },
 }
 
 exports.root = root;

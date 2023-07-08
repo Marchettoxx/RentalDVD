@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Apollo, gql, QueryRef} from 'apollo-angular';
 
-import {User, Film, Store, Actor, listFilms, Category, Inventory} from '../utilities/typeDB';
+import {User, Film, Store, Actor, listFilms, Category, Inventory, Amount} from '../utilities/typeDB';
 import {HttpHeaders} from "@angular/common/http";
+
 
 @Injectable({
     providedIn: 'root'
@@ -23,6 +24,7 @@ export class ApiService {
     private categoriesQuery: QueryRef<{ categories: Category[] }>;
     private storesQuery: QueryRef<{ stores_available: Store[] }, { film_id: number }>;
     private rent_filmQuery: QueryRef <{ rent_film: Inventory}, {store_id: number, film_id: number, rental_date: string, customer_id: number}>;
+    private total_amountQuery: QueryRef<{ total_amount: Amount }, {  customer_id: number }>;
 
     constructor(private apollo: Apollo) {
         const user = JSON.parse(sessionStorage.getItem('user')!);
@@ -266,6 +268,17 @@ export class ApiService {
                 headers: new HttpHeaders().set("authorization", token),
             }
         });
+
+        this.total_amountQuery = this.apollo.watchQuery({
+            query: gql`query total_amount($customer_id: Int!){
+                total_amount( customer_id: $customer_id){
+                    amount
+                }
+            }`,
+            context: {
+                headers: new HttpHeaders().set("authorization", token),
+            }
+        });
     }
 
     async getLogin(username: string, password: string): Promise<User> {
@@ -337,5 +350,10 @@ export class ApiService {
     async putRentFilm(store_id: number, film_id: number, rental_date: string, customer_id: number): Promise<Inventory> {
         const result = await this.rent_filmQuery.refetch({store_id, film_id, rental_date, customer_id});
         return result.data.rent_film;
+    }
+
+    async getTotal_amount(customer_id: number): Promise<Amount> {
+        const result = await this.total_amountQuery.refetch({ customer_id});
+        return result.data.total_amount;
     }
 }

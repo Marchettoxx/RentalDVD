@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-import {Actor, Film, Interval, User} from "../utilities/typeDB";
+import {Actor, Amount, Film, Interval, User} from "../utilities/typeDB";
 import {ApiService} from "../services/api.service";
 import {LoginService} from "../services/login.service";
 
@@ -14,6 +14,7 @@ export class Films_rentedComponent {
     count: number = 0;
     current_page: number = 0;
     fontSize: number = 1;
+    totalAmount!: Amount;
 
     user!: User;
     actors!: Actor[];
@@ -30,10 +31,12 @@ export class Films_rentedComponent {
 
     constructor(private loginService: LoginService, private apiService: ApiService) {
         this.loginService.user.subscribe(x => this.user = x!);
+
     }
 
     async ngOnInit(): Promise<void> {
         await this.updateFilms();
+        this.totalAmount = await this.apiService.getTotal_amount(this.user.customer_id!);
     }
 
     async updateFilms() {
