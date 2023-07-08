@@ -1,18 +1,17 @@
-<section>
+<section [style.fontSize.em]="fontSize">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col col-lg-8 mt-4">
-                <h1 class="title" id="tableTitle"> I TUOI FILM NOLEGGIATI </h1>
+                <h1 class="title" id="tableTitle"> NOLEGGI </h1>
             </div>
         </div>
         <div class="row mb-4">
             <div class="col col-lg-10 dropdown">
                 <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuBtn"
-                        aria-label="filtra per colonna" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        [style.fontSize.em]="fontSize">
+                        aria-label="filtra per colonna" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{selectedFilter}}
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn" [style.fontSize.em]="fontSize">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
                     <button type="button" class="dropdown-item" (click)="sortByTitle()"> Titolo</button>
                     <button type="button" class="dropdown-item" (click)="sortByRentedDate()"> Data Noleggio</button>
                     <button type="button" class="dropdown-item" (click)="sortByReturnDate()"> Data Riconsegna</button>
@@ -33,8 +32,7 @@
 
         <div role="main" class="row mb-3">
             <div class="col table-responsive">
-                <table class="table table-light table-hover table-bordered" [style.fontSize.em]="fontSize"
-                       aria-labelledby="tableTitle">
+                <table class="table table-light table-bordered" aria-labelledby="tableTitle">
                     <thead class="table-dark">
                     <tr>
                         <th scope="col" id="col1" role="columnheader" aria-label="prima colonna: Titolo."> TITOLO</th>
@@ -52,8 +50,7 @@
                     <tr *ngFor="let film of films" id="row1">
                         <td headers="col1">
                             <button type="button" class="btn btn-block" data-toggle="modal" data-target="#myModal"
-                                    (click)="onSelect(film)" tabindex="0"
-                                    [style.fontSize.em]="fontSize"> {{film.title}} </button>
+                                    (click)="onSelect(film)" tabindex="0"> {{film.title}} </button>
                         </td>
                         <td headers="col2"> {{film.rental_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
                         <td headers="col3"> {{dataIsNull(film.return_date!) | date: 'dd/MM/yyyy  -  HH:mm'}}</td>

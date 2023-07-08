@@ -16,7 +16,15 @@
                         <a class="nav-link" href="/films_rented" aria-label="I tuoi noleggi"> <strong>Noleggi</strong> </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" (click)="logout()" aria-label="Esegui logout"> <strong>LogOut</strong> </a>
+                        <a class="nav-link" (click)="setConfirm(true)" aria-label="Esegui logout"> <strong>LogOut</strong> </a>
+                    </li>
+                    <li>
+                        <div *ngIf="confirm" class="alert alert-warning alert-dismissible fade show" role="alert"
+                             aria-live="assertive">
+                            <p>Confermi di voler eseguire il logout?</p>
+                            <button class="btn btn-danger" (click)="logout()" aria-label="Confermi logout"> Conferma </button>
+                            <button class="btn btn-danger ml-3" (click)="setConfirm(false)" aria-label="Annulla logout"> Annulla </button>
+                        </div>
                     </li>
                 </ul>
             </div>

@@ -21,6 +21,7 @@ export class Films implements OnInit {
     rentedFilm: Film = {};
     error: boolean = false;
     validRent: boolean = true;
+    confirm: boolean = true;
 
     noStores!: boolean;
 
@@ -181,7 +182,8 @@ export class Films implements OnInit {
                     this.rented = false;
                 }, 20000)
                 setTimeout(() => {
-                    this.validRent = true
+                    this.validRent = true;
+                    this.confirm = true;
                 }, 1000)
                 this.selectedStore = {store_id: -1, city: "Store"}
             }
@@ -202,5 +204,11 @@ export class Films implements OnInit {
         }
     }
 
-
+    setConfirm(val: boolean) {
+        this.confirm = val;
+        if (val) {
+            this.selectedStore = {store_id: -1, city: "Store"};
+            this.validRent = true;
+        }
+    }
 }

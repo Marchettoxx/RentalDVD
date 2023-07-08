@@ -1,8 +1,8 @@
-<section>
+<section [style.fontSize.em]="fontSize">
     <div class="container">
         <div class="row mt-4 justify-content-center">
             <div class="col col-lg-8">
-                <h1 class="title"> LISTA FILM NELLO STORE </h1>
+                <h1 class="title"> FILM </h1>
             </div>
         </div>
         <div class="row mb-4">
@@ -22,18 +22,16 @@
             <div class="col col-lg-4 dropdown">
                 <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuBtn"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        aria-label="ordina per categoria" [style.fontSize.em]="fontSize">
+                        aria-label="ordina per categoria">
                     {{selectedCategory.name}}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
-                    <button type="button" class="dropdown-item" *ngFor="let category of categories" (click)="filter(category)"
-                            [style.fontSize.em]="fontSize">{{category.name}}</button>
+                    <button type="button" class="dropdown-item" *ngFor="let category of categories" (click)="filter(category)">{{category.name}}</button>
                 </div>
             </div>
             <div role="search" class="col">
                 <input id="search-box" class="form-control" placeholder="Cerca per Titolo:" type="search"
-                       #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome"
-                       [style.fontSize.em]="fontSize"/>
+                       #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome"/>
                 <div class="search-container">
                     <button type="button" class="dropdown-item" data-toggle="modal" *ngFor="let film of films$ | async"
                             (click)="onSelect(film)" data-target="#myModal"
@@ -52,11 +50,10 @@
 
         <div class="row" aria-label="Tutti i film disponibili nel nostro store:">
             <div role="main" class="col-lg-6 mb-4" *ngFor="let film of films">
-                <div class="card card-board text-center" [style.fontSize.em]="fontSize">
+                <div class="card card-board text-center">
                     <div class="card-body">
                         <button type="button" class="card-title btn btn-default" data-toggle="modal"
-                                (click)="onSelect(film)"
-                                data-target="#myModal" [style.fontSize.em]="fontSize">{{film.title}}</button>
+                                (click)="onSelect(film)" data-target="#myModal" >{{film.title}}</button>
                         <article class="card-text text-truncate">
                             <p><strong>Anno:</strong> {{film.release_year}} <strong>Genere:</strong> {{film.genre}} </p>
                             <p><strong>Lingua:</strong> {{film.language}} <strong>Rating:</strong>{{film.rating}}</p>
@@ -65,8 +62,7 @@
                     </div>
                     <div class="card-footer">
                         <button type="button" class="btn btn-dark btn-block" data-toggle="modal"
-                                (click)="onSelect(film)"
-                                data-target="#myModal" [style.fontSize.em]="fontSize"> Prenota
+                                (click)="onSelect(film)" data-target="#myModal"> Prenota
                         </button>
                     </div>
                 </div>
@@ -132,14 +128,12 @@
                                     <button class="btn btn-secondary dropdown-toggle" type="button"
                                             id="dropdownMenuButton"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                            aria-label="store"
-                                            [style.fontSize.em]="fontSize">
+                                            aria-label="store">
                                         {{selectedStore.city}}
                                     </button>
                                     <div class="dropdown-menu">
                                         <button class="dropdown-item" *ngFor="let store of stores"
-                                                (click)="selectStore(store)"
-                                                [style.fontSize.em]="fontSize"> Store:{{store.city}},
+                                                (click)="selectStore(store)"> Store:{{store.city}},
                                             Indirizzo:{{store.address}}</button>
                                     </div>
                                 </div>
@@ -150,11 +144,10 @@
                                     <p>Data inizio noleggio</p>
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                            aria-label="data prenotazione"
-                                            [style.fontSize.em]="fontSize">
+                                            aria-label="data prenotazione">
                                         {{selectedDate |date: 'dd/MM/yyyy'}}
                                     </button>
-                                    <div class="dropdown-menu" [style.fontSize.em]="fontSize">
+                                    <div class="dropdown-menu">
                                         <button class="dropdown-item" (click)="onSelectDate(today)">
                                             Oggi: {{today | date: 'dd/MM/yyyy'}}</button>
                                         <button class="dropdown-item" (click)="onSelectDate(tomorrow)">
@@ -168,9 +161,24 @@
                     </div>
 
                     <div *ngIf="noStores" class="modal-footer">
-                        <button type="button" class="btn btn-primary" [disabled]="validRent" data-dismiss="modal"
-                                (click)="rent()" aria-label="prenota" routerLink="/films"
-                                [style.fontSize.em]="fontSize"> Prenota
+                        <div *ngIf="!confirm" class="alert alert-warning alert-dismissible fade show" role="alert"
+                             aria-live="assertive">
+                            <p>Prima di procedere con la prenotazione
+                            controlla lo store e la data.
+                            Una volta confermato non puoi più annullare
+                            la prenotazione</p>
+                            <button (click)="rent()" data-dismiss="modal" class="btn btn-danger" type="button" routerLink="/films"
+                                    aria-label="conferma prenotazione">Conferma
+                            </button>
+                            <button class="btn ml-3 btn-danger" type="button" data-dismiss="modal" routerLink="/films" (click)="setConfirm(true)"
+                                    aria-label="conferma prenotazione">Annulla
+                            </button>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="setConfirm(true)">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <button *ngIf="confirm" type="button" class="btn btn-primary" [disabled]="validRent"
+                                (click)="setConfirm(false)" aria-label="prenota"> Prenota
                         </button>
                     </div>
 

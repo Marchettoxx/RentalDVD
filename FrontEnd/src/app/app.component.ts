@@ -9,12 +9,18 @@ import {User} from "./utilities/typeDB";
 })
 export class AppComponent {
     public user!: User | null;
+    confirm: boolean = false;
 
     constructor(private loginService: LoginService) {
         this.loginService.user.subscribe(x => this.user = x);
     }
 
     async logout() {
+        this.confirm = false;
         await this.loginService.logout();
+    }
+
+    setConfirm(val: boolean){
+        this.confirm = val;
     }
 }
