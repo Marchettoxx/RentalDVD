@@ -11,6 +11,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
 import {GraphQLModule} from './utilities/graphql.module';
+import {A11yModule} from "@angular/cdk/a11y";
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import {GraphQLModule} from './utilities/graphql.module';
         HttpClientModule,
         ReactiveFormsModule,
         GraphQLModule,
-        NgOptimizedImage
+        NgOptimizedImage,
+        A11yModule
     ],
     providers: [],
     bootstrap: [AppComponent]
