@@ -1,45 +1,60 @@
 <section>
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1 class="title" id="tableTitle" > Cronologia dei film noleggiati </h1>
+        <div class="row justify-content-center">
+            <div class="col col-lg-8 mt-4">
+                <h1 class="title" id="tableTitle"> I TUOI FILM NOLEGGIATI </h1>
             </div>
         </div>
         <div class="row mb-4">
-            <div class="col col-lg-10 dropdown" aria-label="Filtro per colonne">
-                <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [style.fontSize.em]="fontSize">
+            <div class="col col-lg-10 dropdown">
+                <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuBtn"
+                        aria-label="filtra per colonna" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        [style.fontSize.em]="fontSize">
                     {{selectedFilter}}
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
-                    <button class="dropdown-item" (click)="sortByTitle()"> Titolo </button>
-                    <button class="dropdown-item" (click)="sortByRentedDate()"> Data Noleggio </button>
-                    <button class="dropdown-item" (click)="sortByReturnDate()"> Data Riconsegna </button>
-                    <button class="dropdown-item" (click)="sortByAmount()"> Spesa </button>
-                    <button class="dropdown-item" (click)="sortByDuration()"> Durata </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn" [style.fontSize.em]="fontSize">
+                    <button type="button" class="dropdown-item" (click)="sortByTitle()"> Titolo</button>
+                    <button type="button" class="dropdown-item" (click)="sortByRentedDate()"> Data Noleggio</button>
+                    <button type="button" class="dropdown-item" (click)="sortByReturnDate()"> Data Riconsegna</button>
+                    <button type="button" class="dropdown-item" (click)="sortByAmount()"> Spesa</button>
+                    <button type="button" class="dropdown-item" (click)="sortByDuration()"> Durata</button>
                 </div>
             </div>
 
             <div class="col col-lg-2">
-                <button class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased" aria-label="aumenta testo">+</button>
-                <button class="btn btn-lg" (click)="decreaseFontSize()" [disabled]="!isIncreased" aria-label="diminuisci testo">-</button>
+                <button class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased"
+                        aria-label="aumenta testo">+
+                </button>
+                <button class="btn btn-lg" (click)="decreaseFontSize()" [disabled]="!isIncreased"
+                        aria-label="diminuisci testo">-
+                </button>
             </div>
         </div>
 
         <div role="main" class="row mb-3">
             <div class="col table-responsive">
-                <table class="table table-light table-hover table-bordered" [style.fontSize.em]="fontSize" aria-labelledby="tableTitle">
+                <table class="table table-light table-hover table-bordered" [style.fontSize.em]="fontSize"
+                       aria-labelledby="tableTitle">
                     <thead class="table-dark">
                     <tr>
-                        <th scope="col" id="col1" role="columnheader" aria-label="prima colonna: Titolo."> TITOLO </th>
-                        <th scope="col" id="col2" role="columnheader" aria-label="seconda colonna: Data noleggio."> DATA NOLEGGIO </th>
-                        <th scope="col" id="col3" role="columnheader" aria-label="terza colonna: Data riconsegna."> DATA RICONSEGNA </th>
-                        <th scope="col" id="col4" role="columnheader" aria-label="quarta colonna: Durata."> DURATA </th>
-                        <th scope="col" id="col5" role="columnheader" aria-label="quinta colonna: Spesa."> SPESA </th>
+                        <th scope="col" id="col1" role="columnheader" aria-label="prima colonna: Titolo."> TITOLO</th>
+                        <th scope="col" id="col2" role="columnheader" aria-label="seconda colonna: Data noleggio."> DATA
+                            NOLEGGIO
+                        </th>
+                        <th scope="col" id="col3" role="columnheader" aria-label="terza colonna: Data riconsegna."> DATA
+                            RICONSEGNA
+                        </th>
+                        <th scope="col" id="col4" role="columnheader" aria-label="quarta colonna: Durata."> DURATA</th>
+                        <th scope="col" id="col5" role="columnheader" aria-label="quinta colonna: Spesa."> SPESA</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr *ngFor="let film of films" id="row1">
-                        <td headers="col1" ><button type="button" class="btn btn-block" data-toggle="modal" data-target="#myModal" (click)="onSelect(film)" tabindex="0" [style.fontSize.em]="fontSize"> {{film.title}} </button></td>
+                        <td headers="col1">
+                            <button type="button" class="btn btn-block" data-toggle="modal" data-target="#myModal"
+                                    (click)="onSelect(film)" tabindex="0"
+                                    [style.fontSize.em]="fontSize"> {{film.title}} </button>
+                        </td>
                         <td headers="col2"> {{film.rental_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
                         <td headers="col3"> {{dataIsNull(film.return_date!) | date: 'dd/MM/yyyy  -  HH:mm'}}</td>
                         <td headers="col4"> {{durationIsNull(film.duration!)}} </td>
@@ -50,19 +65,21 @@
             </div>
 
             <div id="myModal" class="modal fade menu-popup" role="dialog" aria-modal="true" aria-live="assertive">
-                <div class="modal-dialog" >
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="font-weight-bold" id="detailsTitle" tabindex="2">
                                 {{selectedFilm.title}}
                             </h1>
-                            <button type="button" class="btn-close" aria-label="Chiudi" data-dismiss="modal" tabindex="1">&times;</button>
+                            <button type="button" class="btn-close" aria-label="Chiudi" data-dismiss="modal"
+                                    tabindex="1">&times;
+                            </button>
                         </div>
                         <div class="modal-body">
                             <ul class="list-group">
                                 <li class="list-group-item" tabindex="1"><strong>Anno:</strong>
                                     <ul>
-                                        <li >{{selectedFilm.release_year}}</li>
+                                        <li>{{selectedFilm.release_year}}</li>
                                     </ul>
                                 </li>
                                 <li class="list-group-item" tabindex="1"><strong>Genere:</strong>
@@ -87,7 +104,7 @@
                                 </li>
                                 <li class="list-group-item" tabindex="1"><strong>Attori:</strong>
                                     <ul>
-                                        <li *ngFor="let actor of actors" > {{actor.first_name}} {{actor.last_name}} </li>
+                                        <li *ngFor="let actor of actors"> {{actor.first_name}} {{actor.last_name}} </li>
                                     </ul>
                                 </li>
                                 <li class="list-group-item" tabindex="1"><strong>Descrizione:</strong>
@@ -106,13 +123,36 @@
         <div role="navigation" class="row justify-content-center">
             <nav aria-label="Tasti di navigazione pagina">
                 <ul class="pagination pagination-lg">
-                    <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(0)" (click)="onPrevious()" aria-label="pagina precedente" > < </button></li>
-                    <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(10)" (click)="jump(current_page-2)" > {{current_page-2}} </button></li>
-                    <li class="page-item"><button class="page-link btn" type="button" *ngIf="showPrevious(0)" (click)="jump(current_page-1)" > {{current_page-1}} </button></li>
-                    <li class="page-item"><button class="page-link btn" type="button" [class.selected]="true" (click)="jump(current_page)" > {{current_page}} </button></li>
-                    <li class="page-item"><button class="page-link btn" type="button" *ngIf="showNext(0)" (click)="jump(current_page+1)" > {{current_page+1}} </button></li>
-                    <li class="page-item"><button class="page-link btn" type="button" *ngIf="showNext(10)" (click)="jump(current_page+2)"> {{current_page+2}} </button></li>
-                    <li class="page-item"><button class="page-link btn" type="button" *ngIf="showNext(0)" (click)="onNext()" aria-label="pagina precedente" > > </button></li>
+                    <li class="page-item">
+                        <button class="page-link btn" type="button" *ngIf="showPrevious(0)" (click)="onPrevious()"
+                                aria-label="pagina precedente"> <
+                        </button>
+                    </li>
+                    <li class="page-item">
+                        <button class="page-link btn" type="button" *ngIf="showPrevious(10)"
+                                (click)="jump(current_page-2)"> {{current_page - 2}} </button>
+                    </li>
+                    <li class="page-item">
+                        <button class="page-link btn" type="button" *ngIf="showPrevious(0)"
+                                (click)="jump(current_page-1)"> {{current_page - 1}} </button>
+                    </li>
+                    <li class="page-item">
+                        <button class="page-link btn" type="button" [class.selected]="true"
+                                (click)="jump(current_page)"> {{current_page}} </button>
+                    </li>
+                    <li class="page-item">
+                        <button class="page-link btn" type="button" *ngIf="showNext(0)"
+                                (click)="jump(current_page+1)"> {{current_page + 1}} </button>
+                    </li>
+                    <li class="page-item">
+                        <button class="page-link btn" type="button" *ngIf="showNext(10)"
+                                (click)="jump(current_page+2)"> {{current_page + 2}} </button>
+                    </li>
+                    <li class="page-item">
+                        <button class="page-link btn" type="button" *ngIf="showNext(0)" (click)="onNext()"
+                                aria-label="pagina precedente"> >
+                        </button>
+                    </li>
                 </ul>
             </nav>
         </div>
