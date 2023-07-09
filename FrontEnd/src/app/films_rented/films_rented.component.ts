@@ -40,7 +40,7 @@ export class Films_rentedComponent {
         this.loginService.user.subscribe(x => this.user = x!);
     }
 
-    openDialog(value: Film) {
+    openDialog(value: Film, ) {
         this.detailsService.setFilm(value);
         this.detailsService.setInRented(true);
         this.dialog.open(DetailsFilmComponent);

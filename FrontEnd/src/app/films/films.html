@@ -50,7 +50,7 @@
             <div role="main" class="col-lg-6 mb-4" *ngFor="let film of films">
                 <div class="card card-board text-center">
                     <div class="card-body">
-                        <button mat-button type="button" class="card-title btn btn-default" (click)="openDialog(film)">{{film.title}}</button>
+                        <button mat-button type="button" class="card-title btn btn-default" (click)="openDialog(film)" [style.fontSize.em]="fontSize">{{film.title}}</button>
                         <article class="card-text text-truncate">
                             <p><strong>Anno:</strong> {{film.release_year}} <strong>Genere:</strong> {{film.genre}} </p>
                             <p><strong>Lingua:</strong> {{film.language}} <strong>Rating:</strong>{{film.rating}}</p>

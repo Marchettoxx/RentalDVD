@@ -26,7 +26,7 @@ export class ApiService {
     private categoriesQuery: QueryRef<{ categories: Category[] }>;
     private storesQuery: QueryRef<{ stores_available: Store[] }, { film_id: number }>;
     private rent_filmQuery: QueryRef <{ rent_film: Inventory}, {store_id: number, film_id: number, rental_date: string, customer_id: number}>;
-    private total_amountQuery: QueryRef<{ total_amount: Amount }, {  customer_id: number }>;
+    private total_amountQuery: QueryRef<{ total_amount: Amount }, {customer_id: number }>;
 
     constructor(private apollo: Apollo) {
         const user = JSON.parse(sessionStorage.getItem('user')!);
