@@ -49,7 +49,7 @@
             <div class="col">
                 <div class="dropdown">
                     <p>Seleziona store</p>
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    <!--<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="store">
                         {{selectedStore.city}}
                     </button>
@@ -57,7 +57,13 @@
                         <button class="dropdown-item" *ngFor="let store of stores" (click)="onSelectStore(store)"> Store:{{store.city}},
                             Indirizzo:{{store.address}}
                         </button>
-                    </div>
+                    </div>-->
+                </div>
+                <div class="list-group">
+                    <button class="list-group-item list-group-item-action" data-toggle="list" *ngFor="let store of stores" (click)="onSelectStore(store)">
+                        Store:{{store.city}},
+                        Indirizzo:{{store.address}}
+                    </button>
                 </div>
             </div>
 
@@ -89,7 +95,7 @@
                 <button mat-button mat-dialog-close [mat-dialog-close]="film.title" class="btn btn-danger" type="button" (click)="rent()" aria-label="conferma prenotazione" cdkFocusRegionStart>
                     Conferma
                 </button>
-                <button mat-button mat-dialog-close class="btn ml-3 btn-danger" type="button" (click)="setConfirm(true)" aria-label="conferma prenotazione">
+                <button mat-button mat-dialog-close class="btn ml-3 btn-danger" type="button" (click)="setConfirm(true)" aria-label="annulla prenotazione">
                     Annulla
                 </button>
                 <button mat-button mat-dialog-close type="button" class="close" aria-label="Close" (click)="setConfirm(true)" cdkFocusRegionEnd>
@@ -108,10 +114,10 @@
 
     <div class="container">
         <div class="row">
-            <div *ngIf="noStores" class="col alert alert-success alert-dismissible fade show" aria-live="assertive">
+            <div *ngIf="noStores" class="col alert alert-success">
                 <strong> Non ci sono DVD disponibili </strong>
                 <button mat-button mat-dialog-close type="button" class="btn-close" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span class="ml-4" aria-hidden="true">&times;</span>
                 </button>
             </div>
         </div>
