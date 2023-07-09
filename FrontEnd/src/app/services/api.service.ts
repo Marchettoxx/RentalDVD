@@ -406,7 +406,6 @@ export class ApiService {
 
     async getTotal_amount(customer_id: number): Promise<Amount> {
         const result = await this.total_amountQuery.refetch({ customer_id });
-        console.log(result.data.total_amount)
         return result.data.total_amount;
     }
 }

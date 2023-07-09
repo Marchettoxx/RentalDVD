@@ -35,91 +35,33 @@
             <div class="col table-responsive">
                 <table class="table table-light table-bordered" aria-labelledby="tableTitle">
                     <thead class="table-dark">
-                    <tr>
-                        <th scope="col" id="col1" role="columnheader" aria-label="prima colonna: Titolo."> TITOLO</th>
-                        <th scope="col" id="col2" role="columnheader" aria-label="seconda colonna: Data noleggio."> DATA
-                            NOLEGGIO
-                        </th>
-                        <th scope="col" id="col3" role="columnheader" aria-label="terza colonna: Data riconsegna."> DATA
-                            RICONSEGNA
-                        </th>
-                        <th scope="col" id="col4" role="columnheader" aria-label="quarta colonna: Durata."> DURATA</th>
-                        <th scope="col" id="col5" role="columnheader" aria-label="quinta colonna: Spesa."> SPESA</th>
-                    </tr>
+                        <tr>
+                            <th scope="col" id="col1" role="columnheader" aria-label="prima colonna: Titolo.">TITOLO</th>
+                            <th scope="col" id="col2" role="columnheader" aria-label="seconda colonna: Data noleggio.">DATA NOLEGGIO</th>
+                            <th scope="col" id="col3" role="columnheader" aria-label="terza colonna: Data riconsegna.">DATA RICONSEGNA</th>
+                            <th scope="col" id="col4" role="columnheader" aria-label="quarta colonna: Durata."> DURATA</th>
+                            <th scope="col" id="col5" role="columnheader" aria-label="quinta colonna: Spesa."> SPESA</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let film of films" id="row1">
-                        <td headers="col1">
-                            <button type="button" class="btn btn-block" data-toggle="modal" data-target="#myModal"
-                                    (click)="onSelect(film)" tabindex="0"> {{film.title}} </button>
-                        </td>
-                        <td headers="col2"> {{film.rental_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
-                        <td headers="col3"> {{dataIsNull(film.return_date!) | date: 'dd/MM/yyyy  -  HH:mm'}}</td>
-                        <td headers="col4"> {{durationIsNull(film.duration!)}} </td>
-                        <td headers="col5"> {{amountIsNull(film.amount!)}} </td>
-                    </tr>
+                        <tr *ngFor="let film of films" id="row1">
+                            <td headers="col1">
+                                <button mat-button type="button" class="btn btn-block" (click)="openDialog(film)">{{film.title}}</button>
+                            </td>
+                            <td headers="col2"> {{film.rental_date | date: 'dd/MM/yyyy  -  HH:mm'}} </td>
+                            <td headers="col3"> {{dataIsNull(film.return_date!) | date: 'dd/MM/yyyy  -  HH:mm'}}</td>
+                            <td headers="col4"> {{durationIsNull(film.duration!)}} </td>
+                            <td headers="col5"> {{amountIsNull(film.amount!)}} </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-
-            <div id="myModal" class="modal fade menu-popup" role="dialog" aria-modal="true" aria-live="assertive">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="font-weight-bold" id="detailsTitle" >
-                                {{selectedFilm.title}}
-                            </h1>
-                            <button type="button" class="btn-close" aria-label="Chiudi" data-dismiss="modal"
-                                    tabindex="1">&times;
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <ul class="list-group">
-                                <li class="list-group-item" tabindex="1"><strong>Anno:</strong>
-                                    <ul>
-                                        <li>{{selectedFilm.release_year}}</li>
-                                    </ul>
-                                </li>
-                                <li class="list-group-item" tabindex="1"><strong>Genere:</strong>
-                                    <ul>
-                                        <li>{{selectedFilm.genre}}</li>
-                                    </ul>
-                                </li>
-                                <li class="list-group-item" tabindex="1"><strong>Lingua:</strong>
-                                    <ul>
-                                        <li>{{selectedFilm.language}}</li>
-                                    </ul>
-                                </li>
-                                <li class="list-group-item" tabindex="1"><strong>Rating:</strong>
-                                    <ul>
-                                        <li>{{selectedFilm.rating}}</li>
-                                    </ul>
-                                </li>
-                                <li class="list-group-item" tabindex="1"><strong>Costo:</strong>
-                                    <ul>
-                                        <li>{{selectedFilm.rental_rate}} €</li>
-                                    </ul>
-                                </li>
-                                <li class="list-group-item" tabindex="1"><strong>Attori:</strong>
-                                    <ul>
-                                        <li *ngFor="let actor of actors"> {{actor.first_name}} {{actor.last_name}} </li>
-                                    </ul>
-                                </li>
-                                <li class="list-group-item" tabindex="1"><strong>Descrizione:</strong>
-                                    <ul>
-                                        <li>{{selectedFilm.description}}</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="modal-footer"></div>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <div class="alert alert-success text-right">
-            <p><strong>SPESA TOTALE: {{totalAmount.amount}} €</strong></p>
+        <div class="row">
+            <div class="col alert alert-success text-right">
+                <p><strong>SPESA TOTALE: {{totalAmount.amount}} €</strong></p>
+            </div>
         </div>
 
         <div role="navigation" class="row justify-content-center">

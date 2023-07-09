@@ -3,6 +3,9 @@ import {Component} from '@angular/core';
 import {Actor, Amount, Film, Interval, User} from "../utilities/typeDB";
 import {ApiService} from "../services/api.service";
 import {LoginService} from "../services/login.service";
+import {DetailsFilmComponent} from "../details-film/details-film.component";
+import {MatDialog} from "@angular/material/dialog";
+import {DetailsService} from "../services/details.service";
 
 @Component({
     selector: 'app-films_rented',
@@ -31,9 +34,14 @@ export class Films_rentedComponent {
     selectedAmountDESC: Boolean = false;
     selectedDuration: Boolean = false;
 
-    constructor(private loginService: LoginService, private apiService: ApiService) {
+    constructor(private loginService: LoginService, private apiService: ApiService, public dialog: MatDialog, public detailsService: DetailsService) {
         this.loginService.user.subscribe(x => this.user = x!);
+    }
 
+    openDialog(value: Film) {
+        this.detailsService.setFilm(value);
+        this.detailsService.setInRented(true);
+        this.dialog.open(DetailsFilmComponent);
     }
 
     async ngOnInit(): Promise<void> {

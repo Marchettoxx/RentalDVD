@@ -12,14 +12,18 @@ import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
 import {GraphQLModule} from './utilities/graphql.module';
 import {A11yModule} from "@angular/cdk/a11y";
-
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
+import { DetailsFilmComponent } from './details-film/details-film.component';
 @NgModule({
     declarations: [
         AppComponent,
         Films,
         HomeComponent,
         LoginComponent,
-        Films_rentedComponent
+        Films_rentedComponent,
+        DetailsFilmComponent
     ],
     imports: [
         BrowserModule,
@@ -30,7 +34,10 @@ import {A11yModule} from "@angular/cdk/a11y";
         ReactiveFormsModule,
         GraphQLModule,
         NgOptimizedImage,
-        A11yModule
+        A11yModule,
+        MatDialogModule,
+        MatInputModule,
+        MatButtonModule
     ],
     providers: [],
     bootstrap: [AppComponent]
