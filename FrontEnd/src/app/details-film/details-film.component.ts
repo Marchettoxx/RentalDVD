@@ -67,9 +67,9 @@ export class DetailsFilmComponent implements OnInit{
                 if (stores === null) {
                     await this.loginService.logout(true);
                 } else if (stores.length === 0) {
-                    this.noStores = false;
-                } else {
                     this.noStores = true;
+                } else {
+                    this.noStores = false;
                     this.stores = stores;
                 }
             }

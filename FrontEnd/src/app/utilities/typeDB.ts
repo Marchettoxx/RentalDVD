@@ -57,5 +57,5 @@ export class Inventory {
 }
 
 export class Amount {
-    amount?: number;
+    amount?: number | null;
 }

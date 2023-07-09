@@ -6,6 +6,7 @@ import {LoginService} from "../services/login.service";
 import {DetailsFilmComponent} from "../details-film/details-film.component";
 import {MatDialog} from "@angular/material/dialog";
 import {DetailsService} from "../services/details.service";
+import {LiveAnnouncer} from "@angular/cdk/a11y";
 
 @Component({
     selector: 'app-films_rented',
@@ -17,7 +18,7 @@ export class Films_rentedComponent {
     count: number = 0;
     current_page: number = 0;
     fontSize: number = 1;
-    totalAmount!: Amount;
+    totalAmount: Amount = {};
 
     user!: User;
     actors!: Actor[];
@@ -34,7 +35,8 @@ export class Films_rentedComponent {
     selectedAmountDESC: Boolean = false;
     selectedDuration: Boolean = false;
 
-    constructor(private loginService: LoginService, private apiService: ApiService, public dialog: MatDialog, public detailsService: DetailsService) {
+    constructor(private loginService: LoginService, private apiService: ApiService, public dialog: MatDialog, public detailsService: DetailsService, liveAnnouncer: LiveAnnouncer) {
+        liveAnnouncer.announce("I tuoi film noleggiati");
         this.loginService.user.subscribe(x => this.user = x!);
     }
 
@@ -222,7 +224,7 @@ export class Films_rentedComponent {
     }
 
     dataIsNull(return_date: Date){
-        if(return_date == null){
+        if(return_date === null){
             return;
         } else {
             return return_date;
@@ -230,7 +232,7 @@ export class Films_rentedComponent {
     }
 
     amountIsNull(amount: number){
-        if(amount == null){
+        if(amount === null){
             return '-';
         } else {
             return amount + ' €';
@@ -238,7 +240,7 @@ export class Films_rentedComponent {
     }
 
     durationIsNull(duration: Interval){
-        if(duration == null){
+        if(duration === null){
             return '-';
         } else {
             return duration.days + ' giorni';

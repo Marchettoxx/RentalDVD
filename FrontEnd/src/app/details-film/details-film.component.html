@@ -44,8 +44,8 @@
         </li>
     </ul>
 
-    <div *ngIf="noStores" class="container mt-4">
-        <div class="row mb-3">
+    <div *ngIf="!noStores" class="container mt-4">
+        <div class="row mb-3" *ngIf="confirm">
             <div class="col">
                 <div class="dropdown">
                     <p>Seleziona store</p>
@@ -80,33 +80,40 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div *ngIf="!confirm" class="col alert alert-warning alert-dismissible fade show" role="alert" aria-live="assertive">
+                <p class="small">
+                    Confermi la prenotazione del film <strong>{{film.title}}</strong>
+                    nello store di <strong>{{selectedStore.city}}</strong> in data <strong>{{selectedDate.toISOString().slice(0, 19).replace('T', ' ')}}</strong>
+                </p>
+                <button mat-button mat-dialog-close [mat-dialog-close]="film.title" class="btn btn-danger" type="button" (click)="rent()" aria-label="conferma prenotazione" cdkFocusRegionStart>
+                    Conferma
+                </button>
+                <button mat-button mat-dialog-close class="btn ml-3 btn-danger" type="button" (click)="setConfirm(true)" aria-label="conferma prenotazione">
+                    Annulla
+                </button>
+                <button mat-button mat-dialog-close type="button" class="close" aria-label="Close" (click)="setConfirm(true)" cdkFocusRegionEnd>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end" *ngIf="!inRented">
-    <div *ngIf="noStores">
-        <div *ngIf="!confirm" class="alert alert-warning alert-dismissible fade show" role="alert" aria-live="assertive">
-            <p>
-                Prima di procedere con la prenotazione controlla lo store e la data.
-                Una volta confermato non puoi più annullare la prenotazione
-            </p>
-            <button mat-button mat-dialog-close [mat-dialog-close]="film.title" class="btn btn-danger" type="button" (click)="rent()" aria-label="conferma prenotazione">
-                Conferma
-            </button>
-            <button mat-button mat-dialog-close class="btn ml-3 btn-danger" type="button" (click)="setConfirm(true)" aria-label="conferma prenotazione">
-                Annulla
-            </button>
-            <button mat-button mat-dialog-close type="button" class="close" aria-label="Close" (click)="setConfirm(true)">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <button *ngIf="confirm" type="button" class="btn btn-primary" [disabled]="validRent" (click)="setConfirm(false)" aria-label="prenota"> Prenota
+    <div *ngIf="!noStores" class="container mt-4">
+        <button *ngIf="confirm" type="button" class="btn btn-primary" [disabled]="validRent" (click)="setConfirm(false)" aria-label="prenota">
+            Prenota
         </button>
     </div>
 
-    <div *ngIf="!noStores" class="alert alert-success alert-dismissible fade show" aria-live="assertive">
-        <strong> Non ci sono DVD disponibili </strong>
-        <button mat-button mat-dialog-close type="button" class="close" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+    <div class="container">
+        <div class="row">
+            <div *ngIf="noStores" class="col alert alert-success alert-dismissible fade show" aria-live="assertive">
+                <strong> Non ci sono DVD disponibili </strong>
+                <button mat-button mat-dialog-close type="button" class="btn-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
     </div>
 </mat-dialog-actions>

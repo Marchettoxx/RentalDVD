@@ -7,6 +7,7 @@ import {LoginService} from "../services/login.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DetailsFilmComponent} from "../details-film/details-film.component";
 import {DetailsService} from "../services/details.service";
+import {LiveAnnouncer} from "@angular/cdk/a11y";
 
 @Component({
     selector: 'app-films',
@@ -33,7 +34,8 @@ export class Films implements OnInit {
     films$?: Observable<Film[]>;
     private searchTerms = new Subject<string>();
 
-    constructor(private apiService: ApiService, private loginService: LoginService, public dialog: MatDialog, public detailsService: DetailsService) {
+    constructor(private apiService: ApiService, private loginService: LoginService, public dialog: MatDialog, public detailsService: DetailsService, liveAnnouncer: LiveAnnouncer) {
+        liveAnnouncer.announce("Film nello store");
         this.loginService.user.subscribe(x => this.user = x!);
     }
 
@@ -43,7 +45,6 @@ export class Films implements OnInit {
         const dialogRef = this.dialog.open(DetailsFilmComponent);
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log(`Dialog result: ${result}`);
             if (result) {
                 this.rented = true;
                 this.rentedFilmTitle = result;
