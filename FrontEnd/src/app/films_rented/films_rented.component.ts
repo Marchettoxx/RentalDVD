@@ -23,10 +23,12 @@ export class Films_rentedComponent {
     selectedFilter: string = "Filtro";
 
     isIncreased: boolean = false;
+
     selectedReturnDate: Boolean = false;
     selectedTitle: Boolean = false;
-    selectedRentalDate: Boolean = true;
-    selectedAmount: Boolean = false;
+    selectedRentalDate: Boolean = false;
+    selectedAmountASC: Boolean = false;
+    selectedAmountDESC: Boolean = false;
     selectedDuration: Boolean = false;
 
     constructor(private loginService: LoginService, private apiService: ApiService) {
@@ -36,7 +38,12 @@ export class Films_rentedComponent {
 
     async ngOnInit(): Promise<void> {
         await this.updateFilms();
-        this.totalAmount = await this.apiService.getTotal_amount(this.user.customer_id!);
+        const total_amount = await this.apiService.getTotal_amount(this.user.customer_id!);
+        if (!total_amount) {
+            await this.loginService.logout(true);
+        } else {
+            this.totalAmount = total_amount;
+        }
     }
 
     async updateFilms() {
@@ -49,7 +56,7 @@ export class Films_rentedComponent {
                 this.films = result.films!;
             }
         } else if (this.selectedReturnDate) {
-            const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id!);
+            const result = await this.apiService.getFilms_user_return_date(this.offset, this.user.customer_id!);
             if (!result) {
                 await this.loginService.logout(true);
             } else {
@@ -64,9 +71,17 @@ export class Films_rentedComponent {
                 this.count = result.count!;
                 this.films = result.films!;
             }
-        } else if (this.selectedAmount) {
-            const result = await this.apiService.getFilms_user_amount(this.offset, this.user.customer_id!);
+        } else if (this.selectedAmountASC) {
+            const result = await this.apiService.getFilms_user_amount_ASC(this.offset, this.user.customer_id!);
             if (!result) {
+                await this.loginService.logout(true);
+            } else {
+                this.count = result.count!;
+                this.films = result.films!;
+            }
+        } else if (this.selectedAmountDESC) {
+            const result = await this.apiService.getFilms_user_amount_DESC(this.offset, this.user.customer_id!);
+                if (!result) {
                 await this.loginService.logout(true);
             } else {
                 this.count = result.count!;
@@ -74,6 +89,14 @@ export class Films_rentedComponent {
             }
         } else if (this.selectedDuration) {
             const result = await this.apiService.getFilms_user_duration(this.offset, this.user.customer_id!);
+            if (!result) {
+                await this.loginService.logout(true);
+            } else {
+                this.count = result.count!;
+                this.films = result.films!;
+            }
+        } else {
+            const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id!);
             if (!result) {
                 await this.loginService.logout(true);
             } else {
@@ -129,7 +152,8 @@ export class Films_rentedComponent {
         this.selectedTitle = true;
         this.selectedReturnDate = false;
         this.selectedRentalDate = false;
-        this.selectedAmount = false;
+        this.selectedAmountASC = false;
+        this.selectedAmountDESC = false;
         this.selectedDuration = false;
         await this.updateFilms()
     }
@@ -139,7 +163,8 @@ export class Films_rentedComponent {
         this.selectedTitle = false;
         this.selectedReturnDate = true;
         this.selectedRentalDate = false;
-        this.selectedAmount = false;
+        this.selectedAmountASC = false;
+        this.selectedAmountDESC = false;
         this.selectedDuration = false;
         await this.updateFilms()
     }
@@ -149,17 +174,30 @@ export class Films_rentedComponent {
         this.selectedTitle = false;
         this.selectedReturnDate = false;
         this.selectedRentalDate = true;
-        this.selectedAmount = false;
+        this.selectedAmountASC = false;
+        this.selectedAmountDESC = false;
         this.selectedDuration = false;
         await this.updateFilms()
     }
 
-    async sortByAmount() {
+    async sortByAmountASC() {
         this.selectedFilter = "Spesa";
         this.selectedTitle = false;
         this.selectedReturnDate = false;
         this.selectedRentalDate = false;
-        this.selectedAmount = true;
+        this.selectedAmountASC = true;
+        this.selectedAmountDESC = false;
+        this.selectedDuration = false;
+        await this.updateFilms()
+    }
+
+    async sortByAmountDESC() {
+        this.selectedFilter = "Spesa";
+        this.selectedTitle = false;
+        this.selectedReturnDate = false;
+        this.selectedRentalDate = false;
+        this.selectedAmountASC = false;
+        this.selectedAmountDESC = true;
         this.selectedDuration = false;
         await this.updateFilms()
     }
@@ -169,7 +207,8 @@ export class Films_rentedComponent {
         this.selectedTitle = false;
         this.selectedReturnDate = false;
         this.selectedRentalDate = false;
-        this.selectedAmount = false;
+        this.selectedAmountASC = false;
+        this.selectedAmountDESC = false;
         this.selectedDuration = true;
         await this.updateFilms()
     }

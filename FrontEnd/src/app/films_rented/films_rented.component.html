@@ -15,7 +15,8 @@
                     <button type="button" class="dropdown-item" (click)="sortByTitle()"> Titolo</button>
                     <button type="button" class="dropdown-item" (click)="sortByRentedDate()"> Data Noleggio</button>
                     <button type="button" class="dropdown-item" (click)="sortByReturnDate()"> Data Riconsegna</button>
-                    <button type="button" class="dropdown-item" (click)="sortByAmount()"> Spesa</button>
+                    <button type="button" class="dropdown-item" (click)="sortByAmountASC()"> Spesa ASC</button>
+                    <button type="button" class="dropdown-item" (click)="sortByAmountDESC()"> Spesa DESC</button>
                     <button type="button" class="dropdown-item" (click)="sortByDuration()"> Durata</button>
                 </div>
             </div>
@@ -117,7 +118,9 @@
             </div>
         </div>
 
-        <p><strong>{{totalAmount}}</strong></p>
+        <div class="alert alert-success text-right">
+            <p><strong>SPESA TOTALE: {{totalAmount.amount}} €</strong></p>
+        </div>
 
         <div role="navigation" class="row justify-content-center">
             <nav aria-label="Tasti di navigazione pagina">

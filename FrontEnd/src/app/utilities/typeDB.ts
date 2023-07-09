@@ -57,4 +57,5 @@ export class Inventory {
 }
 
 export class Amount {
+    amount?: number;
 }

@@ -9,14 +9,16 @@ type Query {
     films_category(category_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_rental_date(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
+    films_user_return_date(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_title (customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
-    films_user_amount (customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
+    films_user_amount_DESC (customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
+    films_user_amount_ASC (customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user_duration (customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     categories: [Category]
     stores_available(film_id: Int): [Store]
     actors(film_id: Int): [Actor]
-    rent_film (store_id: Int, film_id: Int, rental_date: String!, customer_id: Int): Inventory
-    total_amount (customer_id: Int ): Amount
+    rent_film(store_id: Int, film_id: Int, rental_date: String!, customer_id: Int): Inventory
+    total_amount(customer_id: Int ): Amount
 }
 
 type Login {
@@ -73,6 +75,7 @@ type Actor {
 type Inventory {
     inventory_id: Int
 }
-type Amount{
-    amount: Int
+
+type Amount {
+    amount: Float
 }

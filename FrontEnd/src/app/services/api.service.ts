@@ -15,8 +15,10 @@ export class ApiService {
     private films_categoryQuery: QueryRef<{ films_category: listFilms }, { offset: number, category_id: number }>;
     private films_userQuery: QueryRef<{ films_user: listFilms }, { offset: number, customer_id: number }>;
     private films_user_rental_dateQuery: QueryRef<{ films_user_rental_date: listFilms }, { offset: number, customer_id: number }>;
+    private films_user_return_dateQuery: QueryRef<{ films_user_return_date: listFilms }, { offset: number, customer_id: number }>;
     private films_user_titleQuery: QueryRef<{ films_user_title: listFilms }, { offset: number, customer_id: number }>;
-    private films_user_amountQuery: QueryRef<{ films_user_amount: listFilms }, { offset: number, customer_id: number }>;
+    private films_user_amount_DESCQuery: QueryRef<{ films_user_amount_DESC: listFilms }, { offset: number, customer_id: number }>;
+    private films_user_amount_ASCQuery: QueryRef<{ films_user_amount_ASC: listFilms }, { offset: number, customer_id: number }>;
     private films_user_durationQuery: QueryRef<{ films_user_duration: listFilms }, { offset: number, customer_id: number }>;
     private films_searchQuery: QueryRef<{ films_search: Film[] }, { title: string }>;
     private filmQuery: QueryRef<{ film: Film }, { film_id: number }>;
@@ -29,7 +31,6 @@ export class ApiService {
     constructor(private apollo: Apollo) {
         const user = JSON.parse(sessionStorage.getItem('user')!);
         const token = user ? user.token : "NO_TOKEN";
-        console.log("TOKEN", token);
 
         this.loginQuery = this.apollo.watchQuery({
             query: gql`query login($username: String!, $password: String!) {
@@ -126,6 +127,27 @@ export class ApiService {
             }
         });
 
+        this.films_user_return_dateQuery = this.apollo.watchQuery({
+            query: gql`query films_user_return_date($offset: Int!, $customer_id: Int!){
+                films_user_return_date(offset: $offset, customer_id: $customer_id){
+                    count
+                    films {
+                        film_id
+                        title
+                        genre
+                        rental_date
+                        return_date
+                        rental_rate
+                        amount
+                        duration
+                    }
+                }
+            }`,
+            context: {
+                headers: new HttpHeaders().set("authorization", token),
+            }
+        });
+
         this.films_user_titleQuery = this.apollo.watchQuery({
             query: gql`query films_user_title($offset: Int!, $customer_id: Int!){
                 films_user_title(offset: $offset, customer_id: $customer_id){
@@ -147,9 +169,30 @@ export class ApiService {
             }
         });
 
-        this.films_user_amountQuery = this.apollo.watchQuery({
-            query: gql`query films_user_amount($offset: Int!, $customer_id: Int!){
-                films_user_amount(offset: $offset, customer_id: $customer_id){
+        this.films_user_amount_ASCQuery = this.apollo.watchQuery({
+            query: gql`query films_user_amount_ASC($offset: Int!, $customer_id: Int!){
+                films_user_amount_ASC(offset: $offset, customer_id: $customer_id){
+                    count
+                    films {
+                        film_id
+                        title
+                        genre
+                        rental_date
+                        return_date
+                        rental_rate
+                        amount
+                        duration
+                    }
+                }
+            }`,
+            context: {
+                headers: new HttpHeaders().set("authorization", token),
+            }
+        });
+
+        this.films_user_amount_DESCQuery = this.apollo.watchQuery({
+            query: gql`query films_user_amount_ASC($offset: Int!, $customer_id: Int!){
+                films_user_amount_DESC(offset: $offset, customer_id: $customer_id){
                     count
                     films {
                         film_id
@@ -271,7 +314,7 @@ export class ApiService {
 
         this.total_amountQuery = this.apollo.watchQuery({
             query: gql`query total_amount($customer_id: Int!){
-                total_amount( customer_id: $customer_id){
+                total_amount(customer_id: $customer_id){
                     amount
                 }
             }`,
@@ -303,8 +346,12 @@ export class ApiService {
 
     async getFilms_user_rental_date(offset: number, customer_id: number): Promise<listFilms> {
         const result = await this.films_user_rental_dateQuery.refetch({offset, customer_id});
-        console.log(result.data.films_user_rental_date);
         return result.data.films_user_rental_date;
+    }
+
+    async getFilms_user_return_date(offset: number, customer_id: number): Promise<listFilms> {
+        const result = await this.films_user_return_dateQuery.refetch({offset, customer_id});
+        return result.data.films_user_return_date;
     }
 
     async getFilms_user_title(offset: number, customer_id: number): Promise<listFilms> {
@@ -312,9 +359,14 @@ export class ApiService {
         return result.data.films_user_title;
     }
 
-    async getFilms_user_amount(offset: number, customer_id: number): Promise<listFilms> {
-        const result = await this.films_user_amountQuery.refetch({offset, customer_id});
-        return result.data.films_user_amount;
+    async getFilms_user_amount_ASC(offset: number, customer_id: number): Promise<listFilms> {
+        const result = await this.films_user_amount_ASCQuery.refetch({offset, customer_id});
+        return result.data.films_user_amount_ASC;
+    }
+
+    async getFilms_user_amount_DESC(offset: number, customer_id: number): Promise<listFilms> {
+        const result = await this.films_user_amount_DESCQuery.refetch({offset, customer_id});
+        return result.data.films_user_amount_DESC;
     }
 
     async getFilms_user_duration(offset: number, customer_id: number): Promise<listFilms> {
@@ -353,7 +405,8 @@ export class ApiService {
     }
 
     async getTotal_amount(customer_id: number): Promise<Amount> {
-        const result = await this.total_amountQuery.refetch({ customer_id});
+        const result = await this.total_amountQuery.refetch({ customer_id });
+        console.log(result.data.total_amount)
         return result.data.total_amount;
     }
 }

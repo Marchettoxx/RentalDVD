@@ -18,15 +18,17 @@ app.use(json());
 const verifyUser = async (req) => {
     try{
         const token = req.headers["authorization"] || "GRAPHQL";
-        console.log("TOKEN BACK", token);
         const { user } = await verify(token, SK);
         req.user = user;
         if (token === "GRAPHQL") {
             console.log("GRAPHQL");
         } else if (token === "NO_TOKEN") {
             console.log("NO_TOKEN");
+        } else if (token === "LOGIN"){
+            console.log("LOGIN");
+        } else {
+            console.log("Pass verifyUser: ", req.user);
         }
-        console.log("Pass verifyUser: ", req.user);
     } catch(err) {
         console.log("Error verifyUser: ", err);
     }

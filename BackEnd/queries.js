@@ -66,7 +66,7 @@ const root = {
     },
 
     /*
-        Query per ottenere un film
+        Query per ottenere un film in dettaglio
      */
     film: (args, { user }) => {
         if (!user) {
@@ -86,6 +86,9 @@ const root = {
         }
     },
 
+    /*
+        Query per ottenere gli attor di un film
+     */
     actors: (args, { user }) => {
         if (!user) {
             return null
@@ -102,6 +105,9 @@ const root = {
         }
     },
 
+    /*
+        Query per ottenere tutte i film filtrati per categoria in "films"
+     */
     films_category: (args, { user }) => {
         if (!user) {
             return null
@@ -126,7 +132,9 @@ const root = {
         }
     },
 
-    // tutti i film noleggiati di un utente
+    /*
+     Query per ottenere tutti i film noleggiati da un utente in "films_user"
+     */
     films_user: (args, { user }) => {
         if (!user) {
             return null
@@ -138,7 +146,8 @@ const root = {
             JOIN inventory i ON i.film_id = f.film_id 
             JOIN rental r ON r.inventory_id = i.inventory_id
             LEFT JOIN payment p ON p.rental_id = r.rental_id
-            WHERE r.customer_id = $1`
+            WHERE r.customer_id = $1
+            ORDER BY r.rental_date DESC`
             const values = [args.customer_id];
             return db
                 .any(query, values)
@@ -152,6 +161,9 @@ const root = {
         }
     },
 
+    /*
+        Query per ottenere i film noleggiati da un user in ordine di rental_date in "films_user"
+     */
     films_user_rental_date: (args, { user }) => {
         if (!user) {
             return null
@@ -178,6 +190,38 @@ const root = {
         }
     },
 
+    /*
+        Query per ottenere i film noleggiati da un user in ordine di return_date in "films_user"
+     */
+    films_user_return_date: (args, { user }) => {
+        if (!user) {
+            return null
+        } else {
+            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, r.return_date-rental_date AS duration, p.amount
+            FROM film f
+            JOIN film_category fc ON f.film_id = fc.film_id
+            JOIN category c ON c.category_id = fc.category_id
+            JOIN inventory i ON i.film_id = f.film_id 
+            JOIN rental r ON r.inventory_id = i.inventory_id
+            LEFT JOIN payment p ON p.rental_id = r.rental_id
+            WHERE r.customer_id = $1
+            ORDER BY r.return_date DESC`;
+            const values = [args.customer_id];
+            return db
+                .any(query, values)
+                .then(res => {
+                    return {
+                        count: res.length,
+                        films: res.slice(args.offset, args.offset + args.limit)
+                    }
+                })
+                .catch(err => err);
+        }
+    },
+
+    /*
+        Query per ottenere i film noleggiati da un user in ordine di titolo in "films_user"
+     */
     films_user_title: (args, { user }) => {
         if (!user) {
             return null
@@ -204,7 +248,10 @@ const root = {
         }
     },
 
-    films_user_amount: (args, { user }) => {
+    /*
+       Query per ottenere i film noleggiati da un user in ordine di amount in "films_user"
+    */
+    films_user_amount_ASC: (args, { user }) => {
         if (!user) {
             return null
         } else {
@@ -216,7 +263,7 @@ const root = {
             JOIN rental r ON r.inventory_id = i.inventory_id
             LEFT JOIN payment p ON p.rental_id = r.rental_id
             WHERE r.customer_id = $1
-            ORDER BY p.amount`;
+            ORDER BY p.amount ASC`;
             const values = [args.customer_id];
             return db
                 .any(query, values)
@@ -230,6 +277,38 @@ const root = {
         }
     },
 
+    /*
+       Query per ottenere i film noleggiati da un user in ordine di amount in "films_user"
+    */
+    films_user_amount_DESC: (args, { user }) => {
+        if (!user) {
+            return null
+        } else {
+            const query = `SELECT f.film_id, f.title, c.name AS genre, r.return_date, r.rental_date, f.rental_rate, r.return_date-rental_date AS duration, p.amount
+            FROM film f
+            JOIN film_category fc ON f.film_id = fc.film_id
+            JOIN category c ON c.category_id = fc.category_id
+            JOIN inventory i ON i.film_id = f.film_id 
+            JOIN rental r ON r.inventory_id = i.inventory_id
+            LEFT JOIN payment p ON p.rental_id = r.rental_id
+            WHERE r.customer_id = $1
+            ORDER BY p.amount DESC`;
+            const values = [args.customer_id];
+            return db
+                .any(query, values)
+                .then(res => {
+                    return {
+                        count: res.length,
+                        films: res.slice(args.offset, args.offset + args.limit)
+                    }
+                })
+                .catch(err => err);
+        }
+    },
+
+    /*
+       Query per ottenere i film noleggiati da un user in ordine di durata in "films_user"
+    */
     films_user_duration: (args, { user }) => {
         if (!user) {
             return null
@@ -257,7 +336,7 @@ const root = {
     },
 
     /*
-        Query per la ricerca tramite nome del titolo in "films
+        Query per la ricerca tramite nome del titolo in "films"
      */
     films_search: (args, { user }) => {
         if (!user) {
@@ -280,7 +359,6 @@ const root = {
         in "films"
      */
     categories: (args, { user }) => {
-        console.log("categories", user);
         if (!user) {
             return null
         } else {
@@ -321,6 +399,9 @@ const root = {
         }
     },
 
+    /*
+     Query per eseguire il noleggio di un film
+     */
     rent_film: async (args, {user}) => {
         if (!user) {
             return null
@@ -354,17 +435,20 @@ const root = {
         }
     },
 
+    /*
+     Query per ottenere quanto è stato speso da un user in totale in "films_user"
+     */
     total_amount: (args, { user }) => {
         if (!user) {
             return null
         } else {
-            const query = `SELECT SUM(amount)
+            const query = `SELECT SUM(amount) as amount
             FROM rental r
             LEFT JOIN payment p ON p.rental_id = r.rental_id
-            WHERE customer_id = $1`;
+            WHERE r.customer_id = $1`;
             const values = [args.customer_id];
             return db
-                .any(query, values)
+                .one(query, values)
                 .then(res => res)
                 .catch(err => err);
         }
