@@ -66,11 +66,11 @@
                         </button>
                     </div>
                     <div cdkTrapFocus>
-                        <div id="myModal" class="modal modal-iframe fade menu-popup" role="dialog" aria-modal="true" aria-live="assertive">
+                        <div id="myModal" class="modal fade menu-popup" role="dialog" aria-modal="true" aria-live="assertive">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="font-weight-bold" id="detailsTitle" aria-label="Titolo film">
+                                        <h1 class="font-weight-bold" id="detailsTitle" >
                                             {{selectedFilm.title}}
                                         </h1>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -170,7 +170,7 @@
                                             <button class="btn ml-3 btn-danger" type="button" data-dismiss="modal" routerLink="/films" (click)="setConfirm(true)"
                                                     aria-label="conferma prenotazione">Annulla
                                             </button>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="setConfirm(true)">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" routerLink="/films" (click)="setConfirm(true)">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>

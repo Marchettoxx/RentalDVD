@@ -9,6 +9,10 @@
     border-radius: 2em 2em 2em 2em;
 }
 
+.modal-body{
+    text-align: left;
+}
+
 .search-container {
     position: absolute;
     background-color: white;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap } from "rxjs";
+import { A11yModule } from '@angular/cdk/a11y';
 
 import {Actor, Category, Film, User, Store} from "../utilities/typeDB";
 import {ApiService} from "../services/api.service";
