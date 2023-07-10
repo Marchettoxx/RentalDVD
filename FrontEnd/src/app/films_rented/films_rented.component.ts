@@ -7,6 +7,7 @@ import {DetailsFilmComponent} from "../details-film/details-film.component";
 import {MatDialog} from "@angular/material/dialog";
 import {DetailsService} from "../services/details.service";
 import {LiveAnnouncer} from "@angular/cdk/a11y";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
     selector: 'app-films_rented',
@@ -14,9 +15,8 @@ import {LiveAnnouncer} from "@angular/cdk/a11y";
     styleUrls: ['./films_rented.component.css']
 })
 export class Films_rentedComponent {
-    offset: number = 0;
-    count: number = 0;
-    current_page: number = 0;
+    //count: number = 0;
+    //current_page: number = 0;
     fontSize: number = 1;
     totalAmount: Amount = {};
 
@@ -34,6 +34,24 @@ export class Films_rentedComponent {
     selectedAmountASC: Boolean = false;
     selectedAmountDESC: Boolean = false;
     selectedDuration: Boolean = false;
+
+    // aggiunto per paginator
+    length!: number;
+    offset: number = 0;
+    pageSize = 10;
+    pageIndex = 0;
+    hidePageSize = true;
+    showFirstLastButtons = true;
+
+    pageEvent!: PageEvent;
+
+    async handlePageEvent(e: PageEvent) {
+        this.pageEvent = e;
+        this.length = e.length;
+        this.pageSize = e.pageSize;
+        this.pageIndex = e.pageIndex;
+        await this.jump();
+    }
 
     constructor(private loginService: LoginService, private apiService: ApiService, public dialog: MatDialog, public detailsService: DetailsService, liveAnnouncer: LiveAnnouncer) {
         liveAnnouncer.announce("I tuoi film noleggiati");
@@ -62,7 +80,8 @@ export class Films_rentedComponent {
             if (!result) {
                 await this.loginService.logout(true);
             } else {
-                this.count = result.count!;
+                //this.count = result.count!;
+                this.length = result.count!;
                 this.films = result.films!;
             }
         } else if (this.selectedReturnDate) {
@@ -70,7 +89,8 @@ export class Films_rentedComponent {
             if (!result) {
                 await this.loginService.logout(true);
             } else {
-                this.count = result.count!;
+                //this.count = result.count!;
+                this.length = result.count!;
                 this.films = result.films!;
             }
         } else if (this.selectedRentalDate) {
@@ -78,7 +98,8 @@ export class Films_rentedComponent {
             if (!result) {
                 await this.loginService.logout(true);
             } else {
-                this.count = result.count!;
+                //this.count = result.count!;
+                this.length = result.count!;
                 this.films = result.films!;
             }
         } else if (this.selectedAmountASC) {
@@ -86,7 +107,8 @@ export class Films_rentedComponent {
             if (!result) {
                 await this.loginService.logout(true);
             } else {
-                this.count = result.count!;
+                //this.count = result.count!;
+                this.length = result.count!;
                 this.films = result.films!;
             }
         } else if (this.selectedAmountDESC) {
@@ -94,7 +116,8 @@ export class Films_rentedComponent {
                 if (!result) {
                 await this.loginService.logout(true);
             } else {
-                this.count = result.count!;
+                //this.count = result.count!;
+                this.length = result.count!;
                 this.films = result.films!;
             }
         } else if (this.selectedDuration) {
@@ -102,7 +125,8 @@ export class Films_rentedComponent {
             if (!result) {
                 await this.loginService.logout(true);
             } else {
-                this.count = result.count!;
+                //this.count = result.count!;
+                this.length = result.count!;
                 this.films = result.films!;
             }
         } else {
@@ -110,13 +134,14 @@ export class Films_rentedComponent {
             if (!result) {
                 await this.loginService.logout(true);
             } else {
-                this.count = result.count!;
+                //this.count = result.count!;
+                this.length = result.count!;
                 this.films = result.films!;
             }
         }
     }
 
-    showPrevious(n: number) {
+    /*showPrevious(n: number) {
         return this.offset - n > 0;
     }
 
@@ -134,7 +159,7 @@ export class Films_rentedComponent {
         this.offset += 10
         this.current_page = this.offset / 10;
         await this.updateFilms();
-    }
+    }*/
 
     async onSelect(film: Film): Promise<void> {
         const result = await this.apiService.getFilm(film.film_id!);
@@ -151,9 +176,9 @@ export class Films_rentedComponent {
         }
     }
 
-    async jump(index: number): Promise<void> {
-        this.offset = index * 10;
-        this.current_page = index;
+    async jump(): Promise<void> {
+        this.offset = this.pageIndex * 10;
+        //this.current_page = index;
         await this.updateFilms();
     }
 

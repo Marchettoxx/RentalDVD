@@ -16,6 +16,8 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import { DetailsFilmComponent } from './details-film/details-film.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatOptionModule} from "@angular/material/core";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 @NgModule({
     declarations: [
@@ -39,6 +41,8 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
         MatDialogModule,
         MatInputModule,
         MatButtonModule,
+        MatPaginatorModule,
+        MatOptionModule,
         MatAutocompleteModule
     ],
     providers: [],

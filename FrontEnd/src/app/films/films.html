@@ -53,7 +53,7 @@
             <mat-form-field class="example-full-width">
                 <mat-label>Assignee</mat-label>
                 <input type="text" matInput id="search-box"
-                       #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome"  [formControl]="myControl" [matAutocomplete]="auto">
+                       #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome"  [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete"  >
                     <mat-option *ngFor="let film of films$ | async" [value]="film" (click)="openDialog(film)">
                         {{film.title}}
@@ -92,41 +92,15 @@
             </div>
         </div>
 
-        <div role="navigation" class="row justify-content-center">
-            <nav>
-                <ul class="pagination pagination-lg">
-                    <li class="page-item">
-                        <button type="button" aria-label="indietro" class="page-link" *ngIf="showPrevious(0)"
-                                (click)="onPrevious()"> <
-                        </button>
-                    </li>
-                    <li class="page-item">
-                        <button type="button" class="page-link" *ngIf="showPrevious(10)"
-                                (click)="jump(current_page-2)"> {{current_page - 2}}</button>
-                    </li>
-                    <li class="page-item">
-                        <button type="button" class="page-link" *ngIf="showPrevious(0)"
-                                (click)="jump(current_page-1)"> {{current_page - 1}}</button>
-                    </li>
-                    <li class="page-item">
-                        <button type="button" class="page-link" [class.selected]="true"
-                                (click)="jump(current_page)"> {{current_page}} </button>
-                    </li>
-                    <li class="page-item">
-                        <button type="button" class="page-link" *ngIf="showNext(0)"
-                                (click)="jump(current_page+1)"> {{current_page + 1}} </button>
-                    </li>
-                    <li class="page-item">
-                        <button type="button" class="page-link" *ngIf="showNext(10)"
-                                (click)="jump(current_page+2)"> {{current_page + 2}} </button>
-                    </li>
-                    <li class="page-item">
-                        <button type="button" aria-label="avanti" class="page-link" *ngIf="showNext(0)"
-                                (click)="onNext()"> >
-                        </button>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+        <mat-paginator #paginator
+                       class="mt-0"
+                       (page)="handlePageEvent($event)"
+                       [length]="length"
+                       [pageSize]="pageSize"
+                       [showFirstLastButtons]="showFirstLastButtons"
+                       [hidePageSize]="hidePageSize"
+                       [pageIndex]="pageIndex"
+                       aria-label="Select page">
+        </mat-paginator>
     </div>
 </section>

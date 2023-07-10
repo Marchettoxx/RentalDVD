@@ -32,9 +32,9 @@
             </div>
         </div>
 
-        <div role="main" class="row mb-3" >
+        <div role="main" class="row">
             <div class="col table-responsive">
-                <table class="table table-light table-bordered" aria-labelledby="tableTitle" tabindex="0" role="grid">
+                <table class="table table-light table-bordered mb-0" aria-labelledby="tableTitle" tabindex="0" role="grid">
                     <thead class="table-dark">
                         <tr>
                             <th scope="col" id="col1" role="columnheader" aria-label="prima colonna: Titolo.">TITOLO</th>
@@ -59,13 +59,23 @@
             </div>
         </div>
 
-        <div class="row" tabindex="0">
+        <mat-paginator #paginator
+                       class="mt-0"
+                       (page)="handlePageEvent($event)"
+                       [length]="length"
+                       [pageSize]="pageSize"
+                       [showFirstLastButtons]="showFirstLastButtons"
+                       [hidePageSize]="hidePageSize"
+                       [pageIndex]="pageIndex"
+                       aria-label="Select page">
+        </mat-paginator>
+
+        <div class="row mt-3" tabindex="0">
             <div class="col alert alert-success text-right">
                 <p><strong>SPESA TOTALE: {{amountIsNull(totalAmount.amount!)}}</strong></p>
             </div>
         </div>
-
-        <div role="navigation" class="row justify-content-center" lang="it" >
+        <!--<div role="navigation" class="row justify-content-center" lang="it" >
             <nav >
                 <ul class="pagination pagination-lg">
                     <li class="page-item">
@@ -100,7 +110,7 @@
                     </li>
                 </ul>
             </nav>
-        </div>
+        </div>-->
     </div>
 </section>
 

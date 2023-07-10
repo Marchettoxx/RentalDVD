@@ -8,6 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {DetailsFilmComponent} from "../details-film/details-film.component";
 import {DetailsService} from "../services/details.service";
 import {LiveAnnouncer} from "@angular/cdk/a11y";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
     selector: 'app-films',
@@ -15,9 +16,6 @@ import {LiveAnnouncer} from "@angular/cdk/a11y";
     styleUrls: ['./films.css']
 })
 export class Films implements OnInit {
-    offset: number = 0;
-    count?: number = 0;
-    current_page: number = 0;
     rented!: boolean;
     rentedFilmTitle!: string;
     research: boolean = true;
@@ -33,6 +31,24 @@ export class Films implements OnInit {
 
     films$?: Observable<Film[]>;
     private searchTerms = new Subject<string>();
+
+    // aggiunto per paginator
+    length!: number;
+    offset: number = 0;
+    pageSize = 10;
+    pageIndex = 0;
+    hidePageSize = true;
+    showFirstLastButtons = true;
+
+    pageEvent!: PageEvent;
+
+    async handlePageEvent(e: PageEvent) {
+        this.pageEvent = e;
+        this.length = e.length;
+        this.pageSize = e.pageSize;
+        this.pageIndex = e.pageIndex;
+        await this.jump();
+    }
 
     constructor(private apiService: ApiService, private loginService: LoginService, public dialog: MatDialog, public detailsService: DetailsService, liveAnnouncer: LiveAnnouncer) {
         liveAnnouncer.announce("Film nello store");
@@ -84,7 +100,7 @@ export class Films implements OnInit {
             if (!listFilmsCategory) {
                 await this.loginService.logout(true);
             } else {
-                this.count = listFilmsCategory.count;
+                this.length = listFilmsCategory.count!;
                 this.films = listFilmsCategory.films;
             }
         } else {
@@ -92,35 +108,14 @@ export class Films implements OnInit {
             if (!listFilms) {
                 await this.loginService.logout(true);
             } else {
-                this.count = listFilms.count;
+                this.length = listFilms.count!;
                 this.films = listFilms.films;
             }
         }
     }
 
-    showPrevious(pos: number) {
-        return this.offset - pos > 0;
-    }
-
-    showNext(pos: number) {
-        return this.offset + 10 + pos < this.count!;
-    }
-
-    async onPrevious() {
-        this.offset -= 10;
-        this.current_page = this.offset / 10;
-        await this.updateFilms();
-    }
-
-    async onNext() {
-        this.offset += 10
-        this.current_page = this.offset / 10;
-        await this.updateFilms();
-    }
-
-    async jump(index: number): Promise<void> {
-        this.offset = index * 10;
-        this.current_page = index;
+    async jump(): Promise<void> {
+        this.offset = this.pageIndex * 10;
         await this.updateFilms();
     }
 
