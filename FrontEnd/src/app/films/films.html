@@ -10,9 +10,9 @@
                 <div *ngIf="rented" class="alert alert-success alert-dismissible fade show" role="alert"
                      aria-live="assertive">
                     <button class="btn btn-link" type="button" routerLink="/films_rented"
-                            aria-label="Visualizza i film noleggiati"><strong>{{rentedFilmTitle}}</strong></button>
-                    noleggiato con successo.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Chiudi avviso">
+                            aria-label="View rented movies"><strong>{{rentedFilmTitle}}</strong></button>
+                    rented with success.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close notice">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -22,7 +22,7 @@
             <div class="col col-lg-4 dropdown">
                 <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuBtn"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        aria-label="ordina per categoria">
+                        aria-label="order by category">
                     {{selectedCategory.name}}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
@@ -31,62 +31,47 @@
             </div>
 
             <div role="search" class="col" >
-                <input id="search-box1" class="form-control" placeholder="Cerca per Titolo:" type="search"
-                       #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome" />
-                <div class="search-container" >
-                    <button type="button" class="dropdown-item" *ngFor="let film of films$ | async" (click)="openDialog(film)" >{{ film.title }}</button>
-                </div>
+                <input id="search-box1" class="form-control" placeholder="Search by Title:" type="search"
+                       #searchBox (input)="search(searchBox.value)" aria-label="Search by name" />
+
             </div>
             <div class="col">
                 <button type="button" class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased"
-                        aria-label="aumenta testo">+
+                        aria-label="increase text">+
                 </button>
                 <button type="button" class="btn btn-lg" (click)="decreaseFontSize()" [disabled]="!isIncreased"
-                        aria-label="diminuisci testo">-
+                        aria-label="decrease text">-
                 </button>
             </div>
         </div>
 
-
-
         <form class="example-form">
-            <mat-form-field class="example-full-width">
-                <mat-label>Assignee</mat-label>
-                <input type="text" matInput id="search-box"
-                       #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome"  [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete"  >
-                    <mat-option *ngFor="let film of films$ | async" [value]="film" (click)="openDialog(film)">
-                        {{film.title}}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>
+                Search by Title
+            </mat-label>
+            <input matInput id="search-box2"  placeholder="Search by Title:" type="search"
+                   (keyup)="search($event)" [(ngModel)] = "reset" />
+        </mat-form-field>
+        <mat-option  *ngFor="let film of films$ | async" (click)="openDialog(film)" [value]="film">
+            {{film.title}}
+        </mat-option>
         </form>
 
 
-        <mat-form-field>
-            <mat-label>
-                Ricerca per Titolo
-            </mat-label>
-            <input matInput id="search-box2" class="form-control" placeholder="Cerca per Titolo:" type="search"
-                   #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome" />
-            <mat-option *ngFor="let film of films$ | async"  (click)="openDialog(film)">
-                {{film.title}}
-            </mat-option>
-        </mat-form-field>
-
-        <div class="row" aria-label="Tutti i film disponibili nel nostro store:">
+        <div class="row" aria-label="All movies available in our store:">
             <div role="main" class="col-lg-6 mb-4" *ngFor="let film of films">
                 <div class="card card-board text-center" tabindex="0">
                     <div class="card-body" >
                         <button mat-raised-button type="button" class="card-title btn btn-default" (click)="openDialog(film)" [style.fontSize.em]="fontSize">{{film.title}}</button>
                         <article class="card-text text-truncate">
-                            <p><strong>Anno:</strong> {{film.release_year}} <strong>Genere:</strong> {{film.genre}} </p>
-                            <p><strong>Lingua:</strong> {{film.language}} <strong>Rating:</strong>{{film.rating}}</p>
-                            <p class="font-weight-bold"> Costo giornaliero: {{film.rental_rate}} €</p>
+                            <p><strong>Year:</strong> {{film.release_year}} <strong>Genre:</strong> {{film.genre}} </p>
+                            <p><strong>Language:</strong> {{film.language}} <strong>Rating:</strong>{{film.rating}}</p>
+                            <p class="font-weight-bold"> Daily cost: {{film.rental_rate}} €</p>
                         </article>
                     </div>
                     <div class="card-footer">
-                        <button type="button" class="btn btn-dark btn-block" (click)="openDialog(film)">Prenota</button>
+                        <button type="button" class="btn btn-dark btn-block" (click)="openDialog(film)">Rent</button>
                     </div>
                 </div>
             </div>

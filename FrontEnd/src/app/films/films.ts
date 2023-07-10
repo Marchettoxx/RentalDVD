@@ -19,6 +19,8 @@ export class Films implements OnInit {
     rented!: boolean;
     rentedFilmTitle!: string;
     research: boolean = true;
+    title : string = "";
+    reset = "";
 
     fontSize: number = 1;
     isIncreased: boolean = false;
@@ -27,7 +29,7 @@ export class Films implements OnInit {
 
     films?: Film[];
     categories?: Category[];
-    selectedCategory: Category = {category_id: -1, name: "Categorie"};
+    selectedCategory: Category = {category_id: -1, name: "Category"};
 
     films$?: Observable<Film[]>;
     private searchTerms = new Subject<string>();
@@ -124,8 +126,10 @@ export class Films implements OnInit {
         await this.updateFilms();
     }
 
-    search(term: string): void {
-        this.searchTerms.next(term);
+    search(name : any)
+    {
+        this.title = name.target.value
+        this.searchTerms.next(this.title);
     }
 
     increaseFontSize() {
