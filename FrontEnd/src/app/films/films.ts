@@ -7,7 +7,6 @@ import {LoginService} from "../services/login.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DetailsFilmComponent} from "../details-film/details-film.component";
 import {DetailsService} from "../services/details.service";
-import {LiveAnnouncer} from "@angular/cdk/a11y";
 import {PageEvent} from "@angular/material/paginator";
 
 @Component({
@@ -19,8 +18,6 @@ export class Films implements OnInit {
     rented!: boolean;
     rentedFilmTitle!: string;
     research: boolean = true;
-    title : string = "";
-    reset = "";
 
     fontSize: number = 1;
     isIncreased: boolean = false;
@@ -29,7 +26,7 @@ export class Films implements OnInit {
 
     films?: Film[];
     categories?: Category[];
-    selectedCategory: Category = {category_id: -1, name: "Category"};
+    selectedCategory: Category = {category_id: -1, name: "Categories"};
 
     films$?: Observable<Film[]>;
     private searchTerms = new Subject<string>();
@@ -44,6 +41,14 @@ export class Films implements OnInit {
 
     pageEvent!: PageEvent;
 
+    // aggiunto per search
+    searchString!: string;
+
+    clearSearch() {
+        this.searchString = '';
+        this.searchTerms.next("");
+    }
+
     async handlePageEvent(e: PageEvent) {
         this.pageEvent = e;
         this.length = e.length;
@@ -52,8 +57,7 @@ export class Films implements OnInit {
         await this.jump();
     }
 
-    constructor(private apiService: ApiService, private loginService: LoginService, public dialog: MatDialog, public detailsService: DetailsService, liveAnnouncer: LiveAnnouncer) {
-        liveAnnouncer.announce("Film nello store");
+    constructor(private apiService: ApiService, private loginService: LoginService, public dialog: MatDialog, public detailsService: DetailsService) {
         this.loginService.user.subscribe(x => this.user = x!);
     }
 
@@ -68,6 +72,7 @@ export class Films implements OnInit {
                 this.rented = true;
                 this.rentedFilmTitle = result;
             }
+            this.clearSearch();
         });
     }
 
@@ -126,10 +131,8 @@ export class Films implements OnInit {
         await this.updateFilms();
     }
 
-    search(name : any)
-    {
-        this.title = name.target.value
-        this.searchTerms.next(this.title);
+    search(term: string): void {
+        this.searchTerms.next(term);
     }
 
     increaseFontSize() {

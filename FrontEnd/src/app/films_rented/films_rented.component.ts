@@ -22,7 +22,7 @@ export class Films_rentedComponent {
     actors!: Actor[];
     films!: Film[];
     selectedFilm: Film = {};
-    selectedFilter: string = "Filtro";
+    selectedFilter: string = "Filter";
 
     isIncreased: boolean = false;
 
@@ -133,7 +133,7 @@ export class Films_rentedComponent {
     }
 
     async sortByTitle() {
-        this.selectedFilter = "Titolo";
+        this.selectedFilter = "Title";
         this.selectedTitle = true;
         this.selectedReturnDate = false;
         this.selectedRentalDate = false;
@@ -144,7 +144,7 @@ export class Films_rentedComponent {
     }
 
     async sortByReturnDate() {
-        this.selectedFilter = "Data Riconsegna";
+        this.selectedFilter = "Return date";
         this.selectedTitle = false;
         this.selectedReturnDate = true;
         this.selectedRentalDate = false;
@@ -155,7 +155,7 @@ export class Films_rentedComponent {
     }
 
     async sortByRentedDate() {
-        this.selectedFilter = "Data noleggio";
+        this.selectedFilter = "Rental date";
         this.selectedTitle = false;
         this.selectedReturnDate = false;
         this.selectedRentalDate = true;
@@ -166,7 +166,7 @@ export class Films_rentedComponent {
     }
 
     async sortByAmountASC() {
-        this.selectedFilter = "Spesa";
+        this.selectedFilter = "Expense ASC";
         this.selectedTitle = false;
         this.selectedReturnDate = false;
         this.selectedRentalDate = false;
@@ -177,7 +177,7 @@ export class Films_rentedComponent {
     }
 
     async sortByAmountDESC() {
-        this.selectedFilter = "Spesa";
+        this.selectedFilter = "Expense DESC";
         this.selectedTitle = false;
         this.selectedReturnDate = false;
         this.selectedRentalDate = false;
@@ -188,7 +188,7 @@ export class Films_rentedComponent {
     }
 
     async sortByDuration() {
-        this.selectedFilter = "Durata";
+        this.selectedFilter = "Duration";
         this.selectedTitle = false;
         this.selectedReturnDate = false;
         this.selectedRentalDate = false;
@@ -218,7 +218,7 @@ export class Films_rentedComponent {
         if(duration === null){
             return '-';
         } else {
-            return duration.days + ' giorni';
+            return duration.days + ' days';
         }
     }
 

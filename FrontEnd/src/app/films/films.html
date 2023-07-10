@@ -2,15 +2,16 @@
     <div class="container">
         <div class="row mt-4 justify-content-center">
             <div class="col col-lg-8">
-                <h1 class="title" tabindex="0"> FILM </h1>
+                <h1 class="title" tabindex="0"> FILMS </h1>
             </div>
         </div>
         <div class="row mb-4">
             <div class="col">
-                <div *ngIf="rented" class="alert alert-success alert-dismissible fade show" role="alert"
-                     aria-live="assertive">
+                <div *ngIf="rented" class="alert alert-success alert-dismissible fade show" role="alert" aria-live="assertive">
                     <button class="btn btn-link" type="button" routerLink="/films_rented"
-                            aria-label="View rented movies"><strong>{{rentedFilmTitle}}</strong></button>
+                            aria-label="View rented movies">
+                        <strong>{{rentedFilmTitle}}</strong>
+                    </button>
                     rented with success.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close notice">
                         <span aria-hidden="true">&times;</span>
@@ -21,8 +22,7 @@
         <div class="row mb-4">
             <div class="col col-lg-4 dropdown">
                 <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuBtn"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        aria-label="order by category">
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="order by category">
                     {{selectedCategory.name}}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
@@ -30,11 +30,16 @@
                 </div>
             </div>
 
-            <div role="search" class="col" >
-                <input id="search-box1" class="form-control" placeholder="Search by Title:" type="search"
-                       #searchBox (input)="search(searchBox.value)" aria-label="Search by name" />
-
+            <div role="search" class="col">
+                <div (blur)="clearSearch()" cdkTrapFocus>
+                    <input id="search-box" class="form-control" aria-label="Search by title" placeholder="Search by title:" type="search"
+                           (input)="search(searchString)" [(ngModel)]="searchString"/>
+                    <button type="button" class="btn dropdown-item search-container" *ngFor="let film of films$ | async" (click)="openDialog(film)">
+                        {{ film.title }}
+                    </button>
+                </div>
             </div>
+
             <div class="col">
                 <button type="button" class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased"
                         aria-label="increase text">+
@@ -44,20 +49,6 @@
                 </button>
             </div>
         </div>
-
-        <form class="example-form">
-        <mat-form-field class="example-full-width">
-            <mat-label>
-                Search by Title
-            </mat-label>
-            <input matInput id="search-box2"  placeholder="Search by Title:" type="search"
-                   (keyup)="search($event)" [(ngModel)] = "reset" />
-        </mat-form-field>
-        <mat-option  *ngFor="let film of films$ | async" (click)="openDialog(film)" [value]="film">
-            {{film.title}}
-        </mat-option>
-        </form>
-
 
         <div class="row" aria-label="All movies available in our store:">
             <div role="main" class="col-lg-6 mb-4" *ngFor="let film of films">
