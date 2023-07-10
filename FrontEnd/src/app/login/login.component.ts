@@ -3,23 +3,18 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {LoginService} from '../services/login.service';
-import {LiveAnnouncer} from "@angular/cdk/a11y";
 
-@Component({templateUrl: 'login.component.html'})
+@Component({
+    templateUrl: 'login.component.html',
+    styleUrls: ['./login.component.css']
+})
 export class LoginComponent implements OnInit {
     form!: FormGroup;
     submitted: boolean = false;
     sessionExpired!: boolean;
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
-        private loginService: LoginService,
-        liveAnnouncer: LiveAnnouncer
-    ) {
-        liveAnnouncer.announce("Login");
-    }
+    constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private loginService: LoginService
+    ) {}
 
     ngOnInit() {
         this.form = this.formBuilder.group({

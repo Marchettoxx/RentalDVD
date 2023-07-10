@@ -31,6 +31,14 @@ export class Films implements OnInit {
     films$?: Observable<Film[]>;
     private searchTerms = new Subject<string>();
 
+    gotoTop() {
+        window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
+
     // aggiunto per paginator
     length!: number;
     offset: number = 0;
@@ -72,6 +80,7 @@ export class Films implements OnInit {
                 this.rented = true;
                 this.rentedFilmTitle = result;
             }
+            this.gotoTop();
             this.clearSearch();
         });
     }

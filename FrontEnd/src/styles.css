@@ -10,14 +10,3 @@ body {
     background-size: cover; /* Per coprire l'intera area dello sfondo */
     background-repeat: repeat; /* Per impedire la ripetizione dello sfondo */
 }
-
-.title {
-    color: white;
-    text-align: center;
-    font-size: 3em;
-    margin-bottom: 1em;
-    font-weight: bold;
-    background-color: black;
-    margin-top: 0.8em;
-    padding: 0.3em;
-}

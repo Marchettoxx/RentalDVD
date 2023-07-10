@@ -16,11 +16,11 @@
                         <a class="nav-link" href="/films_rented" aria-label="Ranted films"> <strong>Your Rents</strong> </a>
                     </li>
                     <li class="nav-item">
-                        <button class=" btn btn-dark  " type="button" (click)="setConfirm(true)" aria-label="Logout" tabindex="0" > LogOut </button>
+                        <button class=" btn btn-warning" type="button" (click)="setConfirm(true)" aria-label="Logout" tabindex="0" > LogOut </button>
                     </li>
-                    <li *ngIf="confirm" class="alert alert-warning alert-dismissible fade show ml-3 mt-3" role="alert" aria-live="assertive" cdkTrapFocus>
+                    <li *ngIf="confirm" class="alert alert-warning alert-dismissible fade show ml-3 mt-3" aria-live="assertive" cdkTrapFocus>
                         <p tabindex="0">Do you confirm that you want to log out?</p>
-                        <button class="btn btn-danger" (click)="logout()" aria-label="Confirm logout" > Confirm </button>
+                        <button class="btn btn-success" (click)="logout()" aria-label="Confirm logout" > Confirm </button>
                         <button class="btn btn-danger ml-3" (click)="setConfirm(false)" aria-label="Cancel logout" > Cancel </button>
                     </li>
                 </ul>
