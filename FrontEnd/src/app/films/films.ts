@@ -144,8 +144,4 @@ export class Films implements OnInit {
             this.isIncreased = false;
         }
     }
-
-    onClickSearch(val: boolean){
-        this.research = val;
-    }
 }

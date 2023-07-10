@@ -47,15 +47,31 @@
             </div>
         </div>
 
+
+
+        <form class="example-form">
+            <mat-form-field class="example-full-width">
+                <mat-label>Assignee</mat-label>
+                <input type="text" matInput id="search-box"
+                       #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome"  [formControl]="myControl" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete"  >
+                    <mat-option *ngFor="let film of films$ | async" [value]="film" (click)="openDialog(film)">
+                        {{film.title}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </form>
+
+
         <mat-form-field>
             <mat-label>
                 Ricerca per Titolo
             </mat-label>
-            <input matInput id="search-box" class="form-control" placeholder="Cerca per Titolo:" type="search"
+            <input matInput id="search-box2" class="form-control" placeholder="Cerca per Titolo:" type="search"
                    #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome" />
-                <div class="search-container" >
-                <button type="button" class="dropdown-item" *ngFor="let film of films$ | async" (click)="openDialog(film)" >{{ film.title }}</button>
-            </div>
+            <mat-option *ngFor="let film of films$ | async"  (click)="openDialog(film)">
+                {{film.title}}
+            </mat-option>
         </mat-form-field>
 
         <div class="row" aria-label="Tutti i film disponibili nel nostro store:">

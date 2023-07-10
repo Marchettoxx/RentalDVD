@@ -16,6 +16,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import { DetailsFilmComponent } from './details-film/details-film.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 @NgModule({
     declarations: [
         AppComponent,
@@ -37,7 +38,8 @@ import { DetailsFilmComponent } from './details-film/details-film.component';
         A11yModule,
         MatDialogModule,
         MatInputModule,
-        MatButtonModule
+        MatButtonModule,
+        MatAutocompleteModule
     ],
     providers: [],
     bootstrap: [AppComponent]
