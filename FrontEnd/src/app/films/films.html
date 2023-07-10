@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row mt-4 justify-content-center">
             <div class="col col-lg-8">
-                <h1 class="title"> FILM </h1>
+                <h1 class="title" tabindex="0"> FILM </h1>
             </div>
         </div>
         <div class="row mb-4">
@@ -12,7 +12,7 @@
                     <button class="btn btn-link" type="button" routerLink="/films_rented"
                             aria-label="Visualizza i film noleggiati"><strong>{{rentedFilmTitle}}</strong></button>
                     noleggiato con successo.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Chiudi avviso">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -65,7 +65,7 @@
         </div>
 
         <div role="navigation" class="row justify-content-center">
-            <nav aria-label="paginazione">
+            <nav>
                 <ul class="pagination pagination-lg">
                     <li class="page-item">
                         <button type="button" aria-label="indietro" class="page-link" *ngIf="showPrevious(0)"

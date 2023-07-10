@@ -3,7 +3,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="user">
             <a class="navbar-brand" href="/home"> DVD Store </a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Barra di navigazione">
                 <span class="navbar-toggler-icon" ></span>
             </button>
 
@@ -16,10 +16,10 @@
                         <a class="nav-link" href="/films_rented" aria-label="film noleggiati"> <strong>Noleggi</strong> </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" (click)="setConfirm(true)" aria-label="Esegui logout"> <strong>LogOut</strong> </a>
+                        <a class="nav-link" (click)="setConfirm(true)" aria-label="Esegui logout" tabindex="0"> <strong>LogOut</strong> </a>
                     </li>
-                    <li *ngIf="confirm" class="alert alert-warning alert-dismissible fade show">
-                        <p>Confermi di voler eseguire il logout?</p>
+                    <li *ngIf="confirm" class="alert alert-warning alert-dismissible fade show" role="alert" aria-live="assertive">
+                        <p tabindex="0">Confermi di voler eseguire il logout?</p>
                         <button class="btn btn-danger" (click)="logout()" aria-label="Confermi logout" cdkFocusRegionStart> Conferma </button>
                         <button class="btn btn-danger ml-3" (click)="setConfirm(false)" aria-label="Annulla logout" cdkFocusRegionEnd> Annulla </button>
                     </li>

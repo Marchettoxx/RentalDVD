@@ -1,6 +1,6 @@
 <h2 mat-dialog-title class="font-weight-bold" id="detailsTitle" tabindex="0">
     {{film.title}}
-    <button mat-button mat-dialog-close type="button" class="Close" aria-label="Close">
+    <button mat-button mat-dialog-close type="button" class="Close" aria-label="Chiudi dettagli">
         <span aria-hidden="true">&times;</span>
     </button>
 </h2>
@@ -37,9 +37,9 @@
                 <li *ngFor="let actor of actors"> {{actor.first_name}} {{actor.last_name}} </li>
             </ul>
         </li>
-        <li class="list-group-item" tabindex="0"><strong>Descrizione:</strong>
-            <ul>
-                <li>{{film.description}}</li>
+        <li class="list-group-item" tabindex="0" ><strong>Descrizione:</strong>
+            <ul lang="en">
+                <li >{{film.description}}</li>
             </ul>
         </li>
     </ul>
@@ -98,7 +98,7 @@
                     <button mat-button mat-dialog-close class="btn ml-3 btn-danger" type="button" (click)="setConfirm(true)" aria-label="annulla prenotazione">
                         Annulla
                     </button>
-                    <button mat-button mat-dialog-close type="button" class="close" aria-label="Close" (click)="setConfirm(true)" cdkFocusRegionEnd>
+                    <button mat-button mat-dialog-close type="button" class="close" aria-label="Annulla prenotazione" (click)="setConfirm(true)" cdkFocusRegionEnd>
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
