@@ -16,12 +16,12 @@
                         <a class="nav-link" href="/films_rented" aria-label="film noleggiati"> <strong>Noleggi</strong> </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" (click)="setConfirm(true)" aria-label="Esegui logout" tabindex="0"> <strong>LogOut</strong> </a>
+                        <button class=" btn btn-dark  " type="button" (click)="setConfirm(true)" aria-label="Esegui logout" tabindex="0" > LogOut </button>
                     </li>
-                    <li *ngIf="confirm" class="alert alert-warning alert-dismissible fade show" role="alert" aria-live="assertive">
+                    <li *ngIf="confirm" class="alert alert-warning alert-dismissible fade show ml-3 mt-3" role="alert" aria-live="assertive" cdkTrapFocus>
                         <p tabindex="0">Confermi di voler eseguire il logout?</p>
-                        <button class="btn btn-danger" (click)="logout()" aria-label="Confermi logout" cdkFocusRegionStart> Conferma </button>
-                        <button class="btn btn-danger ml-3" (click)="setConfirm(false)" aria-label="Annulla logout" cdkFocusRegionEnd> Annulla </button>
+                        <button class="btn btn-danger" (click)="logout()" aria-label="Confermi logout" > Conferma </button>
+                        <button class="btn btn-danger ml-3" (click)="setConfirm(false)" aria-label="Annulla logout" > Annulla </button>
                     </li>
                 </ul>
             </div>

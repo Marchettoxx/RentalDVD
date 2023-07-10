@@ -29,11 +29,12 @@
                     <button type="button" class="dropdown-item" *ngFor="let category of categories" (click)="filter(category)">{{category.name}}</button>
                 </div>
             </div>
-            <div role="search" class="col">
-                <input id="search-box" class="form-control" placeholder="Cerca per Titolo:" type="search"
-                       #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome"/>
-                <div class="search-container">
-                    <button type="button" class="dropdown-item" *ngFor="let film of films$ | async" (click)="openDialog(film)">{{ film.title }}</button>
+
+            <div role="search" class="col" >
+                <input id="search-box1" class="form-control" placeholder="Cerca per Titolo:" type="search"
+                       #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome" />
+                <div class="search-container" >
+                    <button type="button" class="dropdown-item" *ngFor="let film of films$ | async" (click)="openDialog(film)" >{{ film.title }}</button>
                 </div>
             </div>
             <div class="col">
@@ -46,11 +47,22 @@
             </div>
         </div>
 
+        <mat-form-field>
+            <mat-label>
+                Ricerca per Titolo
+            </mat-label>
+            <input matInput id="search-box" class="form-control" placeholder="Cerca per Titolo:" type="search"
+                   #searchBox (input)="search(searchBox.value)" aria-label="Ricerca per nome" />
+                <div class="search-container" >
+                <button type="button" class="dropdown-item" *ngFor="let film of films$ | async" (click)="openDialog(film)" >{{ film.title }}</button>
+            </div>
+        </mat-form-field>
+
         <div class="row" aria-label="Tutti i film disponibili nel nostro store:">
             <div role="main" class="col-lg-6 mb-4" *ngFor="let film of films">
-                <div class="card card-board text-center">
-                    <div class="card-body">
-                        <button mat-button type="button" class="card-title btn btn-default" (click)="openDialog(film)" [style.fontSize.em]="fontSize">{{film.title}}</button>
+                <div class="card card-board text-center" tabindex="0">
+                    <div class="card-body" >
+                        <button mat-raised-button type="button" class="card-title btn btn-default" (click)="openDialog(film)" [style.fontSize.em]="fontSize">{{film.title}}</button>
                         <article class="card-text text-truncate">
                             <p><strong>Anno:</strong> {{film.release_year}} <strong>Genere:</strong> {{film.genre}} </p>
                             <p><strong>Lingua:</strong> {{film.language}} <strong>Rating:</strong>{{film.rating}}</p>

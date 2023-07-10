@@ -20,7 +20,7 @@ export class Films implements OnInit {
     current_page: number = 0;
     rented!: boolean;
     rentedFilmTitle!: string;
-    error: boolean = false;
+    research: boolean = true;
 
     fontSize: number = 1;
     isIncreased: boolean = false;
@@ -42,6 +42,7 @@ export class Films implements OnInit {
     openDialog(value: Film) {
         this.detailsService.setInRented(false);
         this.detailsService.setFilm(value);
+        this.research = true;
         const dialogRef = this.dialog.open(DetailsFilmComponent);
 
         dialogRef.afterClosed().subscribe(result => {
@@ -142,5 +143,9 @@ export class Films implements OnInit {
         if (this.fontSize <= 1) {
             this.isIncreased = false;
         }
+    }
+
+    onClickSearch(val: boolean){
+        this.research = val;
     }
 }

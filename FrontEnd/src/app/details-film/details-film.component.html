@@ -1,6 +1,6 @@
 <h2 mat-dialog-title class="font-weight-bold" id="detailsTitle" tabindex="0">
     {{film.title}}
-    <button mat-button mat-dialog-close type="button" class="Close" aria-label="Chiudi dettagli">
+    <button mat-dialog-close type="button" class="btn-close" aria-label="Chiudi dettagli">
         <span aria-hidden="true">&times;</span>
     </button>
 </h2>
@@ -37,8 +37,8 @@
                 <li *ngFor="let actor of actors"> {{actor.first_name}} {{actor.last_name}} </li>
             </ul>
         </li>
-        <li class="list-group-item" tabindex="0" ><strong>Descrizione:</strong>
-            <ul lang="en">
+        <li class="list-group-item" tabindex="0" lang="en" ><strong>Descrizione:</strong>
+            <ul >
                 <li >{{film.description}}</li>
             </ul>
         </li>
@@ -92,10 +92,10 @@
                         Confermi la prenotazione del film <strong>{{film.title}}</strong>
                         nello store di <strong>{{selectedStore.city}}</strong> in data <strong>{{selectedDate.toISOString().slice(0, 19).replace('T', ' ')}}</strong>
                     </p>
-                    <button mat-button mat-dialog-close [mat-dialog-close]="film.title" class="btn btn-danger" type="button" (click)="rent()" aria-label="conferma prenotazione" cdkFocusRegionStart>
+                    <button  mat-dialog-close [mat-dialog-close]="film.title" class="btn btn-danger" type="button" (click)="rent()" aria-label="conferma prenotazione" cdkFocusRegionStart>
                         Conferma
                     </button>
-                    <button mat-button mat-dialog-close class="btn ml-3 btn-danger" type="button" (click)="setConfirm(true)" aria-label="annulla prenotazione">
+                    <button  mat-dialog-close class="btn ml-3 btn-danger" type="button" (click)="setConfirm(true)" aria-label="annulla prenotazione">
                         Annulla
                     </button>
                     <button mat-button mat-dialog-close type="button" class="close" aria-label="Annulla prenotazione" (click)="setConfirm(true)" cdkFocusRegionEnd>

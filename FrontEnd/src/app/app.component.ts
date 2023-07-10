@@ -22,5 +22,6 @@ export class AppComponent {
 
     setConfirm(val: boolean){
         this.confirm = val;
+        console.log("aperto")
     }
 }
