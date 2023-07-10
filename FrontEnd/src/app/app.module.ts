@@ -19,6 +19,7 @@ import { DetailsFilmComponent } from './details-film/details-film.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatOptionModule} from "@angular/material/core";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {CdkTableModule} from "@angular/cdk/table";
 @NgModule({
     declarations: [
         AppComponent,
@@ -43,7 +44,8 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
         MatButtonModule,
         MatPaginatorModule,
         MatOptionModule,
-        MatAutocompleteModule
+        MatAutocompleteModule,
+        CdkTableModule
     ],
     providers: [],
     bootstrap: [AppComponent]

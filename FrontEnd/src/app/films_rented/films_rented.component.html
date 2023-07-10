@@ -2,46 +2,44 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col col-lg-8 mt-4">
-                <h1 class="title" id="tableTitle" tabindex="0"> NOLEGGI </h1>
+                <h1 class="title" id="tableTitle" tabindex="0">RENTED</h1>
             </div>
         </div>
         <div class="row mb-4">
-            <div class="col col-lg-10 dropdown">
+            <div class="col col-lg-10 dropdown" *ngIf="!emptyTable">
                 <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuBtn"
-                        aria-label="filtra per colonna" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        aria-label="filter by column" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{selectedFilter}}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn" cdkTrapFocus>
-                    <button  type="button" class="dropdown-item"> Nessuna selezione</button>
-                    <button type="button" class="dropdown-item" (click)="sortByTitle()"> Titolo</button>
-                    <button type="button" class="dropdown-item" (click)="sortByRentedDate()"> Data Noleggio</button>
-                    <button type="button" class="dropdown-item" (click)="sortByReturnDate()"> Data Riconsegna</button>
-                    <button type="button" class="dropdown-item" (click)="sortByAmountASC()"> Spesa ASC</button>
-                    <button type="button" class="dropdown-item" (click)="sortByAmountDESC()"> Spesa DESC</button>
-                    <button type="button" class="dropdown-item" (click)="sortByDuration()"> Durata</button>
+                    <button  type="button" class="dropdown-item"> No selection </button>
+                    <button type="button" class="dropdown-item" (click)="sortByTitle()">Title</button>
+                    <button type="button" class="dropdown-item" (click)="sortByRentedDate()">Rental date</button>
+                    <button type="button" class="dropdown-item" (click)="sortByReturnDate()">Return date</button>
+                    <button type="button" class="dropdown-item" (click)="sortByAmountASC()">Expense ASC</button>
+                    <button type="button" class="dropdown-item" (click)="sortByAmountDESC()">Expense DESC</button>
+                    <button type="button" class="dropdown-item" (click)="sortByDuration()">Duration</button>
                 </div>
             </div>
 
             <div class="col col-lg-2">
-                <button class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased"
-                        aria-label="aumenta testo">+
+                <button class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased" aria-label="increase text">+
                 </button>
-                <button class="btn btn-lg" (click)="decreaseFontSize()" [disabled]="!isIncreased"
-                        aria-label="diminuisci testo">-
+                <button class="btn btn-lg" (click)="decreaseFontSize()" [disabled]="!isIncreased" aria-label="decrease text">-
                 </button>
             </div>
         </div>
 
-        <div role="main" class="row">
+        <div role="main" class="row" *ngIf="!emptyTable">
             <div class="col table-responsive">
                 <table class="table table-light table-bordered mb-0" aria-labelledby="tableTitle" tabindex="0" role="grid">
                     <thead class="table-dark">
                         <tr>
-                            <th scope="col" id="col1" role="columnheader" aria-label="prima colonna: Titolo.">TITOLO</th>
-                            <th scope="col" id="col2" role="columnheader" aria-label="seconda colonna: Data noleggio.">DATA NOLEGGIO</th>
-                            <th scope="col" id="col3" role="columnheader" aria-label="terza colonna: Data riconsegna.">DATA RICONSEGNA</th>
-                            <th scope="col" id="col4" role="columnheader" aria-label="quarta colonna: Durata."> DURATA</th>
-                            <th scope="col" id="col5" role="columnheader" aria-label="quinta colonna: Spesa."> SPESA</th>
+                            <th scope="col" id="col1" role="columnheader" aria-label="first column: Title.">TITLE</th>
+                            <th scope="col" id="col2" role="columnheader" aria-label="second column: rental date.">RENTAL DATE</th>
+                            <th scope="col" id="col3" role="columnheader" aria-label="third column: Return date.">RETURN DATE</th>
+                            <th scope="col" id="col4" role="columnheader" aria-label="fourth column: Duration.">DURATION</th>
+                            <th scope="col" id="col5" role="columnheader" aria-label="fifth column: Expense.">EXPENSE</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,7 +47,7 @@
                             <td headers="col1">
                                 <button mat-raised-button type="button" class="btn btn-block" (click)="openDialog(film)" [style.fontSize.em]="fontSize">{{film.title}}</button>
                             </td>
-                            <td headers="col2" aria-describedby="col2"> {{film.rental_date | date: 'dd/MM/yyyy  HH:mm'}} </td>
+                            <td headers="col2"> {{film.rental_date | date: 'dd/MM/yyyy  HH:mm'}} </td>
                             <td headers="col3"> {{dataIsNull(film.return_date!) | date: 'dd/MM/yyyy  HH:mm'}}</td>
                             <td headers="col4"> {{durationIsNull(film.duration!)}} </td>
                             <td headers="col5"> {{amountIsNull(film.amount!)}} </td>
@@ -60,6 +58,7 @@
         </div>
 
         <mat-paginator #paginator
+                       *ngIf="!emptyTable"
                        class="mt-0"
                        (page)="handlePageEvent($event)"
                        [length]="length"
@@ -70,47 +69,13 @@
                        aria-label="Select page">
         </mat-paginator>
 
-        <div class="row mt-3" tabindex="0">
-            <div class="col alert alert-success text-right">
-                <p><strong>SPESA TOTALE: {{amountIsNull(totalAmount.amount!)}}</strong></p>
-            </div>
+        <div class="alert alert-success mt-3 text-right" tabindex="0" *ngIf="!emptyTable">
+            <strong>TOTAL SPENDING: {{amountIsNull(totalAmount.amount!)}}</strong>
         </div>
-        <!--<div role="navigation" class="row justify-content-center" lang="it" >
-            <nav >
-                <ul class="pagination pagination-lg">
-                    <li class="page-item">
-                        <button class="page-link btn" type="button" *ngIf="showPrevious(0)" (click)="onPrevious()"
-                                aria-label="pagina precedente"> <
-                        </button>
-                    </li>
-                    <li class="page-item">
-                        <button class="page-link btn" type="button" *ngIf="showPrevious(10)"
-                                (click)="jump(current_page-2)"> {{current_page - 2}} </button>
-                    </li>
-                    <li class="page-item">
-                        <button class="page-link btn" type="button" *ngIf="showPrevious(0)"
-                                (click)="jump(current_page-1)"> {{current_page - 1}} </button>
-                    </li>
-                    <li class="page-item">
-                        <button class="page-link btn" type="button" [class.selected]="true"
-                                (click)="jump(current_page)"> {{current_page}} </button>
-                    </li>
-                    <li class="page-item">
-                        <button class="page-link btn" type="button" *ngIf="showNext(0)"
-                                (click)="jump(current_page+1)"> {{current_page + 1}} </button>
-                    </li>
-                    <li class="page-item">
-                        <button class="page-link btn" type="button" *ngIf="showNext(10)"
-                                (click)="jump(current_page+2)"> {{current_page + 2}} </button>
-                    </li>
-                    <li class="page-item">
-                        <button class="page-link btn" type="button" *ngIf="showNext(0)" (click)="onNext()"
-                                aria-label="pagina successiva"> >
-                        </button>
-                    </li>
-                </ul>
-            </nav>
-        </div>-->
+
+        <div *ngIf="emptyTable" class="alert alert-danger">
+            <strong>THERE ARE NO RENTED FILMS</strong>
+        </div>
     </div>
 </section>
 

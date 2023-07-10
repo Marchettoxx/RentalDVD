@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-import {Actor, Amount, Film, Interval, User} from "../utilities/typeDB";
+import {Actor, Amount, Film, Interval, listFilms, User} from "../utilities/typeDB";
 import {ApiService} from "../services/api.service";
 import {LoginService} from "../services/login.service";
 import {DetailsFilmComponent} from "../details-film/details-film.component";
@@ -15,8 +15,6 @@ import {PageEvent} from "@angular/material/paginator";
     styleUrls: ['./films_rented.component.css']
 })
 export class Films_rentedComponent {
-    //count: number = 0;
-    //current_page: number = 0;
     fontSize: number = 1;
     totalAmount: Amount = {};
 
@@ -34,6 +32,7 @@ export class Films_rentedComponent {
     selectedAmountASC: Boolean = false;
     selectedAmountDESC: Boolean = false;
     selectedDuration: Boolean = false;
+    emptyTable!: boolean;
 
     // aggiunto per paginator
     length!: number;
@@ -74,92 +73,44 @@ export class Films_rentedComponent {
         }
     }
 
-    async updateFilms() {
-        if (this.selectedTitle) {
-            const result = await this.apiService.getFilms_user_title(this.offset, this.user.customer_id!);
-            if (!result) {
-                await this.loginService.logout(true);
-            } else {
-                //this.count = result.count!;
-                this.length = result.count!;
-                this.films = result.films!;
-            }
-        } else if (this.selectedReturnDate) {
-            const result = await this.apiService.getFilms_user_return_date(this.offset, this.user.customer_id!);
-            if (!result) {
-                await this.loginService.logout(true);
-            } else {
-                //this.count = result.count!;
-                this.length = result.count!;
-                this.films = result.films!;
-            }
-        } else if (this.selectedRentalDate) {
-            const result = await this.apiService.getFilms_user_rental_date(this.offset, this.user.customer_id!);
-            if (!result) {
-                await this.loginService.logout(true);
-            } else {
-                //this.count = result.count!;
-                this.length = result.count!;
-                this.films = result.films!;
-            }
-        } else if (this.selectedAmountASC) {
-            const result = await this.apiService.getFilms_user_amount_ASC(this.offset, this.user.customer_id!);
-            if (!result) {
-                await this.loginService.logout(true);
-            } else {
-                //this.count = result.count!;
-                this.length = result.count!;
-                this.films = result.films!;
-            }
-        } else if (this.selectedAmountDESC) {
-            const result = await this.apiService.getFilms_user_amount_DESC(this.offset, this.user.customer_id!);
-                if (!result) {
-                await this.loginService.logout(true);
-            } else {
-                //this.count = result.count!;
-                this.length = result.count!;
-                this.films = result.films!;
-            }
-        } else if (this.selectedDuration) {
-            const result = await this.apiService.getFilms_user_duration(this.offset, this.user.customer_id!);
-            if (!result) {
-                await this.loginService.logout(true);
-            } else {
-                //this.count = result.count!;
-                this.length = result.count!;
-                this.films = result.films!;
-            }
+    async fillFilms(list_films: listFilms) {
+        if (!list_films) {
+            await this.loginService.logout(true);
         } else {
-            const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id!);
-            if (!result) {
-                await this.loginService.logout(true);
+            if (list_films.count == 0) {
+                this.emptyTable = true;
             } else {
-                //this.count = result.count!;
-                this.length = result.count!;
-                this.films = result.films!;
+                this.emptyTable = false;
+                this.length = list_films.count!;
+                this.films = list_films.films!;
             }
         }
     }
 
-    /*showPrevious(n: number) {
-        return this.offset - n > 0;
+    async updateFilms() {
+        if (this.selectedTitle) {
+            const result = await this.apiService.getFilms_user_title(this.offset, this.user.customer_id!);
+            await this.fillFilms(result);
+        } else if (this.selectedReturnDate) {
+            const result = await this.apiService.getFilms_user_return_date(this.offset, this.user.customer_id!);
+            await this.fillFilms(result);
+        } else if (this.selectedRentalDate) {
+            const result = await this.apiService.getFilms_user_rental_date(this.offset, this.user.customer_id!);
+            await this.fillFilms(result);
+        } else if (this.selectedAmountASC) {
+            const result = await this.apiService.getFilms_user_amount_ASC(this.offset, this.user.customer_id!);
+            await this.fillFilms(result);
+        } else if (this.selectedAmountDESC) {
+            const result = await this.apiService.getFilms_user_amount_DESC(this.offset, this.user.customer_id!);
+            await this.fillFilms(result);
+        } else if (this.selectedDuration) {
+            const result = await this.apiService.getFilms_user_duration(this.offset, this.user.customer_id!);
+            await this.fillFilms(result);
+        } else {
+            const result = await this.apiService.getFilms_user(this.offset, this.user.customer_id!);
+            await this.fillFilms(result);
+        }
     }
-
-    showNext(n: number) {
-        return this.offset + 10 + n < this.count!;
-    }
-
-    async onPrevious() {
-        this.offset -= 10;
-        this.current_page = this.offset / 10;
-        await this.updateFilms();
-    }
-
-    async onNext() {
-        this.offset += 10
-        this.current_page = this.offset / 10;
-        await this.updateFilms();
-    }*/
 
     async onSelect(film: Film): Promise<void> {
         const result = await this.apiService.getFilm(film.film_id!);
@@ -178,7 +129,6 @@ export class Films_rentedComponent {
 
     async jump(): Promise<void> {
         this.offset = this.pageIndex * 10;
-        //this.current_page = index;
         await this.updateFilms();
     }
 
