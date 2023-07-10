@@ -29,7 +29,7 @@ export class Films implements OnInit {
 
     films?: Film[];
     categories?: Category[];
-    selectedCategory: Category = {category_id: -1, name: "Categorie"};
+    selectedCategory: Category = {category_id: -1, name: "Category"};
 
     films$?: Observable<Film[]>;
     private searchTerms = new Subject<string>();
