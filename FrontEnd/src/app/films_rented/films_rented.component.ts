@@ -198,6 +198,17 @@ export class Films_rentedComponent {
         await this.updateFilms()
     }
 
+    async sortByNothing() {
+        this.selectedFilter = "Filter";
+        this.selectedTitle = false;
+        this.selectedReturnDate = false;
+        this.selectedRentalDate = false;
+        this.selectedAmountASC = false;
+        this.selectedAmountDESC = false;
+        this.selectedDuration = false;
+        await this.updateFilms()
+    }
+
     dataIsNull(return_date: Date){
         if(return_date === null){
             return;

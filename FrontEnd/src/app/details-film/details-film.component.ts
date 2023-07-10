@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+
 import {Actor, Film, User} from "../utilities/typeDB";
 import {ApiService} from "../services/api.service";
 import {LoginService} from "../services/login.service";
@@ -16,6 +17,7 @@ export class DetailsFilmComponent implements OnInit{
 
     noStores!: boolean;
     validRent!: boolean;
+    error!: boolean;
     confirm!: boolean;
     inRented!: boolean;
 
@@ -26,8 +28,8 @@ export class DetailsFilmComponent implements OnInit{
     afterTomorrow!: Date;
 
     film: Film = {};
-    selectedStore: Store = {store_id: -1, city: "Store"};
-    selectedDate!: Date;
+    selectedStore: Store = {store_id: -1};
+    selectedDate!: string;
 
     constructor(private apiService: ApiService, private loginService: LoginService, private detailsService: DetailsService) {
         this.loginService.user.subscribe(x => this.user = x!);
@@ -35,8 +37,9 @@ export class DetailsFilmComponent implements OnInit{
 
     async ngOnInit(): Promise<void> {
         this.film = this.detailsService.getFilm();
-        this.confirm = true;
-        this.validRent = true;
+        this.confirm = false;
+        this.validRent = false;
+        this.error = false;
         this.inRented = this.detailsService.getInRented();
 
         this.today = new Date();
@@ -47,8 +50,7 @@ export class DetailsFilmComponent implements OnInit{
         this.afterTomorrow.setHours(this.afterTomorrow.getHours() - this.afterTomorrow.getTimezoneOffset() / 60);
         this.tomorrow.setDate(this.tomorrow.getDate() + 1);
         this.afterTomorrow.setDate(this.afterTomorrow.getDate() + 2);
-        this.selectedDate = this.today;
-
+        this.onSelectDate(this.today);
         await this.update();
     }
 
@@ -77,25 +79,33 @@ export class DetailsFilmComponent implements OnInit{
     }
 
     onSelectDate(date: Date) {
-        this.selectedDate = date;
+        this.selectedDate = date.toISOString().slice(0, 19).replace('T', ' ');
     }
 
     onSelectStore(store: Store) {
         this.selectedStore = store;
-        this.validRent = false
+        this.validRent = true;
+        this.error = false;
     }
 
     setConfirm(val: boolean) {
-        this.confirm = val;
         if (val) {
-            this.selectedStore = {store_id: -1, city: "Store"};
-            this.validRent = true;
+            if (this.validRent) {
+                this.confirm = true;
+            } else {
+                this.error = true;
+            }
+        } else {
+            this.confirm = false;
+            this.validRent = false;
+            this.onSelectDate(this.today);
+            this.selectedStore = {store_id:-1};
         }
     }
 
     async rent() {
         if(this.selectedStore.store_id! > 0){
-            const result = await this.apiService.putRentFilm(this.selectedStore.store_id!, this.film.film_id!, this.selectedDate.toISOString(), this.user.customer_id!);
+            const result = await this.apiService.putRentFilm(this.selectedStore.store_id!, this.film.film_id!, this.selectedDate, this.user.customer_id!);
             if (!result){
                 await this.loginService.logout(true);
             }

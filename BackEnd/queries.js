@@ -421,13 +421,12 @@ const root = {
                 .any(query, values)
                 .then(res => res)
                 .catch(err => err);
-            const rental_date = args.rental_date.slice(0, 19).replace('T', ' ');
             const now = new Date();
             now.setHours(now.getHours() - now.getTimezoneOffset() / 60);
             const last_update = now.toISOString().slice(0, 19).replace('T', ' ');
             const mutation = `INSERT INTO rental (rental_date, inventory_id, customer_id, return_date, staff_id, last_update) 
                         VALUES($1, $2, $3, NULL, 1, $4);`
-            const valuesMutation = [rental_date, result[0].inventory_id, args.customer_id, last_update];
+            const valuesMutation = [args.rental_date, result[0].inventory_id, args.customer_id, last_update];
             db.any(mutation, valuesMutation)
                 .then(res => res)
                 .catch(err => err);

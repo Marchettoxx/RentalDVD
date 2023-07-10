@@ -45,29 +45,30 @@
     </ul>
     <div *ngIf="!inRented">
         <div *ngIf="!noStores" class="container mt-4">
-            <div class="row mb-3" *ngIf="confirm">
-                <div class="col">
+            <div *ngIf="!confirm" class="row mb-3">
+                <div class="col mb-1">
                     <div class="dropdown">
                         <p tabindex="0"><strong>Select store</strong></p>
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        <button class="btn btn-secondary dropdown-toggle mr-1" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="store">
-                            {{selectedStore.city}}
+                            Store
                         </button>
                         <div class="dropdown-menu" cdkTrapFocus>
                             <button class="dropdown-item" *ngFor="let store of stores" (click)="onSelectStore(store)">
                                 <em>{{store.city}}</em>, {{store.address}}
                             </button>
                         </div>
+                        <input [(ngModel)]="selectedStore.city" disabled>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="dropdown">
                         <p tabindex="0"><strong>Rental start date</strong></p>
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu"
+                        <button class="btn btn-secondary dropdown-toggle mr-1" type="button" id="dropdownMenu"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                 aria-label="prenotation date">
-                            {{selectedDate |date: 'dd/MM/yyyy'}}
+                            Date
                         </button>
                         <div class="dropdown-menu" cdkTrapFocus>
                             <button class="dropdown-item" (click)="onSelectDate(today)">
@@ -77,22 +78,23 @@
                             <button class="dropdown-item" (click)="onSelectDate(afterTomorrow)">
                                 After-tomorrow: {{afterTomorrow | date: 'dd/MM/yyyy'}}</button>
                         </div>
+                        <input [(ngModel)]="selectedDate" disabled>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div *ngIf="!confirm" class="col alert alert-warning alert-dismissible fade show" role="alert" aria-live="assertive">
+            <div *ngIf="confirm" class="row">
+                <div class="col alert alert-warning alert-dismissible fade show" role="alert" aria-live="assertive">
                     <p class="small">
                         Do you confirm the reservation of the movie <strong>{{film.title}}</strong>
-                        in the <strong>{{selectedStore.city}}</strong> store on <strong>{{selectedDate.toISOString().slice(0, 19).replace('T', ' ')}}</strong>
+                        in the <strong>{{selectedStore.city}}</strong> store on <strong>{{selectedDate}}</strong>
                     </p>
-                    <button mat-dialog-close [mat-dialog-close]="film.title" class="btn btn-danger" type="button" (click)="rent()" aria-label="confirm prenotation" cdkFocusRegionStart>
+                    <button mat-dialog-close [mat-dialog-close]="film.title" class="btn btn-success" type="button" (click)="rent()" aria-label="confirm prenotation" cdkFocusRegionStart>
                         Confirm
                     </button>
-                    <button mat-dialog-close class="btn ml-3 btn-danger" type="button" (click)="setConfirm(true)" aria-label="cancel prenotation">
+                    <button mat-dialog-close class="btn ml-3 btn-danger" type="button" aria-label="cancel prenotation">
                         Cancel
                     </button>
-                    <button mat-button mat-dialog-close type="button" class="close" aria-label="cancel prenotation" (click)="setConfirm(true)" cdkFocusRegionEnd>
+                    <button mat-button type="button" class="close" aria-label="cancel prenotation" (click)="setConfirm(false)" cdkFocusRegionEnd>
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -101,15 +103,18 @@
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end" *ngIf="!inRented">
-    <div *ngIf="!noStores" class="container mt-4">
-        <button *ngIf="confirm" type="button" class="btn btn-lg btn-primary" [disabled]="validRent" (click)="setConfirm(false)" aria-label="rent">
-            Rent
-        </button>
-    </div>
+    <div class="container mt-4">
+        <div *ngIf="!noStores" class="row">
+            <div class="col">
+                <span *ngIf="error" class="text-danger">Insert store!</span>
+                <button *ngIf="!confirm" type="button" class="btn btn-lg btn-primary ml-2" (click)="setConfirm(true)" aria-label="rent">
+                    Rent
+                </button>
+            </div>
+        </div>
 
-    <div class="container">
-        <div class="row">
-            <div *ngIf="noStores" class="col alert alert-success">
+        <div *ngIf="noStores" class="row">
+            <div class="alert alert-primary col">
                 <strong tabindex="0"> There are no DVDs available </strong>
                 <button mat-button mat-dialog-close type="button" class="btn btn-close" aria-label="Close">
                     <span class="ml-4" aria-hidden="true">&times;</span>
