@@ -3,7 +3,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="user">
             <a class="navbar-brand" href="/home"> DVD Store </a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Barra di navigazione">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Naigation bar">
                 <span class="navbar-toggler-icon" ></span>
             </button>
 
@@ -13,15 +13,15 @@
                         <a class="nav-link" href="/films" aria-label="film"> <strong>Film</strong> </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/films_rented" aria-label="film noleggiati"> <strong>Noleggi</strong> </a>
+                        <a class="nav-link" href="/films_rented" aria-label="Ranted films"> <strong>Your Rents</strong> </a>
                     </li>
                     <li class="nav-item">
-                        <button class=" btn btn-dark  " type="button" (click)="setConfirm(true)" aria-label="Esegui logout" tabindex="0" > LogOut </button>
+                        <button class=" btn btn-dark  " type="button" (click)="setConfirm(true)" aria-label="Logout" tabindex="0" > LogOut </button>
                     </li>
                     <li *ngIf="confirm" class="alert alert-warning alert-dismissible fade show ml-3 mt-3" role="alert" aria-live="assertive" cdkTrapFocus>
-                        <p tabindex="0">Confermi di voler eseguire il logout?</p>
-                        <button class="btn btn-danger" (click)="logout()" aria-label="Confermi logout" > Conferma </button>
-                        <button class="btn btn-danger ml-3" (click)="setConfirm(false)" aria-label="Annulla logout" > Annulla </button>
+                        <p tabindex="0">Do you confirm that you want to log out?</p>
+                        <button class="btn btn-danger" (click)="logout()" aria-label="Confirm logout" > Confirm </button>
+                        <button class="btn btn-danger ml-3" (click)="setConfirm(false)" aria-label="Cancel logout" > Cancel </button>
                     </li>
                 </ul>
             </div>
