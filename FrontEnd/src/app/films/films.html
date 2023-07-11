@@ -1,6 +1,10 @@
-<section [style.fontSize.em]="fontSize">
-    <h1 class="title text-center" tabindex="0">Films</h1>
+<main [style.fontSize.em]="fontSize">
     <div class="container">
+        <div class="row mt-4 justify-content-center">
+            <div class="col col-lg-8">
+                <h1 class="title text-center"> Films </h1>
+            </div>
+        </div>
         <div class="row mb-4">
             <div class="col">
                 <div *ngIf="rented" class="alert alert-success alert-dismissible fade show" role="alert" aria-live="assertive">
@@ -28,20 +32,20 @@
             </div>
 
             <div role="search" class="col">
-                    <input id="search-box" class="form-control" aria-label="Search by title" placeholder="Search by title:" type="search"
-                           (input)="search(searchString)" [(ngModel)]="searchString"/>
-                    <div class="search-container" cdkTrapFocus>
-                        <button type="button" class="btn dropdown-item " *ngFor="let film of films$ | async" (click)="openDialog(film)" >
-                            {{ film.title }}
-                        </button>
-                    </div>
+                <input id="search-box" class="form-control" aria-label="Search by title" placeholder="Search by title:" type="search"
+                       (input)="search(searchString)" [(ngModel)]="searchString"/>
+                <div class="search-container">
+                    <button type="button" class="btn dropdown-item " *ngFor="let film of films$ | async" (click)="openDialog(film)" >
+                        {{ film.title }}
+                    </button>
+                </div>
             </div>
 
             <div class="col">
-                <button type="button" class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased"
+                <button role="button" type="button" class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased"
                         aria-label="increase text">+
                 </button>
-                <button type="button" class="btn btn-lg" (click)="decreaseFontSize()" [disabled]="!isIncreased"
+                <button role="button" type="button" class="btn btn-lg" (click)="decreaseFontSize()" [disabled]="!isIncreased"
                         aria-label="decrease text">-
                 </button>
             </div>
@@ -49,7 +53,7 @@
 
         <div class="row" aria-label="All movies available in our store:">
             <div  class="col-lg-6 mb-4" *ngFor="let film of films">
-                <div class="card card-board text-center" tabindex="0">
+                <div class="card card-board text-center">
                     <div class="card-body" >
                         <button mat-raised-button type="button" class="card-title btn btn-default" (click)="openDialog(film)" [style.fontSize.em]="fontSize">{{film.title}}</button>
                         <article class="card-text text-truncate">
@@ -76,4 +80,4 @@
                        aria-label="Select page">
         </mat-paginator>
     </div>
-</section>
+</main>
