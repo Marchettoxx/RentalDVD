@@ -58,7 +58,7 @@
                                 <em>{{store.city}}</em>, {{store.address}}
                             </button>
                         </div>
-                        <input [(ngModel)]="selectedStore.city" disabled>
+                        <input [(ngModel)]="selectedStore.city" disabled tabindex="0">
                     </div>
                 </div>
 
@@ -78,7 +78,7 @@
                             <button class="dropdown-item" (click)="onSelectDate(afterTomorrow)">
                                 After-tomorrow: {{afterTomorrow | date: 'dd/MM/yyyy'}}</button>
                         </div>
-                        <input [(ngModel)]="selectedDate" disabled>
+                        <input [(ngModel)]="selectedDate" disabled >
                     </div>
                 </div>
             </div>

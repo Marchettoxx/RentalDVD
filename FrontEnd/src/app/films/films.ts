@@ -137,6 +137,8 @@ export class Films implements OnInit {
 
     async filter(category: Category) {
         this.selectedCategory = category;
+        this.pageIndex = 0;
+        this.offset = 0;
         await this.updateFilms();
     }
 
