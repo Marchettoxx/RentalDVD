@@ -72,11 +72,11 @@
                         </button>
                         <div class="dropdown-menu" [style.fontSize.em]="fontSize">
                             <button class="dropdown-item" (click)="onSelectDate(today)">
-                                Today: {{today | date: 'dd/MM/yyyy'}}</button>
+                                Today</button>
                             <button class="dropdown-item" (click)="onSelectDate(tomorrow)">
-                                Tomorrow: {{tomorrow | date: 'dd/MM/yyyy'}}</button>
+                                Tomorrow</button>
                             <button class="dropdown-item" (click)="onSelectDate(afterTomorrow)">
-                                After-tomorrow: {{afterTomorrow | date: 'dd/MM/yyyy'}}</button>
+                                After-tomorrow</button>
                         </div>
                         <input [(ngModel)]="selectedDate" disabled >
                     </div>
@@ -88,10 +88,10 @@
                         Do you confirm the reservation of the movie <strong>{{film.title}}</strong>
                         in the <strong>{{selectedStore.city}}</strong> store on <strong>{{selectedDate}}</strong>
                     </p>
-                    <button mat-dialog-close [mat-dialog-close]="film.title" class="btn btn-success" type="button" (click)="rent()" aria-label="confirm prenotation" [style.fontSize.em]="fontSize" cdkFocusRegionStart>
+                    <button mat-dialog-close [mat-dialog-close]="film.title" class="btn btn-success mr-3" type="button" (click)="rent()" aria-label="confirm prenotation" [style.fontSize.em]="fontSize" cdkFocusRegionStart>
                         Confirm
                     </button>
-                    <button mat-dialog-close class="btn ml-3 btn-danger" type="button" aria-label="cancel prenotation" [style.fontSize.em]="fontSize">
+                    <button mat-dialog-close class="btn btn-danger" type="button" aria-label="cancel prenotation" [style.fontSize.em]="fontSize">
                         Cancel
                     </button>
                     <button mat-button type="button" class="close" aria-label="cancel prenotation" (click)="setConfirm(false)" cdkFocusRegionEnd>
