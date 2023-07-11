@@ -210,7 +210,7 @@ export class Films_rentedComponent {
     }
 
     dataIsNull(return_date: Date){
-        if(return_date === null){
+        if(!return_date){
             return;
         } else {
             return return_date;
@@ -218,7 +218,7 @@ export class Films_rentedComponent {
     }
 
     amountIsNull(amount: number){
-        if(amount === null){
+        if(!amount){
             return '-';
         } else {
             return amount + ' €';
@@ -226,7 +226,7 @@ export class Films_rentedComponent {
     }
 
     durationIsNull(duration: Interval){
-        if(duration === null){
+        if(!duration){
             return '-';
         } else {
             return duration.days + ' days';
