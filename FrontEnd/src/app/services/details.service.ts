@@ -8,6 +8,15 @@ import {Film} from "../utilities/typeDB";
 export class DetailsService {
     private _film!: Film;
     private inRented!: boolean;
+    private sizeText!: number;
+
+    getSize(){
+       return this.sizeText;
+    }
+
+    setSize(val: number){
+        this.sizeText = val;
+    }
 
     setInRented(value: boolean) {
         this.inRented = value;

@@ -42,7 +42,7 @@ export class Films implements OnInit {
     // aggiunto per paginator
     length!: number;
     offset: number = 0;
-    pageSize = 12;
+    pageSize = 10;
     pageIndex = 0;
     hidePageSize = true;
     showFirstLastButtons = true;
@@ -70,6 +70,7 @@ export class Films implements OnInit {
     }
 
     openDialog(value: Film) {
+        this.detailsService.setSize(this.fontSize);
         this.detailsService.setInRented(false);
         this.detailsService.setFilm(value);
         this.research = true;
@@ -162,4 +163,5 @@ export class Films implements OnInit {
             this.isIncreased = false;
         }
     }
+
 }

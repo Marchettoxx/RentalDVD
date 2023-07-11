@@ -11,7 +11,7 @@ import {DetailsService} from "../services/details.service";
   templateUrl: './details-film.component.html',
   styleUrls: ['./details-film.component.css']
 })
-export class DetailsFilmComponent implements OnInit{
+export class DetailsFilmComponent implements OnInit {
     actors!: Actor[];
     stores!: Store[];
 
@@ -20,6 +20,7 @@ export class DetailsFilmComponent implements OnInit{
     error!: boolean;
     confirm!: boolean;
     inRented!: boolean;
+    fontSize: number = 1;
 
     user!: User;
 
@@ -36,6 +37,7 @@ export class DetailsFilmComponent implements OnInit{
     }
 
     async ngOnInit(): Promise<void> {
+        this.fontSize = this.detailsService.getSize();
         this.film = this.detailsService.getFilm();
         this.confirm = false;
         this.validRent = false;
@@ -99,16 +101,19 @@ export class DetailsFilmComponent implements OnInit{
             this.confirm = false;
             this.validRent = false;
             this.onSelectDate(this.today);
-            this.selectedStore = {store_id:-1};
+            this.selectedStore = {store_id: -1};
         }
     }
 
     async rent() {
-        if(this.selectedStore.store_id! > 0){
+        if (this.selectedStore.store_id! > 0) {
             const result = await this.apiService.putRentFilm(this.selectedStore.store_id!, this.film.film_id!, this.selectedDate, this.user.customer_id!);
-            if (!result){
+            if (!result) {
                 await this.loginService.logout(true);
             }
         }
     }
+
+
+
 }

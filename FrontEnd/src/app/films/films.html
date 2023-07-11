@@ -7,7 +7,7 @@
         </div>
         <div class="row mb-4">
             <div class="col">
-                <div *ngIf="rented" class="alert alert-success alert-dismissible fade show" role="alert" aria-live="assertive">
+                <div *ngIf="rented" class="alert alert-success alert-dismissible fade show" role="alert" aria-live="assertive" >
                     <button class="btn btn-link" type="button" routerLink="/films_rented" aria-label="View rented movies">
                         <strong>{{rentedFilmTitle}}</strong>
                     </button>
@@ -21,7 +21,7 @@
         <div class="row mb-4">
             <div class="col col-lg-4 dropdown">
                 <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuBtn"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="order by category">
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="order by category" [style.fontSize.em]="fontSize">
                     {{selectedCategory.name}}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
@@ -32,9 +32,9 @@
 
             <div role="search" class="col col-lg-4">
                 <input id="search-box" class="form-control" aria-label="Search by title" placeholder="Search by title:" type="search"
-                       (input)="search(searchString)" [(ngModel)]="searchString"/>
+                       (input)="search(searchString)" [(ngModel)]="searchString" [style.fontSize.em]="fontSize"/>
                 <div class="search-container" (blur)="clearSearch()">
-                    <button type="button" class="btn dropdown-item " *ngFor="let film of films$ | async" (click)="openDialog(film)" >
+                    <button type="button" class="btn dropdown-item " *ngFor="let film of films$ | async" (click)="openDialog(film)" [style.fontSize.em]="fontSize">
                         {{ film.title }}
                     </button>
                 </div>
@@ -51,7 +51,7 @@
         </div>
 
         <div class="row" aria-label="All movies available in our store:">
-            <div  class="col-lg-4 mb-4" *ngFor="let film of films">
+            <div  class="col-lg-6 mb-4" *ngFor="let film of films">
                 <div class="card card-board text-center">
                     <div class="card-body" tabindex="0">
                         <button mat-raised-button type="button" class="card-title btn btn-default" (click)="openDialog(film)" [style.fontSize.em]="fontSize">{{film.title}}</button>
@@ -62,7 +62,7 @@
                         </article>
                     </div>
                     <div class="card-footer">
-                        <button type="button" class="btn btn-dark btn-block" (click)="openDialog(film)">Rent</button>
+                        <button type="button" class="btn btn-dark btn-block" (click)="openDialog(film)" [style.fontSize.em]="fontSize">Rent</button>
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                        [showFirstLastButtons]="showFirstLastButtons"
                        [hidePageSize]="hidePageSize"
                        [pageIndex]="pageIndex"
-                       aria-label="Select page">
+                       aria-label="Select page" [style.fontSize.em]="fontSize">
         </mat-paginator>
     </div>
 </main>

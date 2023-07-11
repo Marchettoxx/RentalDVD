@@ -4,7 +4,7 @@ scalar Interval
 type Query {
     login(username: String!, password: String!): Login
     film(film_id: Int): Film
-    films(offset: Int = 0, limit: Int = 12): FilmsResult
+    films(offset: Int = 0, limit: Int = 10): FilmsResult
     films_search(title: String!, offset: Int = 0, limit: Int = 10): [Film]
     films_category(category_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult
     films_user(customer_id: Int, offset: Int = 0, limit: Int = 10): FilmsResult

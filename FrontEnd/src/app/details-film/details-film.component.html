@@ -1,11 +1,11 @@
-<h2 mat-dialog-title class="font-weight-bold" id="detailsTitle" tabindex="0">
+<h2 mat-dialog-title class="font-weight-bold" id="detailsTitle" tabindex="0" [style.fontSize.em]="fontSize">
     {{film.title}}
     <button mat-dialog-close type="button" class="btn btn-close" aria-label="Close details">
         <span aria-hidden="true">&times;</span>
     </button>
 </h2>
-<mat-dialog-content class="mat-typography">
-    <h3 tabindex="0">Film details:</h3>
+<mat-dialog-content class="mat-typography" [style.fontSize.em]="fontSize">
+    <h3 tabindex="0" [style.fontSize.em]="fontSize">Film details:</h3>
     <ul class="list-group">
         <li class="list-group-item" tabindex="0"><strong>Year:</strong>
             <ul>
@@ -43,18 +43,18 @@
             </ul>
         </li>
     </ul>
-    <div *ngIf="!inRented">
+    <div *ngIf="!inRented" [style.fontSize.em]="fontSize">
         <div *ngIf="!noStores" class="container mt-4">
             <div *ngIf="!confirm" class="row mb-3">
                 <div class="col mb-1">
                     <div class="dropdown">
                         <p tabindex="0"><strong>Select store</strong></p>
                         <button class="btn btn-secondary dropdown-toggle mr-1" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="store">
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="store" [style.fontSize.em]="fontSize">
                             Store
                         </button>
                         <div class="dropdown-menu" >
-                            <button class="dropdown-item" *ngFor="let store of stores" (click)="onSelectStore(store)">
+                            <button class="dropdown-item" *ngFor="let store of stores" (click)="onSelectStore(store)" [style.fontSize.em]="fontSize">
                                 <em>{{store.city}}</em>, {{store.address}}
                             </button>
                         </div>
@@ -67,10 +67,10 @@
                         <p tabindex="0"><strong>Rental start date</strong></p>
                         <button class="btn btn-secondary dropdown-toggle mr-1" type="button" id="dropdownMenu"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                aria-label="prenotation date">
+                                aria-label="prenotation date" [style.fontSize.em]="fontSize">
                             Date
                         </button>
-                        <div class="dropdown-menu" >
+                        <div class="dropdown-menu" [style.fontSize.em]="fontSize">
                             <button class="dropdown-item" (click)="onSelectDate(today)">
                                 Today: {{today | date: 'dd/MM/yyyy'}}</button>
                             <button class="dropdown-item" (click)="onSelectDate(tomorrow)">
@@ -88,10 +88,10 @@
                         Do you confirm the reservation of the movie <strong>{{film.title}}</strong>
                         in the <strong>{{selectedStore.city}}</strong> store on <strong>{{selectedDate}}</strong>
                     </p>
-                    <button mat-dialog-close [mat-dialog-close]="film.title" class="btn btn-success" type="button" (click)="rent()" aria-label="confirm prenotation" cdkFocusRegionStart>
+                    <button mat-dialog-close [mat-dialog-close]="film.title" class="btn btn-success" type="button" (click)="rent()" aria-label="confirm prenotation" [style.fontSize.em]="fontSize" cdkFocusRegionStart>
                         Confirm
                     </button>
-                    <button mat-dialog-close class="btn ml-3 btn-danger" type="button" aria-label="cancel prenotation">
+                    <button mat-dialog-close class="btn ml-3 btn-danger" type="button" aria-label="cancel prenotation" [style.fontSize.em]="fontSize">
                         Cancel
                     </button>
                     <button mat-button type="button" class="close" aria-label="cancel prenotation" (click)="setConfirm(false)" cdkFocusRegionEnd>
@@ -102,7 +102,7 @@
         </div>
     </div>
 </mat-dialog-content>
-<mat-dialog-actions align="end" *ngIf="!inRented">
+<mat-dialog-actions align="end" *ngIf="!inRented" [style.fontSize.em]="fontSize">
     <div class="container mt-4">
         <div *ngIf="!noStores" class="row">
             <div class="col">
