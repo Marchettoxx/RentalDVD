@@ -58,6 +58,7 @@ export class Films_rentedComponent {
     }
 
     openDialog(value: Film, ) {
+        this.detailsService.setSize(this.fontSize);
         this.detailsService.setFilm(value);
         this.detailsService.setInRented(true);
         this.dialog.open(DetailsFilmComponent);
