@@ -20,6 +20,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatOptionModule} from "@angular/material/core";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {CdkTableModule} from "@angular/cdk/table";
+import {MatIconModule} from "@angular/material/icon";
 @NgModule({
     declarations: [
         AppComponent,
@@ -45,7 +46,8 @@ import {CdkTableModule} from "@angular/cdk/table";
         MatPaginatorModule,
         MatOptionModule,
         MatAutocompleteModule,
-        CdkTableModule
+        CdkTableModule,
+        MatIconModule
     ],
     providers: [],
     bootstrap: [AppComponent]

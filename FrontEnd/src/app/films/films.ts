@@ -79,8 +79,8 @@ export class Films implements OnInit {
             if (result) {
                 this.rented = true;
                 this.rentedFilmTitle = result;
+                this.gotoTop();
             }
-            this.gotoTop();
             this.clearSearch();
         });
     }
@@ -137,6 +137,11 @@ export class Films implements OnInit {
 
     async filter(category: Category) {
         this.selectedCategory = category;
+        await this.updateFilms();
+    }
+
+    async noFilter() {
+        this.selectedCategory = {category_id: -1, name: "Categories"};
         await this.updateFilms();
     }
 
