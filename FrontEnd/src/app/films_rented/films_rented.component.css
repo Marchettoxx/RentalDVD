@@ -5,13 +5,3 @@
     background-color: black;
     padding: 0.1em;
 }
-
-button.selected {
-    background-color: black;
-    color: white;
-}
-
-button.selected:hover {
-    background-color: #505050;
-    color: white;
-}
