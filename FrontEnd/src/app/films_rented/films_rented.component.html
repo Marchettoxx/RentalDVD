@@ -34,7 +34,7 @@
     </div>
 
     <div *ngIf="!emptyTable" class="row justify-content-center">
-        <div class=" col-lg-8 table-responsive">
+        <div class="col-lg-8 table-responsive">
             <table class="table table-light table-bordered mb-0" aria-label="rented tabel">
                 <thead class="table-dark">
                 <tr role="rowheader">
@@ -46,32 +46,31 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let film of films" role="row">
-                    <td headers="col1" role="cell">
-                        <button mat-raised-button type="button" class="btn btn-block"
-                                (click)="openDialog(film)" [style.fontSize.em]="fontSize">{{film.title}}</button>
-                    </td>
-                    <td headers="col2" role="cell">  {{film.rental_date | date: 'dd/MM/yyyy  HH:mm'}} </td>
-                    <td headers="col3" role="cell"> {{dataIsNull(film.return_date!) | date: 'dd/MM/yyyy  HH:mm'}}</td>
-                    <td headers="col4" role="cell"> {{durationIsNull(film.duration!)}} </td>
-                    <td headers="col5" role="cell"> {{amountIsNull(film.amount!)}} </td>
-                </tr>
+                    <tr *ngFor="let film of films" role="row">
+                        <td headers="col1" role="cell">
+                            <button mat-raised-button type="button" class="btn btn-block"
+                                    (click)="openDialog(film)" [style.fontSize.em]="fontSize">{{film.title}}</button>
+                        </td>
+                        <td headers="col2" role="cell">  {{film.rental_date | date: 'dd/MM/yyyy  HH:mm'}} </td>
+                        <td headers="col3" role="cell"> {{dataIsNull(film.return_date!) | date: 'dd/MM/yyyy  HH:mm'}}</td>
+                        <td headers="col4" role="cell"> {{durationIsNull(film.duration!)}} </td>
+                        <td headers="col5" role="cell"> {{amountIsNull(film.amount!)}} </td>
+                    </tr>
                 </tbody>
             </table>
+            <mat-paginator *ngIf="!emptyTable"
+                           class="mt-0"
+                           (page)="handlePageEvent($event)"
+                           [length]="length"
+                           [pageSize]="pageSize"
+                           [showFirstLastButtons]="showFirstLastButtons"
+                           [hidePageSize]="hidePageSize"
+                           [pageIndex]="pageIndex"
+                           aria-label="Select page"
+                           role="navigation">
+            </mat-paginator>
         </div>
     </div>
-
-    <mat-paginator *ngIf="!emptyTable"
-                   class="mt-0"
-                   (page)="handlePageEvent($event)"
-                   [length]="length"
-                   [pageSize]="pageSize"
-                   [showFirstLastButtons]="showFirstLastButtons"
-                   [hidePageSize]="hidePageSize"
-                   [pageIndex]="pageIndex"
-                   aria-label="Select page"
-                   role="navigation">
-    </mat-paginator>
 
     <footer *ngIf="!emptyTable" class="alert alert-success mt-3 text-right">
         <strong>TOTAL SPENDING: {{amountIsNull(totalAmount.amount!)}}</strong>
