@@ -52,7 +52,7 @@
         </div>
 
         <div class="row" aria-label="All movies available in our store:">
-            <div class="col-lg-6 mb-4" *ngFor="let film of films">
+            <div  class="col-lg-6 mb-4" *ngFor="let film of films">
                 <div class="card card-board text-center" tabindex="0">
                     <div class="card-body" >
                         <button mat-raised-button type="button" class="card-title btn btn-default" (click)="openDialog(film)" [style.fontSize.em]="fontSize">{{film.title}}</button>

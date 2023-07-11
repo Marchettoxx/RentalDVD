@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col col-lg-8 mt-4">
-                <h1 class="title text-center" role = "heading" id="tableTitle" tabindex="0">RENTED</h1>
+                <h1 role ="heading" class="title text-center" id="tableTitle" tabindex="0">RENTED</h1>
             </div>
         </div>
         <div class="row mb-4">
@@ -11,8 +11,8 @@
                         aria-label="filter by column" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{selectedFilter}}
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
-                    <div cdkTrapFocus>
+                <div cdktrapFocus>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn" >
                     <button type="button" class="btn dropdown-item" (click)="sortByNothing()"> No selection </button>
                     <button type="button" class="btn dropdown-item" (click)="sortByTitle()">Title</button>
                     <button type="button" class="btn dropdown-item" (click)="sortByRentedDate()">Rental date</button>
@@ -20,7 +20,7 @@
                     <button type="button" class="btn dropdown-item" (click)="sortByAmountASC()">Expense ASC</button>
                     <button type="button" class="btn dropdown-item" (click)="sortByAmountDESC()">Expense DESC</button>
                     <button type="button" class="btn dropdown-item" (click)="sortByDuration()">Duration</button>
-                    </div>
+                </div>
                 </div>
             </div>
 
@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div role="main" class="row" *ngIf="!emptyTable">
+        <div role="table" class="row" *ngIf="!emptyTable">
             <div class="col table-responsive">
                 <table class="table table-light table-bordered mb-0" aria-labelledby="tableTitle" tabindex="0" role="grid">
                     <thead class="table-dark">
@@ -46,10 +46,10 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let film of films" role="row" tabindex="0">
-                            <td headers="col1" role="cell">
+                            <td headers="col1">
                                 <button mat-raised-button type="button" class="btn btn-block" (click)="openDialog(film)" [style.fontSize.em]="fontSize">{{film.title}}</button>
                             </td>
-                            <td headers="col2" role="cell"> {{film.rental_date | date: 'dd/MM/yyyy  HH:mm'}} </td>
+                            <td headers="col2" role="cell">  {{film.rental_date | date: 'dd/MM/yyyy  HH:mm'}} </td>
                             <td headers="col3" role="cell"> {{dataIsNull(film.return_date!) | date: 'dd/MM/yyyy  HH:mm'}}</td>
                             <td headers="col4" role="cell"> {{durationIsNull(film.duration!)}} </td>
                             <td headers="col5" role="cell"> {{amountIsNull(film.amount!)}} </td>
@@ -68,16 +68,14 @@
                        [showFirstLastButtons]="showFirstLastButtons"
                        [hidePageSize]="hidePageSize"
                        [pageIndex]="pageIndex"
-                       role = "navigation"
-                       tabindex="0"
-                       aria-label="Select page">
+                       aria-label="Select page" role="navigation">
         </mat-paginator>
 
-        <div class="alert alert-success mt-3 text-right" role ="banner" tabindex="0" *ngIf="!emptyTable">
+        <div class="alert alert-success mt-3 text-right" tabindex="0" *ngIf="!emptyTable" role="banner">
             <strong>TOTAL SPENDING: {{amountIsNull(totalAmount.amount!)}}</strong>
         </div>
 
-        <div *ngIf="emptyTable" role ="banner" class="alert alert-danger">
+        <div *ngIf="emptyTable" class="alert alert-danger">
             <strong>THERE ARE NO RENTED FILMS</strong>
         </div>
     </div>
