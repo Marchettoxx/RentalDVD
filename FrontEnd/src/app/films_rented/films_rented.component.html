@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col col-lg-8 mt-4">
-                <h1 class="title text-center" id="tableTitle" tabindex="0">RENTED</h1>
+                <h1 role ="heading" class="title text-center" id="tableTitle" tabindex="0">RENTED</h1>
             </div>
         </div>
         <div class="row mb-4">
@@ -11,7 +11,8 @@
                         aria-label="filter by column" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{selectedFilter}}
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn" cdkTrapFocus>
+                <div cdktrapFocus>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn" >
                     <button type="button" class="btn dropdown-item" (click)="sortByNothing()"> No selection </button>
                     <button type="button" class="btn dropdown-item" (click)="sortByTitle()">Title</button>
                     <button type="button" class="btn dropdown-item" (click)="sortByRentedDate()">Rental date</button>
@@ -19,6 +20,7 @@
                     <button type="button" class="btn dropdown-item" (click)="sortByAmountASC()">Expense ASC</button>
                     <button type="button" class="btn dropdown-item" (click)="sortByAmountDESC()">Expense DESC</button>
                     <button type="button" class="btn dropdown-item" (click)="sortByDuration()">Duration</button>
+                </div>
                 </div>
             </div>
 
@@ -30,11 +32,11 @@
             </div>
         </div>
 
-        <div role="main" class="row" *ngIf="!emptyTable">
+        <div role="table" class="row" *ngIf="!emptyTable">
             <div class="col table-responsive">
                 <table class="table table-light table-bordered mb-0" aria-labelledby="tableTitle" tabindex="0" role="grid">
                     <thead class="table-dark">
-                        <tr>
+                        <tr role="rowheader">
                             <th scope="col" id="col1" role="columnheader" aria-label="first column: Title.">TITLE</th>
                             <th scope="col" id="col2" role="columnheader" aria-label="second column: rental date.">RENTAL DATE</th>
                             <th scope="col" id="col3" role="columnheader" aria-label="third column: Return date.">RETURN DATE</th>
@@ -43,14 +45,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let film of films" id="row1" tabindex="0">
+                        <tr *ngFor="let film of films" role="row" tabindex="0">
                             <td headers="col1">
                                 <button mat-raised-button type="button" class="btn btn-block" (click)="openDialog(film)" [style.fontSize.em]="fontSize">{{film.title}}</button>
                             </td>
-                            <td headers="col2"> {{film.rental_date | date: 'dd/MM/yyyy  HH:mm'}} </td>
-                            <td headers="col3"> {{dataIsNull(film.return_date!) | date: 'dd/MM/yyyy  HH:mm'}}</td>
-                            <td headers="col4"> {{durationIsNull(film.duration!)}} </td>
-                            <td headers="col5"> {{amountIsNull(film.amount!)}} </td>
+                            <td headers="col2" role="cell">  {{film.rental_date | date: 'dd/MM/yyyy  HH:mm'}} </td>
+                            <td headers="col3" role="cell"> {{dataIsNull(film.return_date!) | date: 'dd/MM/yyyy  HH:mm'}}</td>
+                            <td headers="col4" role="cell"> {{durationIsNull(film.duration!)}} </td>
+                            <td headers="col5" role="cell"> {{amountIsNull(film.amount!)}} </td>
                         </tr>
                     </tbody>
                 </table>
@@ -66,10 +68,10 @@
                        [showFirstLastButtons]="showFirstLastButtons"
                        [hidePageSize]="hidePageSize"
                        [pageIndex]="pageIndex"
-                       aria-label="Select page">
+                       aria-label="Select page" role="navigation">
         </mat-paginator>
 
-        <div class="alert alert-success mt-3 text-right" tabindex="0" *ngIf="!emptyTable">
+        <div class="alert alert-success mt-3 text-right" tabindex="0" *ngIf="!emptyTable" role="banner">
             <strong>TOTAL SPENDING: {{amountIsNull(totalAmount.amount!)}}</strong>
         </div>
 
