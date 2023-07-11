@@ -53,7 +53,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="store">
                             Store
                         </button>
-                        <div class="dropdown-menu" cdkTrapFocus>
+                        <div class="dropdown-menu" >
                             <button class="dropdown-item" *ngFor="let store of stores" (click)="onSelectStore(store)">
                                 <em>{{store.city}}</em>, {{store.address}}
                             </button>
@@ -70,7 +70,7 @@
                                 aria-label="prenotation date">
                             Date
                         </button>
-                        <div class="dropdown-menu" cdkTrapFocus>
+                        <div class="dropdown-menu" >
                             <button class="dropdown-item" (click)="onSelectDate(today)">
                                 Today: {{today | date: 'dd/MM/yyyy'}}</button>
                             <button class="dropdown-item" (click)="onSelectDate(tomorrow)">

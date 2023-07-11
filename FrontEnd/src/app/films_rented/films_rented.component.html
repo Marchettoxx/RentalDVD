@@ -2,11 +2,11 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col col-lg-8">
-                <h1 class="title text-center">Your Rents</h1>
+                <h1 class="title text-center" tabindex="0">Your Rents</h1>
             </div>
         </div>
         <div class="row mb-4 justify-content-center">
-            <div class="col col-lg-4 dropdown" *ngIf="!emptyTable">
+            <div class="col col-lg-8 dropdown" *ngIf="!emptyTable">
                 <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuBtn"
                         aria-label="filter by column" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{selectedFilter}}
@@ -32,7 +32,7 @@
         </div>
 
         <div *ngIf="!emptyTable" class="row justify-content-center">
-            <div class="col-lg-8 table-responsive">
+            <div class="col table-responsive">
                 <table class="table table-light table-bordered mb-0" aria-label="rented tabel">
                     <thead class="table-dark">
                     <tr role="rowheader">
@@ -49,7 +49,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let film of films" role="row">
+                    <tr *ngFor="let film of films" role="row" tabindex="0">
                         <td headers="col1" role="cell">
                             <button mat-raised-button type="button" class="btn btn-block"
                                     (click)="openDialog(film)" [style.fontSize.em]="fontSize">{{film.title}}</button>
@@ -76,12 +76,12 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col col-lg-8">
-                <footer *ngIf="!emptyTable" class="alert alert-success mt-3 text-right">
+            <div class="col col-lg-8" >
+                <footer *ngIf="!emptyTable" class="alert alert-success mt-3 text-right" tabindex="0">
                     <strong>TOTAL SPENDING: {{amountIsNull(totalAmount.amount!)}}</strong>
                 </footer>
 
-                <footer *ngIf="emptyTable" class="alert alert-danger text-right">
+                <footer *ngIf="emptyTable" class="alert alert-danger text-right" tabindex="0">
                     <strong>THERE ARE NO RENTED FILMS</strong>
                 </footer>
             </div>

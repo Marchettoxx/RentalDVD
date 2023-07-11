@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row mt-4 justify-content-center">
             <div class="col col-lg-8">
-                <h1 class="title text-center">Films</h1>
+                <h1 class="title text-center" tabindex="0">Films</h1>
             </div>
         </div>
         <div class="row mb-4">
@@ -33,7 +33,7 @@
             <div role="search" class="col col-lg-4">
                 <input id="search-box" class="form-control" aria-label="Search by title" placeholder="Search by title:" type="search"
                        (input)="search(searchString)" [(ngModel)]="searchString"/>
-                <div class="search-container">
+                <div class="search-container" (blur)="clearSearch()">
                     <button type="button" class="btn dropdown-item " *ngFor="let film of films$ | async" (click)="openDialog(film)" >
                         {{ film.title }}
                     </button>
@@ -53,7 +53,7 @@
         <div class="row" aria-label="All movies available in our store:">
             <div  class="col-lg-4 mb-4" *ngFor="let film of films">
                 <div class="card card-board text-center">
-                    <div class="card-body" >
+                    <div class="card-body" tabindex="0">
                         <button mat-raised-button type="button" class="card-title btn btn-default" (click)="openDialog(film)" [style.fontSize.em]="fontSize">{{film.title}}</button>
                         <article class="card-text text-truncate">
                             <p><strong>Year:</strong> {{film.release_year}} <strong>Genre:</strong> {{film.genre}} </p>
