@@ -8,7 +8,7 @@
         <div class="row mb-4">
             <div class="col">
                 <div *ngIf="rented" class="alert alert-success alert-dismissible fade show" role="alert" aria-live="assertive">
-                    <button class="btn btn-link" type="button" routerLink="/films_rented" aria-label="View rented movies">
+                    <button class="btn btn-link" type="button" (click)="goToRented()" aria-label="View rented movies">
                         <strong>{{rentedFilmTitle}}</strong>
                     </button>
                     rented with success.

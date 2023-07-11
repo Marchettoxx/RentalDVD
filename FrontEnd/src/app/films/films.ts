@@ -8,6 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {DetailsFilmComponent} from "../details-film/details-film.component";
 import {DetailsService} from "../services/details.service";
 import {PageEvent} from "@angular/material/paginator";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-films',
@@ -65,7 +66,7 @@ export class Films implements OnInit {
         await this.jump();
     }
 
-    constructor(private apiService: ApiService, private loginService: LoginService, public dialog: MatDialog, public detailsService: DetailsService) {
+    constructor(private router: Router, private apiService: ApiService, private loginService: LoginService, public dialog: MatDialog, public detailsService: DetailsService) {
         this.loginService.user.subscribe(x => this.user = x!);
     }
 
@@ -161,5 +162,9 @@ export class Films implements OnInit {
         if (this.fontSize <= 1) {
             this.isIncreased = false;
         }
+    }
+
+    async goToRented() {
+        await this.router.navigate(['/films_rented']);
     }
 }
