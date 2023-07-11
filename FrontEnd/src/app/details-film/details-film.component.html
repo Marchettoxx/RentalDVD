@@ -106,7 +106,7 @@
     <div class="container mt-4">
         <div *ngIf="!noStores" class="row">
             <div class="col">
-                <span *ngIf="error" class="text-danger">Insert store!</span>
+                <span *ngIf="error" class="text-danger" aria-live="assertive">Insert store!</span>
                 <button *ngIf="!confirm" type="button" class="btn btn-lg btn-primary ml-2" (click)="setConfirm(true)" aria-label="rent">
                     Rent
                 </button>
