@@ -1,32 +1,35 @@
-<section>
-    <nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-light mb-3" *ngIf="user">
-        <a class="navbar-brand" href="/home" aria-label="link to home">Home store</a>
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col">
+                <nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-light mb-3" *ngIf="user">
+                    <a class="navbar-brand" href="/home" aria-label="link to home">Home store</a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Naigation bar">
-            <span class="navbar-toggler-icon" ></span>
-        </button>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Naigation bar">
+                        <span class="navbar-toggler-icon" ></span>
+                    </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/films" aria-label="film"> <strong>Films</strong> </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/films_rented" aria-label="Ranted films"> <strong>Your Rents</strong> </a>
-                </li>
-                <li class="nav-item">
-                    <button class=" btn btn-warning" type="button" (click)="setConfirm(true)" aria-label="Logout" tabindex="0" > LogOut </button>
-                </li>
-                <li *ngIf="confirm" class="alert alert-warning alert-dismissible fade show ml-3 mt-3" aria-live="assertive" cdkTrapFocus>
-                    <p tabindex="0">Do you confirm that you want to log out?</p>
-                    <button class="btn btn-success" (click)="logout()" aria-label="Confirm logout" > Confirm </button>
-                    <button class="btn btn-danger ml-3" (click)="setConfirm(false)" aria-label="Cancel logout" > Cancel </button>
-                </li>
-            </ul>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/films" aria-label="film"> <strong>Films</strong> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/films_rented" aria-label="Ranted films"> <strong>Your Rents</strong> </a>
+                            </li>
+                            <li class="nav-item">
+                                <button class=" btn btn-warning" type="button" (click)="setConfirm(true)" aria-label="Logout" tabindex="0" > LogOut </button>
+                            </li>
+                            <li *ngIf="confirm" class="alert alert-warning alert-dismissible fade show ml-3 mt-3" aria-live="assertive" cdkTrapFocus>
+                                <p tabindex="0">Do you confirm that you want to log out?</p>
+                                <button class="btn btn-success" (click)="logout()" aria-label="Confirm logout" > Confirm </button>
+                                <button class="btn btn-danger ml-3" (click)="setConfirm(false)" aria-label="Cancel logout" > Cancel </button>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
         </div>
-    </nav>
-
-    <div>
-        <router-outlet></router-outlet>
     </div>
-</section>
+    <router-outlet></router-outlet>
+</main>

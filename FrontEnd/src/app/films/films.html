@@ -2,14 +2,13 @@
     <div class="container">
         <div class="row mt-4 justify-content-center">
             <div class="col col-lg-8">
-                <h1 class="title text-center"> Films </h1>
+                <h1 class="title text-center">Films</h1>
             </div>
         </div>
         <div class="row mb-4">
             <div class="col">
                 <div *ngIf="rented" class="alert alert-success alert-dismissible fade show" role="alert" aria-live="assertive">
-                    <button class="btn btn-link" type="button" routerLink="/films_rented"
-                            aria-label="View rented movies">
+                    <button class="btn btn-link" type="button" routerLink="/films_rented" aria-label="View rented movies">
                         <strong>{{rentedFilmTitle}}</strong>
                     </button>
                     rented with success.
@@ -31,7 +30,7 @@
                 </div>
             </div>
 
-            <div role="search" class="col">
+            <div role="search" class="col col-lg-4">
                 <input id="search-box" class="form-control" aria-label="Search by title" placeholder="Search by title:" type="search"
                        (input)="search(searchString)" [(ngModel)]="searchString"/>
                 <div class="search-container">
@@ -41,7 +40,7 @@
                 </div>
             </div>
 
-            <div class="col">
+            <div class="col col-lg-4">
                 <button role="button" type="button" class="btn btn-lg" (click)="increaseFontSize()" [disabled]="isIncreased"
                         aria-label="increase text">+
                 </button>
@@ -52,7 +51,7 @@
         </div>
 
         <div class="row" aria-label="All movies available in our store:">
-            <div  class="col-lg-6 mb-4" *ngFor="let film of films">
+            <div  class="col-lg-4 mb-4" *ngFor="let film of films">
                 <div class="card card-board text-center">
                     <div class="card-body" >
                         <button mat-raised-button type="button" class="card-title btn btn-default" (click)="openDialog(film)" [style.fontSize.em]="fontSize">{{film.title}}</button>

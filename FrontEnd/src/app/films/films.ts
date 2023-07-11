@@ -42,7 +42,7 @@ export class Films implements OnInit {
     // aggiunto per paginator
     length!: number;
     offset: number = 0;
-    pageSize = 10;
+    pageSize = 12;
     pageIndex = 0;
     hidePageSize = true;
     showFirstLastButtons = true;

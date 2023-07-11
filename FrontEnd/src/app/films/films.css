@@ -10,43 +10,12 @@
     border-radius: 2em 2em 2em 2em;
 }
 
-.modal-body{
-    text-align: left;
-}
-
 .search-container {
     position: absolute;
     background-color: white;
     z-index: 2;
 }
 
-.search {
-    position: relative;
-    width: 10em;
-    padding: .6em;
-}
-
-button.selected {
-    background-color: black;
-    color: white;
-}
-
-button.selected:hover {
-    background-color: #505050;
-    color: white;
-}
-
-
-
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-}
-
-.example-full-width {
-    width: 100%;
-}
 
 
 
