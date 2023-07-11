@@ -5,21 +5,16 @@ import {LoginService} from './login.service';
 
 @Injectable({providedIn: 'root'})
 export class LoginGuard implements CanActivate {
-    constructor(
-        private router: Router,
-        private loginService: LoginService
-    ) {
+    constructor(private router: Router, private loginService: LoginService) {
     }
 
     async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const user = this.loginService.userValue;
         if (user) {
-            if (state.url == '/login'){
-               await this.router.navigate(['/home']);
-            }
-            return false;
+           await this.router.navigate(['/home']);
+           return false;
+        } else {
+            return true;
         }
-        return true;
     }
-
 }

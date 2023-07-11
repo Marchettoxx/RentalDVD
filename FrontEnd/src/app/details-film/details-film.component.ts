@@ -113,7 +113,4 @@ export class DetailsFilmComponent implements OnInit {
             }
         }
     }
-
-
-
 }

@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 
 import {LoginService} from "../services/login.service";
 import {User} from "../utilities/typeDB";
-import {LiveAnnouncer} from "@angular/cdk/a11y";
 
 @Component({
     selector: 'app-home',
@@ -12,8 +11,7 @@ import {LiveAnnouncer} from "@angular/cdk/a11y";
 export class HomeComponent {
     public user!: User | null;
 
-    constructor(private loginService: LoginService, liveAnnouncer: LiveAnnouncer) {
-        liveAnnouncer.announce("Home dello store")
+    constructor(private loginService: LoginService) {
         this.loginService.user.subscribe(x => this.user = x);
     }
 }

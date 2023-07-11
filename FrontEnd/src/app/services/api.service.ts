@@ -4,7 +4,6 @@ import {Apollo, gql, QueryRef} from 'apollo-angular';
 import {User, Film, Store, Actor, listFilms, Category, Inventory, Amount} from '../utilities/typeDB';
 import {HttpHeaders} from "@angular/common/http";
 
-
 @Injectable({
     providedIn: 'root'
 })

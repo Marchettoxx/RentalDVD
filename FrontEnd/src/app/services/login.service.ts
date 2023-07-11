@@ -29,11 +29,11 @@ export class LoginService {
                 this.userSubject.asObservable();
                 return user;
             } else {
-                const user: User = {customer_id: -1, username: "", token: ""}
+                const user: User = {customer_id: -1}
                 return user;
             }
         }).catch( _ => {
-            const user: User = {customer_id: -1, username: "", token: ""}
+            const user: User = {customer_id: -1}
             return user;
         });
     }
